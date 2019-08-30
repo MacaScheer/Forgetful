@@ -8,11 +8,11 @@ const TaskType = new GraphQLObjectType({
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
     body: { type: GraphQLString },
-    start_date: { type: GraphQString },
-    due_date: { type: GraphQString },
-    priority: { type: GraphQString },
-    repeat: { type: GraphQString },
-    location: { type: GraphQString },
+    start_date: { type: GraphQLString },
+    due_date: { type: GraphQLString },
+    priority: { type: GraphQLString },
+    repeat: { type: GraphQLString },
+    location: { type: GraphQLString },
     user: {
       type: require("./user_type"),
       resolver(parentValue) {
