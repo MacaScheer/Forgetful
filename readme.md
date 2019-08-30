@@ -1,6 +1,6 @@
 # Forgetful
 
-Forgetful lets people to keep track of daily/weekly tasks.
+Forgetful lets people keep track of daily/weekly tasks.
 
 # Background and Overview
 
