@@ -109,13 +109,13 @@ Backend:
 - GraphL
 - Express
 
-
 Frontend:
 
 - React
 - Apollo
 
 DevOps:
+
 - Docker
 
 # Group Members and Work Plan Breakdown
@@ -137,13 +137,8 @@ DevOps:
 
 - Day 2
 
-
-- Day 3
-
+* Day 3
 
 - Day 4
 
-
-
-- Day 5
-
+* Day 5
