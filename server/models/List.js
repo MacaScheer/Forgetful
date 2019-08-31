@@ -13,23 +13,18 @@ const ListSchema = new Schema({
     }
   ]
 });
-
-ListSchema.statics.FindTasks = listId => {
-  const Task = mongoose.model("tasks");
-  const List = mongoose.model("lists");
-  return Task.findById(listId).tasks;
+ListSchema.statics.findTasks = listId => {
+  const List = mongoose.model("lists")
+  return List.findById(listId)
+    .populate("tasks")
+    .then(list => list.tasks);
+  //   .catch(err => console.log(err));
 };
 
-module.exports = mongoose.model("lists", ListSchema);
+// ListSchema.statics.FindTasks = function(listId) {
+//   const Task = mongoose.model("tasks");
+//   const List = mongoose.model("lists");
+//   return Task.findById(listId).tasks;
+// };
 
-// lists: {
-//     0: {
-//         id: 0,
-//             tasks: [
-//                 task1: {},
-//                 task2: {},
-//                 task3: {}
-//             ]
-//         name: 'string',
-//             }
-// },
+module.exports = mongoose.model("lists", ListSchema);

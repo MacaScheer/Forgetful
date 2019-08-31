@@ -30,6 +30,17 @@ cache.writeData({
   }
 });
 
+const errorLink = onError(({ graphQLErrors }) => {
+  if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
+});
+const client = new ApolloClient({
+  link: ApolloLink.from([errorLink, httpLink]),
+  cache,
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log("graphQLErrors", graphQLErrors);
+    console.log("networkError", networkError);
+  }
+});
 if (token) {
   client
     .mutate({ mutation: VERIFY_USER, variables: { token } })
@@ -48,18 +59,7 @@ if (token) {
   });
 }
 
-const errorLink = onError(({ graphQLErrors }) => {
-  if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
-});
 
-const client = new ApolloClient({
-  link: ApolloLink.from([errorLink, httpLink]),
-  cache,
-  onError: ({ networkError, graphQLErrors }) => {
-    console.log("graphQLErrors", graphQLErrors);
-    console.log("networkError", networkError);
-  }
-});
 
 const Root = () => {
   return (
