@@ -1,0 +1,98 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "variables";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font-family: "Varela Round", sans-serif;
+  font-size: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  color: #484848;
+}
+
+.error-list {
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+.errors {
+  list-style: none;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.DateInput {
+  padding: 8px;
+}
+
+.DateInput_input {
+  padding: 0 8px;
+  font-size: 17px;
+}
+
+.DateInput_input__focused {
+  white-space: nowrap !important;
+  color: rgb(0, 122, 135) !important;
+  padding: 0px 6px !important;
+  overflow: hidden !important;
+  background: rgb(153, 237, 230) !important;
+  border-color: rgb(153, 237, 230) !important;
+  border-radius: 3px !important;
+}

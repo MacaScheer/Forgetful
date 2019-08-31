@@ -1,0 +1,61 @@
+.session-form {
+  position: absolute;
+  top: 35%;
+  height: 500px;
+  width: 400px;
+  display: flex;
+  left: 50%;
+  flex-direction: column;
+}
+
+.session-child input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 23px;
+  line-height: 1.3333333;
+  letter-spacing: normal;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, sans-serif;
+  font-weight: 300;
+  color: #555555;
+}
+
+.input-container {
+  display: flex;
+  margin-bottom: 16px;
+
+  width: 100%;
+  align-self: center;
+}
+
+.input-container:focus-within {
+  border: 1px solid purple;
+}
+
+.session-child button {
+  background-color: purple;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  width: 100%;
+  text-align: center;
+  font-weight: 450;
+  line-height: 22px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.session-child p {
+  text-align: center;
+  font-size: 23px;
+}
+
+.session-header {
+  font-size: 21px;
+  color: #000;
+  margin-bottom: 28px;
+  margin-top: 20px;
+  text-align: left;
+}
