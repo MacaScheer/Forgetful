@@ -1,0 +1,50 @@
+@import "variables";
+
+.navbar-list-items {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  .navbar-list-item {
+    margin: 20px 10px;
+
+    a {
+      color: $purple;
+      text-decoration: none;
+      padding: 32px 20px;
+    }
+  }
+}
+
+.toolbar {
+  position: fixed;
+  border-bottom: 0.4px solid rgba(196, 196, 196, 0.795);
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  height: 81px;
+  z-index: 100;
+
+  .toolbar__navigation {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    // padding: 0 1rem;
+    width: 100%;
+    // margin: 0 auto;
+  }
+
+  .toolbar__logo {
+    margin: 0 auto;
+
+    .logo {
+      position: relative;
+      width: 100px;
+
+      .spacer {
+        flex: 1;
+      }
+    }
+  }
+}
