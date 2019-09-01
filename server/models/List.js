@@ -13,12 +13,15 @@ const ListSchema = new Schema({
     }
   ]
 });
-ListSchema.statics.findTasks = listId => {
-  const List = mongoose.model("lists")
+
+
+ListSchema.statics.FindTasks = listId => {
+  // const Task = mongoose.model("tasks");
+  const List = mongoose.model("lists");
   return List.findById(listId)
     .populate("tasks")
-    .then(list => list.tasks);
-  //   .catch(err => console.log(err));
+    .then ( res => res.tasks)
+
 };
 
 // ListSchema.statics.FindTasks = function(listId) {

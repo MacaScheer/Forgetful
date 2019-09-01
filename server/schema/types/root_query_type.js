@@ -52,9 +52,7 @@ const RootQueryType = new GraphQLObjectType({
       type: ListType,
       args: { _id: { type: GraphQLID } },
       resolve(_, args) {
-        return List.findById(args._id).then(list => {
-          return list; //i don't hink we need this
-        });
+        return List.findById(args._id)
       }
     },
     tags: {
@@ -67,12 +65,10 @@ const RootQueryType = new GraphQLObjectType({
       type: TagType,
       args: { _id: { type: GraphQLID } },
       resolve(_, args) {
-        return Tag.findById(args._id).then(tag => {
-          return tag; //i don't think we need this
-        });
+        return Tag.findById(args._id)
       }
     }
-  })
+    })
 });
 
 module.exports = RootQueryType;
