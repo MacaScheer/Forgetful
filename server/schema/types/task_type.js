@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+
 const Task = mongoose.model("tasks")
+
 const TaskType = new GraphQLObjectType({
   name: "TaskType",
   fields: () => ({
@@ -35,6 +37,7 @@ const TaskType = new GraphQLObjectType({
     },
     list: {
       type: require("./list_type"),
+
       resolve(parentValue) {
         return Task.findById(parentValue._id)
           .populate("list")
@@ -42,6 +45,7 @@ const TaskType = new GraphQLObjectType({
             // console.log(task.list)
             return task.list; //question for monday
           });
+
       }
     }
   })

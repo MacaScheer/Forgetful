@@ -12,7 +12,7 @@ const ListType = new GraphQLObjectType({
     tasks: {
       type: new GraphQLList(require("./task_type")),
       resolve(parentValue) {
-        return List.FindTasks(parentValue._id);
+        return List.findTasks(parentValue._id);
       }
     }
   })

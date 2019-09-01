@@ -35,6 +35,7 @@ const errorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
 });
 
+
 const client = new ApolloClient({
   link: ApolloLink.from([errorLink, httpLink]),
   cache,
@@ -61,6 +62,7 @@ if (token) {
     }
   });
 }
+
 const Root = () => {
   return (
     <ApolloProvider client={client}>
