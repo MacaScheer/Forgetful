@@ -14,6 +14,10 @@ const TaskSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "lists"
   },
+  name: {
+    type: String,
+    required: true
+  },
   body: {
     type: String,
     required: true

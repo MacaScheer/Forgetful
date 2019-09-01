@@ -15,9 +15,11 @@ const ListSchema = new Schema({
 });
 
 ListSchema.statics.FindTasks = listId => {
-  const Task = mongoose.model("tasks");
+  // const Task = mongoose.model("tasks");
   const List = mongoose.model("lists");
-  return Task.findById(listId).tasks;
+  return List.findById(listId)
+    .populate("tasks")
+    .then ( res => res.tasks)
 };
 
 module.exports = mongoose.model("lists", ListSchema);

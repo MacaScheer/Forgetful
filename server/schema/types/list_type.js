@@ -10,7 +10,7 @@ const ListType = new GraphQLObjectType({
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
     tasks: {
-      type: new GraphQLList(TaskType),
+      type: new GraphQLList(require("./task_type")),
       resolve(parentValue) {
         return List.FindTasks(parentValue._id);
       }

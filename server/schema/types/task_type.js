@@ -1,7 +1,7 @@
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
-\
+const Task = mongoose.model("tasks")
 const TaskType = new GraphQLObjectType({
   name: "TaskType",
   fields: () => ({
@@ -16,7 +16,7 @@ const TaskType = new GraphQLObjectType({
     user: {
       type: require("./user_type"),
       resolver(parentValue) {
-        return TaskType.findById(parentValue._id)
+        return Task.findById(parentValue._id)
           .populate("user")
           .then(task => {
             return task.user;
@@ -26,7 +26,7 @@ const TaskType = new GraphQLObjectType({
     tag: {
       type: require("./tag_type"),
       resolver(parentValue) {
-        return TaskType.findById(parentValue._id)
+        return Task.findById(parentValue._id)
           .populate("tag")
           .then(task => {
             return task.tag;
@@ -35,11 +35,12 @@ const TaskType = new GraphQLObjectType({
     },
     list: {
       type: require("./list_type"),
-      resolver(parentValue) {
-        return TaskType.findById(parentValue._id)
+      resolve(parentValue) {
+        return Task.findById(parentValue._id)
           .populate("list")
           .then(task => {
-            return task.list;
+            // console.log(task.list)
+            return task.list; //question for monday
           });
       }
     }
