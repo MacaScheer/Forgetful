@@ -30,9 +30,12 @@ cache.writeData({
   }
 });
 
+
 const errorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
 });
+
+
 const client = new ApolloClient({
   link: ApolloLink.from([errorLink, httpLink]),
   cache,
@@ -41,6 +44,7 @@ const client = new ApolloClient({
     console.log("networkError", networkError);
   }
 });
+
 if (token) {
   client
     .mutate({ mutation: VERIFY_USER, variables: { token } })
@@ -58,8 +62,6 @@ if (token) {
     }
   });
 }
-
-
 
 const Root = () => {
   return (

@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+
 const Task = mongoose.model("tasks");
+
 
 const TaskType = new GraphQLObjectType({
   name: "TaskType",
