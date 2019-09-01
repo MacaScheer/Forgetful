@@ -14,6 +14,10 @@ const TaskSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "lists"
   },
+  name: {
+    type: String,
+    required: true
+  },
   body: {
     type: String,
     required: true
@@ -38,16 +42,32 @@ const TaskSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("tasks", TaskSchema);
+TaskSchema.statics.updateTaskList = (taskId, listId) => {
+  const List = mongoose.model("lists");
+  const Task = mongoose.model("tasks");
 
-// id: 0,
-//     task_id: 1,
-//         author_id: 0,
-//             body: 'string',
-//                 due_date: 'string',
-//                     start_date: 'string',
-//                         priority: 'string',
-//                             repeat: 'string',
-//                                 location: 'string',
-//                                     tag: 'string',
-//                                         list_id: 'integer'
+  return Task.findById(taskId).then(task => {
+    // if the product already had a category
+    if (task.list) {
+      // find the old category and remove this product from it's products
+      List.findById(task.list).then(oldlist => {
+        oldlist.tasks.pull(task);
+        return oldlist.save();
+      });
+    }
+      //need to make sure that oldList.save isn't happening at the same time as newList.save//
+    //  find the Category and push this product in, as well as set this product's category
+    //   throw new Error(taskId);
+    return List.findById(listId).then(newList => {
+      task.list = newList;
+      newList.tasks.push(task);
+      //   throw new Error(newList);
+      //   console.log("task, newList:  ", task, newList);
+    //   return task.save().then(() => newList.save());
+        return Promise.all([task.save(), newList.save()]).then(
+          ([task, newList]) => task
+        );
+    });
+  });
+};
+module.exports = mongoose.model("tasks", TaskSchema);

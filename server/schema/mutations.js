@@ -1,13 +1,138 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLID,
+  GraphQLList
+} = graphql;
 const mongoose = require("mongoose");
 require("../models/index");
-const UserType = require("./types/user_type")
-const User = mongoose.model("users")
-const AuthService = require("../services/auth")
+const UserType = require("./types/user_type");
+const User = mongoose.model("users");
+const TaskType = require("./types/task_type");
+const Task = mongoose.model("tasks");
+const List = mongoose.model("lists");
+const ListType = require("./types/list_type");
+const AuthService = require("../services/auth");
+
 const mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
+    newTask: {
+      type: TaskType,
+      args: {
+        name: { type: GraphQLString },
+        body: { type: GraphQLString },
+        due_date: { type: GraphQLString },
+        start_date: { type: GraphQLString },
+        priority: { type: GraphQLString },
+        repeat: { type: GraphQLString },
+        location: { type: GraphQLString }
+      },
+      resolve(
+        _,
+        { name, body, due_date, start_date, priority, repeat, location }
+      ) {
+        return new Task({
+          name,
+          body,
+          due_date,
+          start_date,
+          priority,
+          repeat,
+          location
+          //possibly add user?
+        }).save();
+      }
+      //first search by task name to make sure no duplicates??
+      //   async resolve(
+      //     _,
+      //     { name, body, due_date, start_date, priority, repeat, location },
+      //     ctx
+      //   ) {
+      //     //making new task a protected mutation
+      //     const validUser = await AuthService.verifyUser({ token: ctx.token });
+
+      //     // if our service returns true then our product is good to save!
+      //     // anything else and we'll throw an error
+      //     if (validUser.loggedIn) {
+      //       return new Task({
+      //         name,
+      //         body,
+      //         due_date,
+      //         start_date,
+      //         priority,
+      //         repeat,
+      //         location
+      //         //possibly add user?
+      //       }).save();
+      //     } else {
+      //       throw new Error("Sorry, you need to be logged in to create a task.");
+      //     }
+      //   }
+    },
+    updateTaskList: {
+      type: TaskType,
+      args: {
+        taskID: { type: GraphQLID },
+        listID: { type: GraphQLID }
+      },
+      resolve(_, { taskID, listID }) {
+        Task.updateTaskList(taskID, listID);
+      }
+      //   async resolve(_, { taskID, listID }, ctx) {
+      //     const validUser = await AuthService.verifyUser({ token: ctx.token });
+      //     if (validUser.loggedIn) {
+      //       Task.updateTaskList(taskID, listID);
+      //     } else {
+      //       throw new Error("Sorry, you need to be logged in to create a task.");
+      //     }
+      //   }
+    },
+
+    updateTaskTag: {
+      type: TaskType,
+      args: {
+        taskID: { type: GraphQLID },
+        tagID: { type: GraphQLID }
+      },
+      resolve(_, { taskID, tagID }) {
+        Task.updateTaskTag(taskID, tagID);
+      }
+    },
+
+    deleteTask: {
+      type: TaskType,
+      args: { _id: { type: GraphQLID } },
+      resolve(_, { _id }) {
+        return Task.remove({ _id });
+      }
+    },
+    newList: {
+      type: ListType,
+      args: {
+        name: { type: GraphQLString }
+      },
+      resolve(_, { name }) {
+        return new List({name}).save();
+      }
+    },
+    deleteList: {
+      type: ListType,
+      args: { _id: { type: GraphQLID } },
+      resolve(_, { _id }) {
+        return List.remove({ _id });
+      }
+    },
+
+    //   newTag,
+    //      deleteTag
+
+    //   newList,
+    //   updateList,
+    //   deleteList
+
     // newCategory: {
     //   type: CategoryType,
     //   args: {
@@ -25,25 +150,7 @@ const mutation = new GraphQLObjectType({
     //     return Category.remove({ _id: id });
     //   }
     // },
-    // newProduct: {
-    //   type: ProductType,
-    //   args: {
-    //     name: { type: GraphQLString },
-    //     description: { type: GraphQLString },
-    //     weight: { type: GraphQLInt },
-    //   },
-    //   async resolve(_, { name, description, weight }, ctx) { //making new product a protected mutation
-    //     const validUser = await AuthService.verifyUser({ token: ctx.token });
 
-    //     // if our service returns true then our product is good to save!
-    //     // anything else and we'll throw an error
-    //     if (validUser.loggedIn) {
-    //       return new Product({ name, description, weight }).save();
-    //     } else {
-    //       throw new Error('Sorry, you need to be logged in to create a product.');
-    //     }
-    //   }
-    // },
     // deleteProduct: {
     //   type: ProductType,
     //   args: { id: { type: GraphQLID } },
@@ -51,16 +158,7 @@ const mutation = new GraphQLObjectType({
     //     return Product.remove({ _id: id });
     //   }
     // },
-    // updateProduct: {
-    //   type: ProductType,
-    //   args: {
-    //     productID: { type: GraphQLID },
-    //     categoryID: { type: GraphQLID }
-    //   },
-    //   resolve(parentValue, { productID, categoryID }) {
-    //     return Product.updateProductCategory(productID, categoryID);
-    //   }
-    // },
+
     register: {
       type: UserType,
       args: {
@@ -106,4 +204,26 @@ const mutation = new GraphQLObjectType({
 
 module.exports = mutation;
 
+// mutation{
+//     newTask(name: "Walk the dog", body: "make sure Benny relieves himself a few times and gets some exercise", due_date: "5pm today", start_date: "10am this morning", priority: "medium-high", repeat: "daily", location: "home"){
+//         name
+//         body
+//         due_date
+//         start_date
+//         priority
+//         repeat
+//         location
+//     }
+// }
 
+// mutation{
+//   newTask(name: "Feed the fish", body: "Feed them till their bellies rupture", due_date: "5pm today", start_date: "5pm today", priority: "highest", repeat: "daily", location: "home"){
+//     name
+//     body
+//     due_date
+//     start_date
+//     priority
+//     repeat
+//     location
+//   }
+// }
