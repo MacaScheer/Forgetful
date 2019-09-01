@@ -15,7 +15,7 @@ const ListSchema = new Schema({
 });
 
 
-ListSchema.statics.FindTasks = listId => {
+ListSchema.statics.findTasks = listId => {
   // const Task = mongoose.model("tasks");
   const List = mongoose.model("lists");
   return List.findById(listId)
