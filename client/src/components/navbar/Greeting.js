@@ -57,6 +57,7 @@ class Greeting extends React.Component {
         {client => (
           <Query query={IS_LOGGED_IN}>
             {({ data }) => {
+              // debugger 
               if (data.isLoggedIn) {
                 return (
                   <div className="greeting-container">

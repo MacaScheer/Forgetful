@@ -22,24 +22,24 @@ const cors = require("cors");
 app.use(cors());
 
 
-app.use(
-  "/graphql",
-  expressGraphQL({
-    schema,
-    graphiql: true
-  })
-);
-// after user auth
 // app.use(
 //   "/graphql",
-//   expressGraphQL(req => {
-//     return {
-//       schema,
-//       context: {
-//         token: req.headers.authorization
-//       },
-//       graphiql: true
-//     };
+//   expressGraphQL({
+//     schema,
+//     graphiql: true
 //   })
 // );
+// after user auth
+app.use(
+  "/graphql",
+  expressGraphQL(req => {
+    return {
+      schema,
+      context: {
+        token: req.headers.authorization
+      },
+      graphiql: true
+    };
+  })
+);
 module.exports = app;

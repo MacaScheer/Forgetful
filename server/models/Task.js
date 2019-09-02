@@ -22,19 +22,15 @@ const TaskSchema = new Schema({
   },
   body: {
     type: String,
-    required: true
   },
   due_date: {
     type: String,
-    required: true
   },
   start_date: {
     type: String,
-    required: true
   },
   priority: {
     type: String,
-    required: true
   },
   repeat: {
     type: String

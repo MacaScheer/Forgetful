@@ -32,6 +32,7 @@ const RootQueryType = new GraphQLObjectType({
     tasks: {
       type: new GraphQLList(TaskType),
       resolve() {
+        console.log("something")
         return Task.find({});
       }
     },
