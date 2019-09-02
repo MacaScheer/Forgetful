@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
 
-const Task = mongoose.model("tasks")
+const Task = mongoose.model("tasks");
 
 const TaskType = new GraphQLObjectType({
   name: "TaskType",
@@ -25,42 +25,27 @@ const TaskType = new GraphQLObjectType({
           });
       }
     },
-    tag: {
-      type: require("./tag_type"),
-      resolver(parentValue) {
+    tags: {
+      type: new GraphQLList(require("./tag_type")),
+      resolve(parentValue) {
         return Task.findById(parentValue._id)
-          .populate("tag")
+          .populate("tags") // plural??
           .then(task => {
-            return task.tag;
+            return task.tags;
           });
       }
     },
     list: {
       type: require("./list_type"),
-
       resolve(parentValue) {
         return Task.findById(parentValue._id)
           .populate("list")
           .then(task => {
-            // console.log(task.list)
             return task.list; //question for monday
           });
-
       }
     }
   })
 });
 
 module.exports = TaskType;
-
-//EXAMPLE:
-// category: {
-//     type: require("./category_type"),
-//     resolver(parentValue) {
-//         return ProductType.findById(parentValue._id)
-//             .populate("category")
-//             .then(task => {
-//                 return task.category;
-//             });
-//     }
-// }

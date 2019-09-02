@@ -9,10 +9,10 @@ const TagType = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
-    products: {
+    tasks: {
       type: new GraphQLList(TaskType),
       resolve(parentValue) {
-        return Tag.FindTasks(parentValue._id);
+        return Tag.findTasks(parentValue._id);
       }
     }
   })
