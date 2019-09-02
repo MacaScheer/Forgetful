@@ -1,16 +1,20 @@
+import "../stylesheets/task_index.scss";
 import React from "react";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import { withRouter } from "react-router-dom";
+import Taskline from './TaskLine'
 const { ALL_TASKS } = Queries;
 
 class TaskIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hidden: true
+      hidden: true,
+      completed: false
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.handleChange= this.handleChange.bind(this)
   }
 
   toggleDropdown() {
@@ -26,6 +30,14 @@ class TaskIndex extends React.Component {
     }
   }
 
+  handleChange(e){
+    e.preventDefault();
+
+    this.setState({
+      completed: !this.state.completed
+    })
+  }
+
   render() {
     return (
       <Query query={ALL_TASKS}>
@@ -35,13 +47,13 @@ class TaskIndex extends React.Component {
           if (data.tasks) {
             return (
               <div className="task-list-container">
-                <ul className="task-list">
+                <div className="task-list">
                   {data.tasks.map((task, i) => (
-                    <li key={i} className="task-list-item">
-                      {task.name}
-                    </li>
+                    <div className="task-list-item" key={i}>
+                      <Taskline  _id={task._id} name={task.name}/>
+                    </div>
                   ))}
-                </ul>
+               </div>
               </div>
             );
           } else {

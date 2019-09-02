@@ -11,6 +11,7 @@ export default {
     {
       tasks{
         name
+        _id
         tags{
           name
         }

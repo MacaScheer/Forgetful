@@ -28,7 +28,6 @@ const mutation = new GraphQLObjectType({
         location: { type: GraphQLString }, //not required
         tags: { type: GraphQLString },
         list: { type: GraphQLString },
-        user: { type: GraphQLString }
       },
       resolve(
         _,
