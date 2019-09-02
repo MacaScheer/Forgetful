@@ -6,10 +6,12 @@ const TaskSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  tag: {
-    type: Schema.Types.ObjectId,
-    ref: "tags"
-  },
+  tags: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "tags"
+    }
+  ],
   list: {
     type: Schema.Types.ObjectId,
     ref: "lists"
@@ -47,26 +49,34 @@ TaskSchema.statics.updateTaskList = (taskId, listId) => {
   const Task = mongoose.model("tasks");
 
   return Task.findById(taskId).then(task => {
-    // if the product already had a category
     if (task.list) {
-      // find the old category and remove this product from it's products
       List.findById(task.list).then(oldlist => {
         oldlist.tasks.pull(task);
         return oldlist.save();
       });
     }
-      //need to make sure that oldList.save isn't happening at the same time as newList.save//
-    //  find the Category and push this product in, as well as set this product's category
-    //   throw new Error(taskId);
     return List.findById(listId).then(newList => {
       task.list = newList;
       newList.tasks.push(task);
-      //   throw new Error(newList);
-      //   console.log("task, newList:  ", task, newList);
-    //   return task.save().then(() => newList.save());
-        return Promise.all([task.save(), newList.save()]).then(
-          ([task, newList]) => task
-        );
+      return Promise.all([task.save(), newList.save()]).then(
+        ([task, newList]) => task
+      );
+    });
+  });
+};
+
+TaskSchema.statics.updateTaskTag = (taskId, tagId) => {
+  const Tag = mongoose.model("tags");
+  const Task = mongoose.model("tasks");
+
+  Task.findById(taskId).then(task => {
+    return Tag.findById(tagId).then(newTag => {
+      task.tags.push(newTag);
+      newTag.tasks.push(task);
+
+      return Promise.all([task.save(), newTag.save()]).then(
+        ([task, newTag]) => task
+      );
     });
   });
 };
