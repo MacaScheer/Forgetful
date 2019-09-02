@@ -7,6 +7,7 @@ export default {
         token
         loggedIn
         name
+        defaultListObjectId
       }
     }
   `,
@@ -16,6 +17,7 @@ export default {
         token
         loggedIn
         name
+        defaultListObjectId
       }
     }
   `,
@@ -25,6 +27,5 @@ export default {
         loggedIn
       }
     }
-  `,
-
+  `
 };

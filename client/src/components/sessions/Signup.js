@@ -30,9 +30,11 @@ class Signup extends Component {
       <Mutation
         mutation={REGISTER_USER}
         onCompleted={data => {
-          const { token, name } = data.register;
+          const { token, name, defaultListObjectId } = data.register;
           localStorage.setItem("auth-token", token);
           localStorage.setItem("name", name);
+          localStorage.setItem("defaultListObjectId", defaultListObjectId);
+
           this.props.history.push("/");
         }}
         update={(client, data) => this.updateCache(client, data)}

@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const keys = require("../../config/keys");
+const List = require("../models/List");
 
 // here we'll be taking in the `data` from our mutation
 const validateRegisterInput = require("../validation/register");
@@ -25,13 +26,16 @@ const register = async data => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // create a new user with all our arguments
+    const defaultList1 = new List({ name: "Personal" });
+    const defaultList2 = new List({ name: "Inbox" });
+    const defaultList3 = new List({ name: "Work" });
     const user = new User(
       {
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        lists: [defaultList1._id, defaultList2._id, defaultList3._id],
+        defaultListObjectId: defaultList2._id
       },
       err => {
         if (err) throw err;
@@ -44,26 +48,23 @@ const register = async data => {
 
     // then return our created token, set loggedIn to be true, null their password, and send the rest of the user
     return { token, loggedIn: true, ...user._doc, password: null };
-
   } catch (err) {
     throw err;
   }
-
-
 };
 
 const logout = async data => {
   try {
-    const { _id } = data
+    const { _id } = data;
     const existingUser = await User.findById(_id);
     if (!existingUser) throw new Error("This user does not exist");
-    const token = '';
+    const token = "";
 
-    return { token, loggedIn: false, ...existingUser._doc, password: null }
+    return { token, loggedIn: false, ...existingUser._doc, password: null };
   } catch (err) {
     throw err;
   }
-}
+};
 
 const login = async data => {
   try {
@@ -79,18 +80,20 @@ const login = async data => {
 
     if (!existingUser) throw new Error("This user does not exist");
 
-    const validPWord = await bcrypt.compareSync(password, existingUser.password)
+    const validPWord = await bcrypt.compareSync(
+      password,
+      existingUser.password
+    );
 
     if (!validPWord) throw new Error("Invalid Password");
 
     // bcrypt.compare(password, existingUser.password);
     const token = jwt.sign({ id: existingUser._id }, keys.secretOrKey);
 
-    return { token, loggedIn: true, ...existingUser._doc, password: null }
+    return { token, loggedIn: true, ...existingUser._doc, password: null };
   } catch (err) {
     throw err;
   }
-
 };
 
 const verifyUser = async data => {
@@ -113,5 +116,6 @@ const verifyUser = async data => {
     return { loggedIn: false };
   }
 };
+
 
 module.exports = { register, logout, login, verifyUser };

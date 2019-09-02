@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
 const mongoose = require("mongoose");
 require("../models/index");
 const UserType = require("./types/user_type");
@@ -26,11 +26,12 @@ const mutation = new GraphQLObjectType({
         start_date: { type: GraphQLString },
         priority: { type: GraphQLString },
         repeat: { type: GraphQLString },
-        location: { type: GraphQLString }
+        location: { type: GraphQLString },
+        list: { type: GraphQLString }
       },
       resolve(
         _,
-        { name, body, due_date, start_date, priority, repeat, location }
+        { name, body, due_date, start_date, priority, repeat, location, list }
       ) {
         return TaskService.checkTaskUniqueness({
           name,
@@ -39,106 +40,138 @@ const mutation = new GraphQLObjectType({
           start_date,
           priority,
           repeat,
-          location
+          location,
+          list
         });
+      }
+    },
+    updateTaskList: {
+      type: TaskType,
+      args: {
+        taskID: { type: GraphQLID },
+        listID: { type: GraphQLID }
       },
-      updateTaskList: {
-        type: TaskType,
-        args: {
-          taskID: { type: GraphQLID },
-          listID: { type: GraphQLID }
-        },
-        resolve(_, { taskID, listID }) {
-          Task.updateTaskList(taskID, listID);
-        }
+      resolve(_, { taskID, listID }) {
+        Task.updateTaskList(taskID, listID);
+      }
+    },
+    updateTaskTag: {
+      type: TaskType,
+      args: {
+        taskID: { type: GraphQLID },
+        tagID: { type: GraphQLID }
       },
-      updateTaskTag: {
-        type: TaskType,
-        args: {
-          taskID: { type: GraphQLID },
-          tagID: { type: GraphQLID }
-        },
-        resolve(_, { taskID, tagID }) {
-          Task.updateTaskTag(taskID, tagID);
-        }
+      resolve(_, { taskID, tagID }) {
+        Task.updateTaskTag(taskID, tagID);
+      }
+    },
+    deleteTask: {
+      type: TaskType,
+      args: { _id: { type: GraphQLID } },
+      resolve(_, { _id }) {
+        return Task.remove({ _id });
+      }
+    },
+    newList: {
+      type: ListType,
+      args: {
+        name: { type: GraphQLString },
       },
-      deleteTask: {
-        type: TaskType,
-        args: { _id: { type: GraphQLID } },
-        resolve(_, { _id }) {
-          return Task.remove({ _id });
-        }
+      resolve(_, args) {
+        return TaskService.checkListUniqueness( args );
+        // return new List({ name }).save();
+      }
+    },
+    deleteList: {
+      type: ListType,
+      args: { _id: { type: GraphQLID } },
+      resolve(_, { _id }) {
+        return List.remove({ _id });
+      }
+    },
+    newTag: {
+      type: TagType,
+      args: {
+        name: { type: GraphQLString }
+        // tasks: { type: GraphQLList }
       },
-      newList: {
-        type: ListType,
-        args: {
-          name: { type: GraphQLString }
-        },
-        resolve(_, { name }) {
-          // return TaskService.checkListUniqueness({ name });
-          return new List({ name }).save();
-        }
+      resolve(_, { name }) {
+        return TaskService.checkTagUniqueness({ name });
+        // return new Tag({ name }).save();
+      }
+    },
+    deleteTag: {
+      type: TagType,
+      args: { _id: { type: GraphQLID } },
+      resolve(_, { _id }) {
+        return Tag.remove({ _id });
+      }
+    },
+    register: {
+      type: UserType,
+      args: {
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
       },
-      deleteList: {
-        type: ListType,
-        args: { _id: { type: GraphQLID } },
-        resolve(_, { _id }) {
-          return List.remove({ _id });
-        }
+      resolve(_, args) {
+        return AuthService.register(args);
+      }
+    },
+    logout: {
+      type: UserType,
+      args: {
+        _id: { type: GraphQLID }
       },
-      newTag: {
-        type: TagType,
-        args: { name: { type: GraphQLString } },
-        resolve(_, { name }) {
-          // return TaskService.checkTagUniqueness({ name });
-          return new Tag({ name }).save();
-        }
+      resolve(_, args) {
+        return AuthService.logout(args);
+      }
+    },
+    login: {
+      type: UserType,
+      args: {
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
       },
-      deleteTag: {
-        type: TagType,
-        args: { _id: { type: GraphQLID } },
-        resolve(_, { _id }) {
-          return Tag.remove({ _id });
-        }
+      resolve(_, args) {
+        return AuthService.login(args);
+      }
+    },
+    verifyUser: {
+      type: UserType,
+      args: {
+        token: { type: GraphQLString }
       },
-      register: {
-        type: UserType,
-        args: {
-          name: { type: GraphQLString },
-          email: { type: GraphQLString },
-          password: { type: GraphQLString }
-        },
-        resolve(_, args) {
-          return AuthService.register(args);
-        }
+      resolve(_, args) {
+        return AuthService.verifyUser(args);
+      }
+    },
+
+    updateUser: {
+      type: UserType,
+      args: {
+        id: {type: GraphQLID},
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
       },
-      logout: {
-        type: UserType,
-        args: {
-          _id: { type: GraphQLID }
-        },
-        resolve(_, args) {
-          return AuthService.logout(args);
-        }
-      },
-      login: {
-        type: UserType,
-        args: {
-          email: { type: GraphQLString },
-          password: { type: GraphQLString }
-        },
-        resolve(_, args) {
-          return AuthService.login(args);
-        }
-      },
-      verifyUser: {
-        type: UserType,
-        args: {
-          token: { type: GraphQLString }
-        },
-        resolve(_, args) {
-          return AuthService.verifyUser(args);
-        }
+      resolve(_, args) {
+        // return AuthService.updateUser({args});
+        const updateObj = {};
+        const { id, name, email, password } = args;
+        updateObj.id = id;
+        if (name) updateObj.name = name;
+        if (email) updateObj.email = email;
+        if (password) udpateObj.password = password;
+
+        return User.findOneAndUpdate(
+          { _id: args.id },
+          { $set: updateObj },
+          { new: true },
+          (err, user) => {
+            return user;
+          }
+        );
       }
     }
   }
