@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
 const mongoose = require("mongoose");
 require("../models/index");
 const UserType = require("./types/user_type");
@@ -11,6 +11,7 @@ const List = mongoose.model("lists");
 const TagType = require("./types/tag_type");
 const Tag = mongoose.model("tags");
 
+const TaskService = require("../services/taskService");
 const AuthService = require("../services/auth");
 
 const mutation = new GraphQLObjectType({
@@ -19,6 +20,7 @@ const mutation = new GraphQLObjectType({
     newTask: {
       type: TaskType,
       args: {
+
         name: { type: GraphQLString }, //required
         body: { type: GraphQLString }, //should be changed to required false
         due_date: { type: GraphQLString }, //should be changed to required false
@@ -28,21 +30,22 @@ const mutation = new GraphQLObjectType({
         location: { type: GraphQLString }, //not required
         tags: { type: GraphQLString },
         list: { type: GraphQLString },
+
       },
       resolve(
         _,
-        { name, body, due_date, start_date, priority, repeat, location }
+        { name, body, due_date, start_date, priority, repeat, location, list }
       ) {
-        return new Task({
+        return TaskService.checkTaskUniqueness({
           name,
           body,
           due_date,
           start_date,
           priority,
           repeat,
-          location
-          //possibly add user?
-        }).save();
+          location,
+          list
+        });
       }
     },
     updateTaskList: {
@@ -75,10 +78,11 @@ const mutation = new GraphQLObjectType({
     newList: {
       type: ListType,
       args: {
-        name: { type: GraphQLString }
+        name: { type: GraphQLString },
       },
-      resolve(_, { name }) {
-        return new List({ name }).save();
+      resolve(_, args) {
+        return TaskService.checkListUniqueness( args );
+        // return new List({ name }).save();
       }
     },
     deleteList: {
@@ -90,9 +94,13 @@ const mutation = new GraphQLObjectType({
     },
     newTag: {
       type: TagType,
-      args: { name: { type: GraphQLString } },
+      args: {
+        name: { type: GraphQLString }
+        // tasks: { type: GraphQLList }
+      },
       resolve(_, { name }) {
-        return new Tag({ name }).save();
+        return TaskService.checkTagUniqueness({ name });
+        // return new Tag({ name }).save();
       }
     },
     deleteTag: {
@@ -139,6 +147,34 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, args) {
         return AuthService.verifyUser(args);
+      }
+    },
+
+    updateUser: {
+      type: UserType,
+      args: {
+        id: {type: GraphQLID},
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
+      },
+      resolve(_, args) {
+        // return AuthService.updateUser({args});
+        const updateObj = {};
+        const { id, name, email, password } = args;
+        updateObj.id = id;
+        if (name) updateObj.name = name;
+        if (email) updateObj.email = email;
+        if (password) udpateObj.password = password;
+
+        return User.findOneAndUpdate(
+          { _id: args.id },
+          { $set: updateObj },
+          { new: true },
+          (err, user) => {
+            return user;
+          }
+        );
       }
     }
   }

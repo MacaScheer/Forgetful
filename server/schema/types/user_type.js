@@ -17,10 +17,11 @@ const UserType = new GraphQLObjectType({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     token: { type: GraphQLString },
-    loggedIn: { type: GraphQLBoolean }
+    loggedIn: { type: GraphQLBoolean },
+    defaultListObjectId: { type: GraphQLString }
     // tasks: {type: GraphQLList},// import tasks type
     // tags: {type: GraphQLList}, //
-    // lists: {type: GraphQLList} // import 
+    // lists: {type: GraphQLList} // import
   })
 });
 

@@ -29,7 +29,7 @@ const TaskType = new GraphQLObjectType({
       type: new GraphQLList(require("./tag_type")),
       resolve(parentValue) {
         return Task.findById(parentValue._id)
-          .populate("tags") // plural??
+          .populate("tags")
           .then(task => {
             return task.tags;
           });
@@ -41,7 +41,7 @@ const TaskType = new GraphQLObjectType({
         return Task.findById(parentValue._id)
           .populate("list")
           .then(task => {
-            return task.list; //question for monday
+            return task.list;
           });
       }
     }

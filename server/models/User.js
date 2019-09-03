@@ -38,6 +38,10 @@ const UserSchema = new Schema({
       ref: "tags"
     }
   ],
+  defaultListObjectId: {
+    type: String,
+    required: true
+  }
 });
 
 module.exports = mongoose.model("users", UserSchema);

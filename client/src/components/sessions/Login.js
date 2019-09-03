@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
@@ -37,9 +36,10 @@ class Login extends Component {
         mutation={LOGIN_USER}
         onCompleted={data => {
           // console.log(data);
-          const { token, name } = data.login;
+          const { token, name, defaultListObjectId } = data.login;
           localStorage.setItem("auth-token", token);
           localStorage.setItem("name", name);
+          localStorage.setItem("defaultListObjectId", defaultListObjectId);
           this.props.history.push("/"); //redirecting to homepage afterwards
         }}
         update={(client, data) => this.updateCache(client, data)} //update gets trigger on success of mutation
