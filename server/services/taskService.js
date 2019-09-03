@@ -2,6 +2,9 @@ const keys = require("../../config/keys");
 const Task = require("../models/Task");
 const Tag = require("../models/Tag");
 const List = require("../models/List");
+const User = require("../models/User")
+const mongoose = require("mongoose");
+
 // const graphql = require("graphql");
 // const { GraphQLList } = graphql;
 
@@ -50,12 +53,15 @@ const checkTaskUniqueness = async data => {
 
 const checkTagUniqueness = async data => {
   try {
-    const { name } = data;
+    const { name, userId } = data;
     const existingTag = await Tag.findOne({ name });
     if (existingTag) throw new Error("This tag already exists");
-
-    const tag = await new Tag({name});
+    
+    const tag = await new Tag({name, userId});
     tag.save();
+    tagId = tag._id
+
+    return { tagId, userId }
   } catch (err) {
     throw err;
   }
@@ -63,13 +69,18 @@ const checkTagUniqueness = async data => {
 
 const checkListUniqueness = async data => {
   try {
-    const { name } = data;
+    const { name, userId } = data;
     const existingList = await List.findOne({ name });
-
+    
     if (existingList) throw new Error("This list already exists");
 
-    const list = await new List({ name });
+    const list = await new List({ name, userId });
+    
+    // User.findByIdAndUpdate({ _id: userId }, { lists: })
     list.save();
+    listId = list._id 
+    // console.log(listId)
+    return { listId, userId}
   } catch (err) {
     throw err;
   }

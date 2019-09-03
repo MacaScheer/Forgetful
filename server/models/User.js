@@ -43,11 +43,42 @@ const UserSchema = new Schema({
     required: true
   }
 });
-UserSchema.statics.findTasks = listId => {
+UserSchema.statics.findTasks = userId => {
   const User = mongoose.model("users");
-  return User.findById(listId)
+  return User.findById(userId)
     .populate("tasks")
     .then(res => res.tasks);
 };
+UserSchema.statics.findTags = userId => {
+  const User = mongoose.model("users");
+  return User.findById(userId)
+    .populate("tags")
+    .then(res => res.tags);
+};
+UserSchema.statics.findLists = userId => {
+  const User = mongoose.model("users");
+  return User.findById(userId)
+    .populate("lists")
+    .then(res => res.lists);
+};
 
+UserSchema.statics.updateList = async (listId, userId) => {
+  const List = mongoose.model("lists");
+  const User = mongoose.model("users");
+
+  User.findById(userId).then(user => {
+    user.lists.push(listId);
+    user.save();
+  });
+}
+
+UserSchema.statics.updateTag = async (tagId, userId) => {
+  const List = mongoose.model("lists");
+  const User = mongoose.model("users");
+
+  User.findById(userId).then(user => {
+    user.tags.push(tagId);
+    user.save();
+  });
+}
 module.exports = mongoose.model("users", UserSchema);

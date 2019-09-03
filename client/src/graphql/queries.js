@@ -12,6 +12,14 @@ export default {
         tasks {
           name
         }
+        tags{
+          name
+          _id
+        }
+        lists{
+          name
+          _id
+        }
       }
     }
   `,

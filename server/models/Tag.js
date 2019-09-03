@@ -11,7 +11,11 @@ const TagSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "tasks"
     }
-  ]
+  ],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "users"
+  }
 });
 
 TagSchema.statics.findTasks = tagId => {

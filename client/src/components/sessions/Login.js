@@ -36,7 +36,7 @@ class Login extends Component {
         mutation={LOGIN_USER}
         onCompleted={data => {
           // console.log(data);
-          debugger
+          // debugger
           const { token, name, defaultListObjectId, _id } = data.login;
           localStorage.setItem("auth-token", token);
           localStorage.setItem("name", name);

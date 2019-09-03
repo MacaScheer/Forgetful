@@ -11,7 +11,11 @@ const ListSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "tasks"
     }
-  ]
+  ],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "users"
+  }
 });
 
 ListSchema.statics.findTasks = listId => {
@@ -20,5 +24,7 @@ ListSchema.statics.findTasks = listId => {
     .populate("tasks")
     .then(res => res.tasks);
 };
+
+
 
 module.exports = mongoose.model("lists", ListSchema);
