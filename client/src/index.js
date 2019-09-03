@@ -27,6 +27,7 @@ const token = localStorage.getItem("auth-token");
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
+    searchResults: []
   }
 });
 

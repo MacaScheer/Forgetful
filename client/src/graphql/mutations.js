@@ -57,5 +57,12 @@ export default {
         name
       }
     }
-  `
+  `,
+  UPDATE_TASK_NAME: gql`
+    mutation updateTask($id: ID, $name: String){
+      updateTask(id: $id, name: $name){
+        id
+        name
+      }
+    }
 };
