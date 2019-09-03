@@ -35,7 +35,12 @@ const register = async data => {
         email,
         password: hashedPassword,
         lists: [defaultList1._id, defaultList2._id, defaultList3._id],
-        defaultListObjectId: defaultList2._id
+        defaultListObjectId: defaultList2._id,
+        // tasks: ["5d69930bbef5a5f923f5353a",
+        //   "5d69980880d90c01772740f6",
+        //   "5d69983692eb6d01a44d67ba",
+        //   "5d69987992eb6d01a44d67bb",
+        //   "5d6998e092eb6d01a44d67bc"]
       },
       err => {
         if (err) throw err;
@@ -86,11 +91,11 @@ const login = async data => {
     );
 
     if (!validPWord) throw new Error("Invalid Password");
-
+    console.log(existingUser._doc)
     // bcrypt.compare(password, existingUser.password);
     const token = jwt.sign({ id: existingUser._id }, keys.secretOrKey);
 
-    return { token, loggedIn: true, ...existingUser._doc, password: null };
+    return { token, loggedIn: true, ...existingUser._doc,  password: null };
   } catch (err) {
     throw err;
   }

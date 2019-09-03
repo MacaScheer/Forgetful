@@ -8,20 +8,27 @@ const {
   GraphQLDate,
   GraphQLList
 } = graphql;
+const User = mongoose.model("users");
 
 const UserType = new GraphQLObjectType({
   name: "UserType",
   fields: () => ({
-    id: { type: GraphQLID },
+    _id: { type: GraphQLID },
     date: { type: GraphQLString },
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     token: { type: GraphQLString },
     loggedIn: { type: GraphQLBoolean },
-    defaultListObjectId: { type: GraphQLString }
-    // tasks: {type: GraphQLList},// import tasks type
+    defaultListObjectId: { type: GraphQLString },
+    tasks: {
+      type: new GraphQLList(require("./task_type")),
+      resolve(parentValue) {
+        return User.findTasks(parentValue._id);
+      }
+    }
     // tags: {type: GraphQLList}, //
     // lists: {type: GraphQLList} // import
+  
   })
 });
 

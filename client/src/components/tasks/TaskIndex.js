@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import { withRouter } from "react-router-dom";
 import Taskline from './TaskLine'
-const { ALL_TASKS } = Queries;
+const { FETCH_USER } = Queries;
 
 class TaskIndex extends React.Component {
   constructor(props) {
@@ -39,16 +39,19 @@ class TaskIndex extends React.Component {
   }
 
   render() {
+    const cid = localStorage.getItem("currentuserId")
+    // debugger
     return (
-      <Query query={ALL_TASKS}>
+      <Query query={FETCH_USER} variables={{ Id: cid }}>
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          if (data.tasks) {
+          // debugger
+          if (data.user.tasks) {
             return (
               <div className="task-list-container">
                 <div className="task-list">
-                  {data.tasks.map((task, i) => (
+                  {data.user.tasks.map((task, i) => (
                     <div className="task-list-item" key={i}>
                       <Taskline  _id={task._id} name={task.name}/>
                     </div>

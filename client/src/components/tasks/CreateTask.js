@@ -22,7 +22,7 @@ class CreateTask extends React.Component {
   tools() {
     return (
       <div>
-        <button onClick={this.inputChar} value="^">a</button>
+        <button onClick={this.inputChar} value="^">a</button> 
         <button onClick={this.inputChar} value="~">b</button>
         <button onClick={this.inputChar} value="!">c</button>
         <button onClick={this.inputChar} value="#">d</button>
