@@ -25,9 +25,19 @@ const UserType = new GraphQLObjectType({
       resolve(parentValue) {
         return User.findTasks(parentValue._id);
       }
+    },
+    tags: {
+      type: new GraphQLList(require("./tag_type")),
+    resolve(parentValue) {
+      return User.findTags(parentValue._id);
     }
-    // tags: {type: GraphQLList}, //
-    // lists: {type: GraphQLList} // import
+  }, 
+    lists: {
+    type: new GraphQLList(require("./list_type")),
+    resolve(parentValue) {
+      return User.findLists(parentValue._id);
+    }
+  } 
   
   })
 });

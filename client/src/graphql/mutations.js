@@ -30,6 +30,20 @@ export default {
       }
     }
   `,
+  CREATE_TAG: gql`
+    mutation CreateTag($name: String, $userid: ID!){
+      newTag(name:$name, userId: $userid){
+        name
+      }
+    }
+  `,
+  CREATE_LIST: gql`
+  mutation CreateList($name: String, $userid: ID!){
+      newList(name:$name, userId: $userid){
+        name
+      }
+    }
+  `,
 
   CREATE_TASK: gql`
     mutation newTask(

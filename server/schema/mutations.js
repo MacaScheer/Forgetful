@@ -85,9 +85,12 @@ const mutation = new GraphQLObjectType({
       type: ListType,
       args: {
         name: { type: GraphQLString },
+        userId: {type: GraphQLID}
       },
       resolve(_, args) {
-        return TaskService.checkListUniqueness( args );
+        
+        return TaskService.checkListUniqueness(args)
+          .then(({ listId, userId }) => User.updateList(listId, userId))
         // return new List({ name }).save();
       }
     },
@@ -101,11 +104,14 @@ const mutation = new GraphQLObjectType({
     newTag: {
       type: TagType,
       args: {
-        name: { type: GraphQLString }
+        name: { type: GraphQLString },
+        userId: { type: GraphQLID }
+
         // tasks: { type: GraphQLList }
       },
-      resolve(_, { name }) {
-        return TaskService.checkTagUniqueness({ name });
+      resolve(_, args) {
+        return TaskService.checkTagUniqueness(args)
+          .then(({ tagId, userId }) => User.updateTag(tagId, userId));
         // return new Tag({ name }).save();
       }
     },
