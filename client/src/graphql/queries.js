@@ -1,21 +1,29 @@
 import gql from "graphql-tag";
 
 export default {
-
   IS_LOGGED_IN: gql`
     query IsUserLoggedIn {
       isLoggedIn @client
     }
   `,
-  ALL_TASKS: gql`
-    {
-      tasks{
-        name
-        _id
-        tags{
+  FETCH_USER: gql`
+    query FetchUser($Id: ID!) {
+      user(_id: $Id) {
+        tasks {
           name
         }
-        list{
+      }
+    }
+  `,
+  ALL_TASKS: gql`
+    {
+      tasks {
+        name
+        _id
+        tags {
+          name
+        }
+        list {
           name
         }
         body
@@ -24,4 +32,4 @@ export default {
       }
     }
   `
-}
+};

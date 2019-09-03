@@ -30,10 +30,11 @@ class Signup extends Component {
       <Mutation
         mutation={REGISTER_USER}
         onCompleted={data => {
-          const { token, name, defaultListObjectId } = data.register;
+          const { token, name, defaultListObjectId, _id } = data.register;
           localStorage.setItem("auth-token", token);
           localStorage.setItem("name", name);
           localStorage.setItem("defaultListObjectId", defaultListObjectId);
+          localStorage.setItem("currentuserId", _id)
 
           this.props.history.push("/");
         }}

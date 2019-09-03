@@ -43,5 +43,11 @@ const UserSchema = new Schema({
     required: true
   }
 });
+UserSchema.statics.findTasks = listId => {
+  const User = mongoose.model("users");
+  return User.findById(listId)
+    .populate("tasks")
+    .then(res => res.tasks);
+};
 
 module.exports = mongoose.model("users", UserSchema);
