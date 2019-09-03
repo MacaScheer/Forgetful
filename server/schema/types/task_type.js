@@ -17,7 +17,7 @@ const TaskType = new GraphQLObjectType({
     location: { type: GraphQLString },
     user: {
       type: require("./user_type"),
-      resolver(parentValue) {
+      resolve(parentValue) {
         return Task.findById(parentValue._id)
           .populate("user")
           .then(task => {

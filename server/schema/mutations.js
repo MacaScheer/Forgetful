@@ -20,14 +20,17 @@ const mutation = new GraphQLObjectType({
     newTask: {
       type: TaskType,
       args: {
-        name: { type: GraphQLString },
-        body: { type: GraphQLString },
-        due_date: { type: GraphQLString },
-        start_date: { type: GraphQLString },
-        priority: { type: GraphQLString },
-        repeat: { type: GraphQLString },
-        location: { type: GraphQLString },
-        list: { type: GraphQLString }
+
+        name: { type: GraphQLString }, //required
+        body: { type: GraphQLString }, //should be changed to required false
+        due_date: { type: GraphQLString }, //should be changed to required false
+        start_date: { type: GraphQLString }, //should be changed to required false
+        priority: { type: GraphQLString },//should be changed to required false
+        repeat: { type: GraphQLString }, //not required
+        location: { type: GraphQLString }, //not required
+        tags: { type: GraphQLString },
+        list: { type: GraphQLString },
+
       },
       resolve(
         _,

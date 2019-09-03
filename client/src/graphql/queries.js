@@ -7,5 +7,21 @@ export default {
       isLoggedIn @client
     }
   `,
-  
+  ALL_TASKS: gql`
+    {
+      tasks{
+        name
+        _id
+        tags{
+          name
+        }
+        list{
+          name
+        }
+        body
+        due_date
+        start_date
+      }
+    }
+  `
 }
