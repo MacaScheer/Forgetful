@@ -39,5 +39,11 @@ export default {
         start_date
       }
     }
+  `,
+  SEARCH_RESULTS: gql`
+  query searchResult {
+    searchResults @client
+  }
   `
+
 };

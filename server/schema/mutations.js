@@ -48,6 +48,12 @@ const mutation = new GraphQLObjectType({
         });
       }
     },
+    updateTask: {
+      type: TaskType,
+      args:{
+        
+      }
+    },
     updateTaskList: {
       type: TaskType,
       args: {
