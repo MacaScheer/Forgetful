@@ -17,7 +17,7 @@ class Navbar extends React.Component {
           <div className="toolbar__logo">
             <a href="/">ICON</a>
           </div>
-          {/* <SearchBar queryString={this.state.squeryString}/> */}
+          {/* <SearchBar queryString={this.state.queryString}/> */}
           <div className="spacer" />
           <div className="toolbar-navigation-items">
             <Greeting />
