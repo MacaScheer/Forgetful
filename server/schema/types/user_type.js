@@ -28,17 +28,22 @@ const UserType = new GraphQLObjectType({
     },
     tags: {
       type: new GraphQLList(require("./tag_type")),
-    resolve(parentValue) {
-      return User.findTags(parentValue._id);
-    }
-  }, 
+      resolve(parentValue) {
+        return User.findTags(parentValue._id);
+      }
+    },
     lists: {
-    type: new GraphQLList(require("./list_type")),
-    resolve(parentValue) {
-      return User.findLists(parentValue._id);
+      type: new GraphQLList(require("./list_type")),
+      resolve(parentValue) {
+        return User.findLists(parentValue._id);
+      }
+    },
+    trash: {
+      type: new GraphQLList(require("./task_type")),
+      resolve(parentValue) {
+        return User.findTrash(parentValue._id);
+      }
     }
-  } 
-  
   })
 });
 

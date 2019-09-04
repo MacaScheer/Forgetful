@@ -19,8 +19,10 @@ const App = () => {
       <Route exact path="/search/:searchResults" component={SearchResults} />
       <Route path="/all" component={TaskIndex} />
       <Route path="/lists/inbox" component={TaskIndex} />
+      <Route path="/today" component={TaskIndex} />
       <Route path="/lists/:list" component={TaskIndex} />
       <Route exact path="/tasks" component={TaskIndex} />
+      <Route path="/trash/trash" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />

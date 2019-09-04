@@ -154,6 +154,19 @@ const mutation = new GraphQLObjectType({
       }
     },
 
+    moveToTrash: { 
+      type: UserType,
+      args: {
+        userId: { type: GraphQLString },
+        taskId: { type: GraphQLString },
+        listId: { type: GraphQLString },
+        tagId: { type: GraphQLString}
+      },
+      resolve(_, args) {
+        return TaskService.moveToTrash(args)
+      }
+    },
+
     updateUser: {
       type: UserType,
       args: {

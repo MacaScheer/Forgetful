@@ -27,6 +27,9 @@ export default {
             name
           }
         }
+        trash{
+          name
+        }
       }
     }
   `,
