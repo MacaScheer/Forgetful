@@ -15,7 +15,8 @@ const App = () => {
   return (
     <div>
       <Nav />
-      <Route path="/all" component={TaskIndex}/>
+      <Route path="/all" component={TaskIndex} />
+      <Route path="/list" component={TaskIndex} />
       <Route exact path="/tasks" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
       
