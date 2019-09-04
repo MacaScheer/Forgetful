@@ -26,9 +26,12 @@ const register = async data => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const defaultList1 = new List({ name: "Personal" });
-    const defaultList2 = new List({ name: "Inbox" });
-    const defaultList3 = new List({ name: "Work" });
+    const defaultList1 = await new List({ name: "Personal" });
+    const defaultList2 = await new List({ name: "Inbox" });
+    const defaultList3 = await new List({ name: "Work" });
+    await defaultList1.save();
+    await defaultList2.save();
+    await defaultList3.save();
     const user = new User(
       {
         name,
@@ -36,11 +39,12 @@ const register = async data => {
         password: hashedPassword,
         lists: [defaultList1._id, defaultList2._id, defaultList3._id],
         defaultListObjectId: defaultList2._id,
-        // tasks: ["5d69930bbef5a5f923f5353a",
-        //   "5d69980880d90c01772740f6",
-        //   "5d69983692eb6d01a44d67ba",
-        //   "5d69987992eb6d01a44d67bb",
-        //   "5d6998e092eb6d01a44d67bc"]
+        tasks: ["5d6d6daee8e55a1ba831d873",
+          "5d69930bbef5a5f923f5353a",
+          "5d69980880d90c01772740f6",
+          "5d69983692eb6d01a44d67ba",
+          "5d69987992eb6d01a44d67bb"
+      ]
       },
       err => {
         if (err) throw err;

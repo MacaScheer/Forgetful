@@ -16,10 +16,9 @@ const App = () => {
   return (
     <div>
       <Nav />
-      {/* <SearchBar exact path="/tasks" component={SearchBar} /> */}
-      <Route exact path="/options1" component={TagOption} />
-      <Route exact path="/options2" component={ListOption} />
       <Route exact path="/search/:searchResults" component={SearchResults} />
+      <Route path="/all" component={TaskIndex} />
+      <Route path="/list" component={TaskIndex} />
       <Route exact path="/tasks" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
       <Switch>

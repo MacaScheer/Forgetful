@@ -24,12 +24,12 @@ const checkTaskUniqueness = async data => {
     } = data;
 
     const existingTask = await Task.findOne({ name });
-
+    let today = new Date();
     if (existingTask) throw new Error("This task already exists");
 
-    if (!due_date) due_date = { due_date: "never" };
-    if (!start_date) start_date = { start_date: "today" };
-    if (!list) list = localStorage.getItem(defaultListObjectId);
+    if (!due_date) due_date =  "never" ;
+    if (!start_date) start_date =  today ;
+    // if (!list) list = localStorage.getItem(defaultListObjectId);
     const task = await new Task(
       {
         name,

@@ -19,6 +19,7 @@ export default class CreateModal extends Component {
   
   handleSubmit(e, newObj) {
     e.preventDefault();
+    e.stopPropagation();
       newObj({
         variables: {
           name: this.state.input,
