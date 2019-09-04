@@ -50,6 +50,7 @@
 .greeting-container {
   display: flex;
   padding: 0 20px;
+  float: right;
 }
 
 .greeting {
@@ -61,4 +62,8 @@
   color: white;
   background: purple;
   margin: 0 5px;
+}
+
+.toolbar-navigation-items {
+  width: 100%;
 }
