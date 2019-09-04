@@ -5,7 +5,7 @@ import Queries from "../../graphql/queries";
 import { withRouter } from "react-router-dom";
 import Taskline from './TaskLine';
 import CreateTask from './CreateTask';
-
+import TaskSummary from './TaskSummary'
 const { FETCH_USER } = Queries;
 
 class TaskIndex extends React.Component {
@@ -67,6 +67,8 @@ class TaskIndex extends React.Component {
                     </div>
                   </div>
                 </div>
+
+                <TaskSummary/>
               </div>
             );
           } else {
