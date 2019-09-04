@@ -19,7 +19,6 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     token: { type: GraphQLString },
     loggedIn: { type: GraphQLBoolean },
-    // locations: { type: GraphQLList },
     defaultListObjectId: { type: GraphQLString },
     tasks: {
       type: new GraphQLList(require("./task_type")),
@@ -37,6 +36,12 @@ const UserType = new GraphQLObjectType({
       type: new GraphQLList(require("./list_type")),
       resolve(parentValue) {
         return User.findLists(parentValue._id);
+      }
+    },
+    trash: {
+      type: new GraphQLList(require("./task_type")),
+      resolve(parentValue) {
+        return User.findTrash(parentValue._id);
       }
     }
   })

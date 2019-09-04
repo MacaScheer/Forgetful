@@ -2,14 +2,15 @@ import React from "react";
 import Greeting from "./Greeting";
 import "../stylesheets/greeting.scss";
 import DropDownMenu from "./DropDownMenu";
+import SearchBar from "./SearchBar";
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      queryString: "",
-      showDropdown: false
-    };
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+      showDropdown: true
+    }
+    this.toggleDropdown = this.toggleDropdown.bind(this)
   }
 
   toggleDropdown(e) {
@@ -27,6 +28,7 @@ class Navbar extends React.Component {
           <div className="toolbar__logo">
             <a href="/">ICON</a>
           </div>
+
           {/* <SearchBar queryString={this.state.queryString}/> */}
           <div className="spacer" />
           <div className="toolbar-navigation-items">

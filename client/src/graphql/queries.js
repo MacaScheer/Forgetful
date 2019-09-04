@@ -11,14 +11,24 @@ export default {
       user(_id: $Id) {
         tasks {
           name
+          due_date
         }
         tags {
+          tasks {
+            name
+          }
           name
           _id
         }
         lists {
           name
           _id
+          tasks {
+            name
+          }
+        }
+        trash{
+          name
         }
       }
     }

@@ -39,12 +39,12 @@ const register = async data => {
         password: hashedPassword,
         lists: [defaultList1._id, defaultList2._id, defaultList3._id],
         defaultListObjectId: defaultList2._id,
-        tasks: ["5d6d6daee8e55a1ba831d873",
-          "5d69930bbef5a5f923f5353a",
-          "5d69980880d90c01772740f6",
-          "5d69983692eb6d01a44d67ba",
-          "5d69987992eb6d01a44d67bb"
-      ]
+      //   tasks: ["5d6d6daee8e55a1ba831d873",
+      //     "5d69930bbef5a5f923f5353a",
+      //     "5d69980880d90c01772740f6",
+      //     "5d69983692eb6d01a44d67ba",
+      //     "5d69987992eb6d01a44d67bb"
+      // ]
       },
       err => {
         if (err) throw err;
