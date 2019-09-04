@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import { Link } from "react-router-dom";
 
-const { FETCH_USER } = Queries 
+const { FETCH_USER } = Queries;
 export default class DropDownMenu extends Component {
   constructor(props) {
     super(props);
@@ -70,7 +70,7 @@ export default class DropDownMenu extends Component {
                       className="fas fa-sort-down"
                     ></i>
                     {this.state.toggleInbox ? (
-                      <Link to="/list/inbox">Inbox</Link>
+                      <Link to="/lists/inbox">Inbox</Link>
                     ) : (
                       <Link to="/all">All Tasks</Link>
                     )}
@@ -84,7 +84,7 @@ export default class DropDownMenu extends Component {
                     <div className="lists-subcat">
                       {showLists ? (
                         data.user.lists.map(list => (
-                          <Link to={`list/${list.name}`}>{list.name}</Link>
+                          <Link to={`lists/${list.name}`}>{list.name}</Link>
                         ))
                       ) : (
                         <div />
@@ -100,7 +100,7 @@ export default class DropDownMenu extends Component {
                       {showTags ? (
                         data.user.tags.length !== 0 ? (
                           data.user.tags.map(tag => (
-                            <Link to={`tag/${tag.name}`}>{tag.name}</Link>
+                            <Link to={`tags/${tag.name}`}>{tag.name}</Link>
                           ))
                         ) : (
                           <div />
@@ -119,7 +119,7 @@ export default class DropDownMenu extends Component {
                       {showLocations ? (
                         data.user.locations.length !== 0 ? (
                           data.user.locations.map(location => (
-                            <Link to={`location/${location.name}`}>
+                            <Link to={`locations/${location.name}`}>
                               {location.name}
                             </Link>
                           ))

@@ -18,7 +18,8 @@ const App = () => {
       <Nav />
       <Route exact path="/search/:searchResults" component={SearchResults} />
       <Route path="/all" component={TaskIndex} />
-      <Route path="/list" component={TaskIndex} />
+      <Route path="/lists/inbox" component={TaskIndex} />
+      <Route path="/lists/:list" component={TaskIndex} />
       <Route exact path="/tasks" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
       <Switch>
