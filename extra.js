@@ -29,10 +29,8 @@ tools() {
 }
 
 //using for parsing time 
-var today = new Date();
+var today = new Date(); // << how you set current date
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
-
-today = mm + '/' + dd + '/' + yyyy;
-document.write(today);
+//check if works for start_date === today

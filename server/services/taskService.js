@@ -1,6 +1,6 @@
 const keys = require("../../config/keys");
 const mongoose = require("mongoose");
-const Task = mongoose.model('tasks');
+const Task = mongoose.model("tasks");
 const Tag = mongoose.model("tags");
 const List = mongoose.model("lists");
 const User = mongoose.model("users");
@@ -28,11 +28,11 @@ const checkTaskUniqueness = async data => {
     // let today = new Date();
     const newuser = await User.findById("5d6fe15de82b4832bb6b9f20");
     // const newlist = await List.findById("5d6fe15de82b4832bb6b9f1d")
-    console.log(newuser)
+    console.log(newuser);
     // console.log(newlist)
     if (existingTask) throw new Error("This task already exists");
 
-    if (!due_date) due_date =  "never" ;
+    if (!due_date) due_date = "never";
     if (!start_date) start_date = today;
     // if (!list) list = "5d6fe15de82b4832bb6b9f1d"
     // if (!user) user = "5d6fe15de82b4832bb6b9f20"
@@ -58,7 +58,7 @@ const checkTaskUniqueness = async data => {
     // newlist.save()
     // newuser.save()
     task.save();
-    return task._id
+    return task._id;
   } catch (err) {
     throw err;
   }
@@ -69,12 +69,12 @@ const checkTagUniqueness = async data => {
     const { name, userId } = data;
     const existingTag = await Tag.findOne({ name });
     if (existingTag) throw new Error("This tag already exists");
-    
-    const tag = await new Tag({name, userId});
-    tag.save();
-    tagId = tag._id
 
-    return { tagId, userId }
+    const tag = await new Tag({ name, userId });
+    tag.save();
+    tagId = tag._id;
+
+    return { tagId, userId };
   } catch (err) {
     throw err;
   }
@@ -84,16 +84,45 @@ const checkListUniqueness = async data => {
   try {
     const { name, userId } = data;
     const existingList = await List.findOne({ name });
-    
+
     if (existingList) throw new Error("This list already exists");
 
     const list = await new List({ name, userId });
-    
+
     // User.findByIdAndUpdate({ _id: userId }, { lists: })
     list.save();
-    listId = list._id 
+    listId = list._id;
     // console.log(listId)
-    return { listId, userId}
+    return { listId, userId };
+  } catch (err) {
+    throw err;
+  }
+};
+
+const moveToTrash = async data => {
+  try {
+    const { userId, taskId, listId, tagId } = data;
+    const user = await User.findById(userId);
+
+   
+      const list = await List.findById(listId);
+    
+    
+      const tag = await Tag.findById(tagId);
+    
+    
+    await user.tasks.pull(taskId);
+    await list !== null ? list.tasks.pull(taskId) : null
+    await tag !== null ? tag.tasks.pull(taskId) : null
+
+    // await user.lists.forEach((list) => list.tasks.remove({ id: taskId }));
+    // await user.tags.forEacH(tag => tag.tasks.remove({ id: taskId }));
+    // console.log(arrayofTasks);
+    user.trash.push(taskId);
+    user.save()
+    list.save()
+
+    return user;
   } catch (err) {
     throw err;
   }
@@ -102,5 +131,6 @@ const checkListUniqueness = async data => {
 module.exports = {
   checkTaskUniqueness,
   checkTagUniqueness,
-  checkListUniqueness
+  checkListUniqueness,
+  moveToTrash
 };

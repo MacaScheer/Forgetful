@@ -72,6 +72,12 @@ UserSchema.statics.findLists = userId => {
     .populate("lists")
     .then(res => res.lists);
 };
+UserSchema.statics.findTrash = userId => {
+  const User = mongoose.model("users");
+  return User.findById(userId)
+    .populate("trash")
+    .then(res => res.trash);
+};
 
 UserSchema.statics.updateList = async (listId, userId) => {
   const List = mongoose.model("lists");

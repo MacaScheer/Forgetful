@@ -24,24 +24,27 @@ class TaskIndex extends React.Component {
       URLArray[0] === "trash" ? (key = "trash") : (key = "due_date");
     }
     const trigger = URLArray[0] === "all" ? false : true;
-    // debugger
     this.state = {
       hidden: true,
       completed: false,
       keys: key,
       input: input,
-      trigger: trigger
+      trigger: trigger,
+      urlLength: URLArray.length
+      
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.runSearch = this.runSearch.bind(this);
   }
 
-  runSearch(tasks) {
-    const modifyTask = tasks[this.state.keys];
+  runSearch(data) {
+    const check = this.state.urlLength === 1;
+    const modifiedData = check ? data.tasks : data[this.state.keys];
     let input = this.state.input;
+    const filterKey = check ? this.state.keys : "name";
     const options = {
-      keys: ["name"],
+      keys: [filterKey],
       shouldSort: true,
       tokenize: true,
       findAllMatches: true,
@@ -51,12 +54,16 @@ class TaskIndex extends React.Component {
       maxPatternLength: 32,
       minMatchCharLength: 1
     };
-    let fuse = new Fuse(modifyTask, options);
-    let result = fuse.search(input);
-    debugger;
+    let fuse = new Fuse(modifiedData, options);
+  
+    if (check) return fuse.search("never") // stuff 
+    debugger
+    const result = input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
 
-    return result[0]["tasks"];
+    return result;
   }
+
+  
 
   toggleDropdown() {
     const dropdown = document.getElementById("profile-dropdown");
