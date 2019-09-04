@@ -8,12 +8,8 @@
   width: 100%;
 }
 .create-task-wrapper {
-  height: 100%;
-  left: 0;
-  margin: 0;
-  min-width: 608px;
-  min-height: 565px;
   position: relative;
+  z-index: 99;
   padding: 0;
   top: 0;
   width: 100%;
@@ -69,7 +65,7 @@
 
 .tasks-container {
   z-index: 1;
-  left: 100px;
+  left: 150px;
   top: 100px;
   width: 50%;
   position: absolute;

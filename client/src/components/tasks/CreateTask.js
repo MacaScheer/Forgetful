@@ -33,7 +33,7 @@ class CreateTask extends React.Component {
 
   tools() {
     return (
-      <div>
+      <div className="flex-buttons">
         <button onClick={this.inputChar} value="^">
           <i className="fas fa-calendar icons" value="^" />
         </button>{" "}
