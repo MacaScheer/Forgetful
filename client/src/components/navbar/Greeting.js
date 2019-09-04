@@ -68,6 +68,7 @@ class Greeting extends React.Component {
                         localStorage.removeItem("auth-token");
                         localStorage.removeItem("name");
                         localStorage.removeItem("defaultListObjectId");
+
                         localStorage.removeItem("currentuserId");
                         client.writeData({ data: { isLoggedIn: false } });
                         this.props.history.push("/");

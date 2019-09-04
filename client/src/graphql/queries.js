@@ -11,6 +11,7 @@ export default {
       user(_id: $Id) {
         tasks {
           name
+          due_date
         }
         tags{
           name
