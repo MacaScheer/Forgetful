@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import { Link } from "react-router-dom";
-
-const { FETCH_USER } = Queries 
+import "../stylesheets/dropdown.scss";
+const { FETCH_USER } = Queries;
 export default class DropDownMenu extends Component {
   constructor(props) {
     super(props);
@@ -21,28 +21,28 @@ export default class DropDownMenu extends Component {
 
   toggleInbox(e) {
     e.preventDefault();
-    return e => this.setState({ showInbox: !this.state.showInbox });
+    this.setState({ showInbox: !this.state.showInbox });
   }
 
   toggleList(e) {
     e.preventDefault();
-    return e => this.setState({ showList: !this.state.showList });
+    this.setState({ showList: !this.state.showList });
   }
 
   toggleTags(e) {
     e.preventDefault();
-    return e => this.setState({ showTags: !this.state.showTags });
+    this.setState({ showTags: !this.state.showTags });
   }
 
   toggleLocations(e) {
     e.preventDefault();
-    return e => this.setState({ showLocations: !this.state.showLocations });
+    this.setState({ showLocations: !this.state.showLocations });
   }
   renderInboxCat() {
     if (this.state.showInbox) {
       return (
         <div className="inbox-subcat">
-          <Link to="/all">All Tasks</Link>
+          <Link to="/all">Inbox</Link>
           <Link to="/today">Today </Link>
           <Link to="/tomorrow">Tomorrow </Link>
           <Link to="/thisweek">This Week</Link>
@@ -52,7 +52,7 @@ export default class DropDownMenu extends Component {
     }
   }
 
-  renderInbox() {
+  render() {
     const cid = localStorage.getItem("currentuserId");
     const { showLists, showTags, showLocations } = this.state;
     return (
@@ -64,10 +64,10 @@ export default class DropDownMenu extends Component {
             return (
               <div className="left-nav-container">
                 <div className="left-nav-inbox-container">
-                  <div>
+                  <div className="flex-buttons">
                     <i
                       onClick={this.toggleInbox}
-                      className="fas fa-sort-down"
+                      className="fas fa-sort-down icons"
                     ></i>
                     {this.state.toggleInbox ? (
                       <Link to="/list/inbox">Inbox</Link>
@@ -79,7 +79,7 @@ export default class DropDownMenu extends Component {
                 </div>
                 <div className="left-nav-lists-container">
                   <div onClick={this.toggleList}>
-                    <i className="fas fa-sort-down"></i>
+                    <i className="fas fa-sort-down icons"></i>
                     Lists
                     <div className="lists-subcat">
                       {showLists ? (
@@ -94,7 +94,7 @@ export default class DropDownMenu extends Component {
                 </div>
                 <div className="left-nav-tags-container">
                   <div onClick={this.toggleTags}>
-                    <i className="fas fa-sort-down"></i>
+                    <i className="fas fa-sort-down icons"></i>
                     Tags
                     <div className="tags-subcat">
                       {showTags ? (
@@ -112,8 +112,8 @@ export default class DropDownMenu extends Component {
                   </div>
                 </div>
                 <div className="left-nav-locations-container">
-                  <div onClick={this.toggleLocations}>
-                    <i className="fas fa-sort-down"></i>
+                  {/* <div onClick={this.toggleLocations}> */}
+                  {/* <i className="fas fa-sort-down"></i>
                     Locations
                     <div className="locations-subcat">
                       {showLocations ? (
@@ -130,7 +130,7 @@ export default class DropDownMenu extends Component {
                         <div />
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             );
@@ -140,8 +140,5 @@ export default class DropDownMenu extends Component {
         }}
       </Query>
     );
-  }
-  render() {
-    return <div></div>;
   }
 }

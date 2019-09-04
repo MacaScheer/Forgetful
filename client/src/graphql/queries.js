@@ -12,11 +12,11 @@ export default {
         tasks {
           name
         }
-        tags{
+        tags {
           name
           _id
         }
-        lists{
+        lists {
           name
           _id
         }
@@ -41,9 +41,8 @@ export default {
     }
   `,
   SEARCH_RESULTS: gql`
-  query searchResult {
-    searchResults @client
-  }
+    query searchResult {
+      searchResults @client
+    }
   `
-
 };

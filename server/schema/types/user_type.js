@@ -19,6 +19,7 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     token: { type: GraphQLString },
     loggedIn: { type: GraphQLBoolean },
+    // locations: { type: GraphQLList },
     defaultListObjectId: { type: GraphQLString },
     tasks: {
       type: new GraphQLList(require("./task_type")),
@@ -28,17 +29,16 @@ const UserType = new GraphQLObjectType({
     },
     tags: {
       type: new GraphQLList(require("./tag_type")),
-    resolve(parentValue) {
-      return User.findTags(parentValue._id);
-    }
-  }, 
+      resolve(parentValue) {
+        return User.findTags(parentValue._id);
+      }
+    },
     lists: {
-    type: new GraphQLList(require("./list_type")),
-    resolve(parentValue) {
-      return User.findLists(parentValue._id);
+      type: new GraphQLList(require("./list_type")),
+      resolve(parentValue) {
+        return User.findLists(parentValue._id);
+      }
     }
-  } 
-  
   })
 });
 
