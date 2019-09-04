@@ -38,9 +38,9 @@ class TaskIndex extends React.Component {
     })
   }
 
+
   render() {
     const cid = localStorage.getItem("currentuserId")
-    // debugger
     return (
       <Query query={FETCH_USER} variables={{ Id: cid }}>
         {({ loading, error, data }) => {

@@ -66,6 +66,7 @@ class Greeting extends React.Component {
                       onClick={e => {
                         e.preventDefault();
                         localStorage.removeItem("auth-token");
+                        localStorage.removeItem("currentuserId");
                         client.writeData({ data: { isLoggedIn: false } });
                         this.props.history.push("/");
                       }}
