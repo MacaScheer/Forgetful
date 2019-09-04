@@ -58,14 +58,11 @@ class TaskIndex extends React.Component {
     };
     let fuse = new Fuse(modifiedData, options);
   
-    if (check) return fuse.search("never") // stuff 
-    debugger
+    if (check) return fuse.search("never")
     const result = input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
 
     return result;
   }
-
-  
 
   toggleDropdown() {
     const dropdown = document.getElementById("profile-dropdown");
@@ -121,13 +118,17 @@ class TaskIndex extends React.Component {
                         </div>
                         <div className="task-list-container">
                           <div className="task-list">
-                            {data.user.tasks.map((task, i) => (
-                              <div className="task-list-items" key={i}>
+                            {trigger
+                              ? this.runSearch(data.user).map((task, i) => (
                                 <div className="task-list-item" key={i}>
                                   <Taskline _id={task._id} name={task.name} />
                                 </div>
-                              </div>
-                            ))}
+                              ))
+                              : data.user.tasks.map((task, i) => (
+                                <div className="task-list-item" key={i}>
+                                  <Taskline _id={task._id} name={task.name} />
+                                </div>
+                              ))}
                           </div>
                         </div>
                       </div>
@@ -139,34 +140,13 @@ class TaskIndex extends React.Component {
                     <TaskSummary />
                   </div>
                 </div>
-              <div className="task-index">
-                <div className="task-index-container">
-                  <div className="create-task-wrapper">
-                    <CreateTask />
-                  </div>
-                  <div className="task-list-container">
-                    <div className="task-list">
-                      {trigger
-                        ? this.runSearch(data.user).map((task, i) => (
-                            <div className="task-list-item" key={i}>
-                              <Taskline _id={task._id} name={task.name} />
-                            </div>
-                          ))
-                        : data.user.tasks.map((task, i) => (
-                            <div className="task-list-item" key={i}>
-                              <Taskline _id={task._id} name={task.name} />
-                            </div>
-                          ))}
-                    </div>
-                  </div>
-                </div>
-                <TaskSummary />
               </div>
             );
           } else {
             return null;
           }
-        }}
+          }
+        }
       </Query>
     );
   }
