@@ -2,19 +2,20 @@ import React, { Component } from "react";
 import CreateModal from './CreateModal'
 import { Query } from 'react-apollo'
 import Queries from '../../graphql/queries'
-import '../stylesheets/tag_option.scss'
+import '../stylesheets/tag_and_list_option.scss'
 const { FETCH_USER } = Queries 
 
 export default class ListOption extends Component {
   constructor(props){
     super(props)
     this.state = {
-      objectId: "",
+      listId: "",
       name: "",
       render: false,
       type: "list"
     }
     this.toggleModal = this.toggleModal.bind(this);
+    this.updateState = this.updateState.bind(this);
   }
 
   toggleModal(e) {
@@ -24,6 +25,11 @@ export default class ListOption extends Component {
 
   renderModal() {
     return this.state.render ? <CreateModal type={this.state.type} /> : <div />
+  }
+  
+  updateState(e) {
+    e.preventDefault();
+    this.setState({ name: e.target.name, listId: e.target.value });
   }
 
   render() {
@@ -39,9 +45,15 @@ export default class ListOption extends Component {
                 <div className="task-list-container">
                   <div className="task-list">
                     {data.user.lists.map((list, i) => (
-                      <div className="task-list-item" key={i}>
+                      <button
+                        className="task-list-item"
+                        key={i}
+                        value={list._id}
+                        name={list.name}
+                        onClick={this.updateState}
+                      >
                         {list.name}
-                      </div>
+                      </button>
                     ))}
                   </div>
                   <button onClick={this.toggleModal}>Add List</button>

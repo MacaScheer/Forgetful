@@ -20,27 +20,20 @@ const mutation = new GraphQLObjectType({
     newTask: {
       type: TaskType,
       args: {
-
         name: { type: GraphQLString }, //required
         body: { type: GraphQLString }, //should be changed to required false
         due_date: { type: GraphQLString }, //should be changed to required false
-        start_date: { type: GraphQLString }, //should be changed to required false
-        priority: { type: GraphQLString },//should be changed to required false
+        priority: { type: GraphQLString }, //should be changed to required false
         repeat: { type: GraphQLString }, //not required
         location: { type: GraphQLString }, //not required
         tags: { type: GraphQLString },
-        list: { type: GraphQLString },
-
+        list: { type: GraphQLString }
       },
-      resolve(
-        _,
-        { name, body, due_date, start_date, priority, repeat, location, list }
-      ) {
+      resolve(_, { name, body, due_date, priority, repeat, location, list }) {
         return TaskService.checkTaskUniqueness({
           name,
           body,
           due_date,
-          start_date,
           priority,
           repeat,
           location,
@@ -50,6 +43,7 @@ const mutation = new GraphQLObjectType({
     },
     updateTask: {
       type: TaskType,
+
       args:{
         _id: {type: GraphQLID},
         name:{type: GraphQLString},
@@ -57,11 +51,12 @@ const mutation = new GraphQLObjectType({
         body: {type: GraphQLString}
       },
       resolve(_, args) {
-        console.log(args)
+     
         TaskService.updateTask(args)
         
        
       }
+
     },
     updateTaskList: {
       type: TaskType,
@@ -94,12 +89,12 @@ const mutation = new GraphQLObjectType({
       type: ListType,
       args: {
         name: { type: GraphQLString },
-        userId: {type: GraphQLID}
+        userId: { type: GraphQLID }
       },
       resolve(_, args) {
-        
-        return TaskService.checkListUniqueness(args)
-          .then(({ listId, userId }) => User.updateList(listId, userId))
+        return TaskService.checkListUniqueness(args).then(
+          ({ listId, userId }) => User.updateList(listId, userId)
+        );
         // return new List({ name }).save();
       }
     },
@@ -119,8 +114,9 @@ const mutation = new GraphQLObjectType({
         // tasks: { type: GraphQLList }
       },
       resolve(_, args) {
-        return TaskService.checkTagUniqueness(args)
-          .then(({ tagId, userId }) => User.updateTag(tagId, userId));
+        return TaskService.checkTagUniqueness(args).then(({ tagId, userId }) =>
+          User.updateTag(tagId, userId)
+        );
         // return new Tag({ name }).save();
       }
     },
@@ -171,10 +167,23 @@ const mutation = new GraphQLObjectType({
       }
     },
 
+    moveToTrash: { 
+      type: UserType,
+      args: {
+        userId: { type: GraphQLString },
+        taskId: { type: GraphQLString },
+        listId: { type: GraphQLString },
+        tagId: { type: GraphQLString}
+      },
+      resolve(_, args) {
+        return TaskService.moveToTrash(args)
+      }
+    },
+
     updateUser: {
       type: UserType,
       args: {
-        id: {type: GraphQLID},
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
         email: { type: GraphQLString },
         password: { type: GraphQLString }

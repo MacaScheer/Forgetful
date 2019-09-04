@@ -11,14 +11,24 @@ export default {
       user(_id: $Id) {
         tasks {
           name
+          due_date
         }
-        tags{
+        tags {
+          tasks {
+            name
+          }
           name
           _id
         }
-        lists{
+        lists {
           name
           _id
+          tasks {
+            name
+          }
+        }
+        trash{
+          name
         }
       }
     }
@@ -52,9 +62,8 @@ export default {
     }
   `,
   SEARCH_RESULTS: gql`
-  query searchResult {
-    searchResults @client
-  }
+    query searchResult {
+      searchResults @client
+    }
   `
-
 };

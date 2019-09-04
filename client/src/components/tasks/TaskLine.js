@@ -1,13 +1,10 @@
 import "../stylesheets/task_index.scss";
 import React from "react";
-import { Mutation } from "react-apollo";
-import Mutations from "../../graphql/mutations";
 import { Link } from "react-router-dom";
 
 class CheckLine extends React.Component {
   constructor(props) {
     super(props);
-    // debugger
     this.state = {
       hidden: true,
       completed: false
@@ -16,16 +13,14 @@ class CheckLine extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  handleChange() {
     this.setState({
       completed: !this.state.completed
     });
   }
 
-
-
-  renderDelete(){
-    return this.state.completed ? <button>Delete Task</button> : <div/>;
+  renderDelete() {
+    return this.state.completed ? <button>Delete Task</button> : <div />;
   }
 
   render() {

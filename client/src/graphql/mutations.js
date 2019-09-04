@@ -79,6 +79,7 @@ export default {
         name
       }
     }
+
   `,
   UPDATE_TASK_DUE_DATE: gql`
     mutation updateTask($id: ID, $due_date: String){
@@ -105,4 +106,6 @@ export default {
       }
       `
   
+    
+
 };
