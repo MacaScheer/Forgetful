@@ -1,10 +1,40 @@
 @import "variables";
 
+.task-index {
+  width: 50%;
+}
+
+.task-index-container {
+  width: 100%;
+  border: 1px solid black;
+  // margin: 0 auto;
+  // background: red;
+  margin-top: -100px;
+
+  .create-task-wrapper {
+    width: 100%;
+    // background: yellow;
+    height: 100px;
+  }
+
+  .task-list-container {
+    width: 100%;
+    align-content: left;
+  }
+}
+
 .create-task-container{
   position: absolute;
-  top: 200px;
-  left: 200px;
-  border: 1px solid black;
-  padding: 50px;
-  border-radius: 8px;
+  top: 90px;
+  left: 250px;
+
+  .create-task-form {
+    height: 100%;
+    width: 100%;
+
+    .create-task-input {
+      background: blue;
+      width: 100%;
+    }
+  }
 }

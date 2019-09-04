@@ -26,6 +26,12 @@ const UserSchema = new Schema({
       ref: "tasks"
     }
   ],
+  trash: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "tasks"
+    }
+  ],
   lists: [
     {
       type: Schema.Types.ObjectId,
@@ -41,7 +47,12 @@ const UserSchema = new Schema({
   defaultListObjectId: {
     type: String,
     required: true
-  }
+  },
+  locations: [
+    {
+      type: String
+    }
+  ]
 });
 UserSchema.statics.findTasks = userId => {
   const User = mongoose.model("users");
@@ -70,7 +81,7 @@ UserSchema.statics.updateList = async (listId, userId) => {
     user.lists.push(listId);
     user.save();
   });
-}
+};
 
 UserSchema.statics.updateTag = async (tagId, userId) => {
   const List = mongoose.model("lists");
@@ -80,5 +91,5 @@ UserSchema.statics.updateTag = async (tagId, userId) => {
     user.tags.push(tagId);
     user.save();
   });
-}
+};
 module.exports = mongoose.model("users", UserSchema);

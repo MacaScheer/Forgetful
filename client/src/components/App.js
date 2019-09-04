@@ -15,13 +15,10 @@ const App = () => {
   return (
     <div>
       <Nav />
-      <Route exact path='/options1' component={TagOption} />
-      <Route exact path='/options2' component={ListOption} />
-      
+      <Route path="/all" component={TaskIndex}/>
       <Route exact path="/tasks" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
-      <Route component={SearchBar} />
-      <Route path="/tasks/:id" component={TaskShow} />
+      
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
         <AuthRoute exact path="/signup" component={Signup} routeType="auth" />
