@@ -73,11 +73,39 @@ export default {
     }
   `,
   UPDATE_TASK_NAME: gql`
-    mutation updateTask($id: ID, $name: String){
-      updateTask(id: $id, name: $name){
-        id
+    mutation updateTask($_id: ID, $name: String){
+      updateTask(_id: $_id, name: $name){
+        _id
         name
       }
     }
-    `
+
+  `,
+  UPDATE_TASK_DUE_DATE: gql`
+    mutation updateTask($id: ID, $due_date: String){
+      updateTask(_id: $id, due_date: $due_date){
+        _id
+        due_date
+      }
+    }
+    `,
+    UPDATE_TASK_BODY: gql`
+      mutation updateTaskbody($id: ID, $body: String){
+        updateTask(_id: $id, body: $body){
+          _id
+          body
+        }
+      }
+      `,
+    UPDATE_TASK_PRIORITY: gql`
+      mutation updateTaskbody($id: ID, $priority: String){
+        updateTask(_id: $id, priority: $prioirity){
+          _id
+          priority
+        }
+      }
+      `
+  
+    
+
 };
