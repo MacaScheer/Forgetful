@@ -10,6 +10,7 @@ import CreateTask from './tasks/CreateTask'
 import TagOption from "./tasks/TagOption";
 import ListOption from "./tasks/ListOption";
 import SearchBar from "./navbar/SearchBar";
+import TaskShow from "./tasks/TaskShow"
 
 const App = () => {
   return (
@@ -18,10 +19,10 @@ const App = () => {
       <Route exact path='/options1' component={TagOption} />
       <Route exact path='/options2' component={ListOption} />
       
+      <Route exact path="/tasks/:id" component={TaskShow} />
       <Route exact path="/tasks" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
-      <Route component={SearchBar} />
-      <Route path="/tasks/:id" component={TaskShow} />
+      {/* <Route component={SearchBar} /> */}
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
         <AuthRoute exact path="/signup" component={Signup} routeType="auth" />
