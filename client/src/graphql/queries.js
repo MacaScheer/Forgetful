@@ -50,6 +50,17 @@ export default {
       }
     }
   `,
+  FETCH_TASK: gql`
+    query FetchTask($Id: ID!){
+      task(_id: $Id){
+        _id
+        name
+        due_date
+        body
+        start_date
+      }
+    }
+  `,
   SEARCH_RESULTS: gql`
     query searchResult {
       searchResults @client

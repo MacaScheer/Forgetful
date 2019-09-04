@@ -128,9 +128,31 @@ const moveToTrash = async data => {
   }
 };
 
+const updateTask = async data => {
+  try {
+    const { _id, name, due_date, body } = data
+    // console.log(_id)
+    const existingTask = await Task.findById(_id);
+
+    await name !== null ? existingTask.name = name : null;
+    await due_date !== null ? existingTask.due_date = due_date : null;
+    await body !== null ? existingTask.body = body : null
+    // console.log(name)
+    existingTask.save()
+    return existingTask
+    
+  } catch (err) {
+    throw err
+  }
+}
+
 module.exports = {
   checkTaskUniqueness,
   checkTagUniqueness,
   checkListUniqueness,
+
+  updateTask
+
   moveToTrash
+
 };

@@ -1,16 +1,14 @@
 import React from "react";
 import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
-import { IconContext } from "react-icons";
-import { FaPencilAlt } from "react-icons/fa";
 import "../stylesheets/showpage_css.scss";
-import Mutations from "../../graphql/mutations";
+import mutations from "../../graphql/mutations";
+
+const { UPDATE_TASK_PRIORITY } = mutations;
 // import UPDATE_TASK_NAME from "../../graphql/mutations";
 
-const {UPDATE_TASK_NAME} = Mutations;
 
-class NameDetail extends React.Component {
-    constructor(props){
+class PriorityDetail extends React.Component {
+    constructor(props) {
         super(props);
         // debugger;
         this.state = {
@@ -24,26 +22,26 @@ class NameDetail extends React.Component {
 
     handleEdit(e) {
         e.preventDefault();
-        this.setState({editing:true});
+        this.setState({ editing: true });
     }
 
-    fieldUpdate(field){
-        return e => this.setState({[field]: e.target.value});
+    fieldUpdate(field) {
+        return e => this.setState({ [field]: e.target.value });
     }
-    
+
     render() {
         // debugger;
-        if (this.state.editing){
-            return(
-                <Mutation mutation={UPDATE_TASK_NAME}>
+        if (this.state.editing) {
+            return (
+                <Mutation mutation={UPDATE_TASK_PRIORITY}>
                     {(updateTask) => (
                         <div>
                             <form
                                 onSubmit={e => {
                                     e.preventDefault();
                                     updateTask({
-                                        variables: {_id: this.props.id, name: this.state.name}
-                                    }).then(() => this.setState({editing: false}));
+                                        variables: { _id: this.props.id, name: this.state.name }
+                                    }).then(this.setState({ editing: false }));
                                 }}
                             >
                                 <input
@@ -57,17 +55,10 @@ class NameDetail extends React.Component {
                 </Mutation>
             );
         }
-         else {
+        else {
             return (
                 <div className="show-task-name">
-                    {/* <div 
-                        onClick={this.handleEdit}
-                        style={{ fontSize: "10px", cursor: "pointer", display: "inline"}}
-                    >
-                        <IconContext.Provider value={{ className: "custom-icon" }}>
-                            <FaPencilAlt />
-                        </IconContext.Provider>
-                    </div> */}
+                    
                     <p onClick={this.handleEdit}>
                         {this.state.name}
                     </p>
@@ -78,4 +69,4 @@ class NameDetail extends React.Component {
     }
 }
 
-export default NameDetail;
+export default PriorityDetail;
