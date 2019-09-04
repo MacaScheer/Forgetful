@@ -6,8 +6,6 @@ import "../stylesheets/create_task.scss";
 import TagOption from "./TagOption";
 import ListOption from "./ListOption";
 const { ALL_TASKS } = Queries;
-
-// const fontAwesome = require('react-fontawesome')
 const { CREATE_TASK } = Mutations;
 
 class CreateTask extends React.Component {
@@ -15,10 +13,22 @@ class CreateTask extends React.Component {
     super(props);
     this.state = {
       input: "",
+      listId: "",
+      tagId: "",
+      start: "",
       message: ""
     };
     this.renderTools = this.renderTools.bind(this);
     this.inputChar = this.inputChar.bind(this);
+    this.stateBinder = this.stateBinder.bind(this);
+    this.renderLists = this.renderLists.bind(this);
+    this.renderButton = this.renderButton.bind(this);
+
+
+  }
+
+  stateBinder(key, value) {
+    this.setState({key: value})
   }
 
   tools() {
@@ -28,15 +38,6 @@ class CreateTask extends React.Component {
           <i className="fas fa-calendar" value="^" />
         </button>{" "}
         {/* duedate*/}
-        {/* <button onClick={this.inputChar} value="~">
-          b
-        </button> */}
-        {/* startdate*/}
-        {/* <button onClick={this.inputChar} value="!">c</button> */}
-        {/* <button onClick={this.inputChar} value="#">
-          d
-        </button> */}
-        {/* priority */}
         <button onClick={this.inputChar} value="*">
           <i className="fas fa-list" value="*" />
         </button>
@@ -52,19 +53,26 @@ class CreateTask extends React.Component {
   renderTools() {
     return this.state.input.length > 0 ? this.tools() : <div />;
   }
+  renderButton() {
+    
+    return this.state.input.length > 0 ? <button className="create-task-button">Add Task</button>: <div />;
+  }
   renderLists() {
-    switch (this.state.input.last) {
+    const iArr = this.state.input.split("");
+    const lastIndex = iArr.length - 1
+    const lastChar = iArr[lastIndex];
+    
+    switch (lastChar) {
       case "*":
-        return <ListOption />;
+        return <ListOption stateBinder={this.stateBinder}/>;
       case "@":
-        return <TagOption />;
+        return <TagOption stateBinder={this.stateBinder}/>;
       default:
         return <div />;
     }
   }
 
   inputChar(e) {
-    // debugger
     e.preventDefault();
     this.setState({ input: this.state.input.concat(e.currentTarget.value) });
   }
@@ -112,10 +120,11 @@ class CreateTask extends React.Component {
                 className="create-task-input"
                 onChange={this.update("input")}
                 value={this.state.input}
+                placeholder="Add a task..."
               />
               {this.renderTools()}
               {this.renderLists()}
-              <button className="create-task-button">Add Task</button>
+              {this.renderButton()}
             </form>
           </div>
         )}

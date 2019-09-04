@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CreateModal from './CreateModal'
 import {Query} from 'react-apollo'
 import Queries from '../../graphql/queries'
-import '../stylesheets/tag_option.scss'
+import '../stylesheets/tag_and_list_option.scss'
 
 const { FETCH_USER} = Queries 
 export default class TagOption extends Component {
@@ -31,7 +31,6 @@ export default class TagOption extends Component {
     return (
       <Query query={FETCH_USER} variables={{ Id: cid }}>
         {({ loading, error, data }) => {
-          // debugger
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           if (data.user.tags) {
