@@ -47,12 +47,12 @@ const UserSchema = new Schema({
   defaultListObjectId: {
     type: String,
     required: true
-  },
-  locations: [
-    {
-      type: String
-    }
-  ]
+  }
+  // locations: [
+  //   {
+  //     type: String
+  //   }
+  // ]
 });
 UserSchema.statics.findTasks = userId => {
   const User = mongoose.model("users");

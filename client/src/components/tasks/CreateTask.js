@@ -35,15 +35,15 @@ class CreateTask extends React.Component {
     return (
       <div>
         <button onClick={this.inputChar} value="^">
-          <i className="fas fa-calendar" value="^" />
+          <i className="fas fa-calendar icons" value="^" />
         </button>{" "}
         {/* duedate*/}
         <button onClick={this.inputChar} value="*">
-          <i className="fas fa-list" value="*" />
+          <i className="fas fa-list icons" value="*" />
         </button>
         {/* list */}
         <button onClick={this.inputChar} value="@">
-          <i className="fas fa-tags" value="@" />
+          <i className="fas fa-tags icons" value="@" />
         </button>
         {/* tag */}
       </div>

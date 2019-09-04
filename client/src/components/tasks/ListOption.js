@@ -28,18 +28,15 @@ export default class ListOption extends Component {
   }
   
   updateState(e) {
-    debugger
     e.preventDefault();
     this.setState({ name: e.target.name, listId: e.target.value });
   }
 
   render() {
     const cid = localStorage.getItem("currentuserId");
-    debugger
     return (
       <Query query={FETCH_USER} variables={{ Id: cid }}>
         {({ loading, error, data }) => {
-          debugger
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           if (data.user.lists) {
