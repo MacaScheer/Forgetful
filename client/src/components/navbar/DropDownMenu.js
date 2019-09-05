@@ -27,7 +27,7 @@ export default class DropDownMenu extends Component {
 
   toggleList(e) {
     e.preventDefault();
-    this.setState({ showList: !this.state.showList });
+    this.setState({ showLists: !this.state.showLists });
   }
 
   toggleTags(e) {
@@ -47,7 +47,7 @@ export default class DropDownMenu extends Component {
           <Link to="/today">Today </Link>
           <Link to="/tomorrow">Tomorrow </Link>
           <Link to="/thisweek">This Week</Link>
-          <Link to="/trash">Trash</Link>
+          <Link to="/trash/trash">Trash</Link>
         </div>
       );
     }
@@ -82,45 +82,47 @@ export default class DropDownMenu extends Component {
                   <div onClick={this.toggleList}>
                     <i className="fas fa-sort-down icons"></i>
                     Lists
-                    <div className="lists-subcat">
-                      {showLists ? (
-                        data.user.lists.map(list => (
-                          <Link to={`lists/${list.name}`}>{list.name}</Link>
-                        ))
-                      ) : (
-                        <div />
-                      )}
-                    </div>
+                  </div>
+                  <div className="lists-subcat">
+                    {showLists ? (
+                      data.user.lists.map((list, i) => (
+                        <Link to={`/lists/${list.name}`} key={i}>
+                          {list.name}
+                        </Link>
+                      ))
+                    ) : (
+                      <div />
+                    )}
                   </div>
                 </div>
                 <div className="left-nav-tags-container">
                   <div onClick={this.toggleTags}>
                     <i className="fas fa-sort-down icons"></i>
                     Tags
-                    <div className="tags-subcat">
-                      {showTags ? (
-                        data.user.tags.length !== 0 ? (
-                          data.user.tags.map(tag => (
-                            <Link to={`tags/${tag.name}`}>{tag.name}</Link>
-                          ))
-                        ) : (
-                          <div />
-                        )
+                  </div>
+                  <div className="tags-subcat">
+                    {showTags ? (
+                      data.user.tags.length !== 0 ? (
+                        data.user.tags.map(tag => (
+                          <Link to={`/tags/${tag.name}`}>{tag.name}</Link>
+                        ))
                       ) : (
                         <div />
-                      )}
-                    </div>
+                      )
+                    ) : (
+                      <div />
+                    )}
                   </div>
                 </div>
                 <div className="left-nav-locations-container">
-                  {/* <div onClick={this.toggleLocations}> */}
-                  {/* <i className="fas fa-sort-down"></i>
+                  <div onClick={this.toggleLocations}>
+                    <i className="fas fa-sort-down"></i>
                     Locations
                     <div className="locations-subcat">
                       {showLocations ? (
                         data.user.locations.length !== 0 ? (
                           data.user.locations.map(location => (
-                            <Link to={`locations/${location.name}`}>
+                            <Link to={`/locations/${location.name}`}>
                               {location.name}
                             </Link>
                           ))
@@ -131,7 +133,7 @@ export default class DropDownMenu extends Component {
                         <div />
                       )}
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               </div>
             );

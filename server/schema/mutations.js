@@ -2,17 +2,20 @@ const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
 const mongoose = require("mongoose");
 require("../models/index");
-const UserType = require("./types/user_type");
 const User = mongoose.model("users");
-const TaskType = require("./types/task_type");
 const Task = mongoose.model("tasks");
-const ListType = require("./types/list_type");
 const List = mongoose.model("lists");
-const TagType = require("./types/tag_type");
 const Tag = mongoose.model("tags");
+const Location = mongoose.model("locations");
 
+const UserType = require("./types/user_type");
+const TaskType = require("./types/task_type");
+const ListType = require("./types/list_type");
+const TagType = require("./types/tag_type");
+const LocationType = require('./types/location_type')
 const TaskService = require("../services/taskService");
 const AuthService = require("../services/auth");
+const LocationService = require("../services/locationService")
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -44,19 +47,15 @@ const mutation = new GraphQLObjectType({
     updateTask: {
       type: TaskType,
 
-      args:{
-        _id: {type: GraphQLID},
-        name:{type: GraphQLString},
-        due_date: {type: GraphQLString},
-        body: {type: GraphQLString}
+      args: {
+        _id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        due_date: { type: GraphQLString },
+        body: { type: GraphQLString }
       },
       resolve(_, args) {
-     
-        TaskService.updateTask(args)
-        
-       
+        TaskService.updateTask(args);
       }
-
     },
     updateTaskList: {
       type: TaskType,
@@ -120,6 +119,23 @@ const mutation = new GraphQLObjectType({
         // return new Tag({ name }).save();
       }
     },
+    newLocation: {
+      type: LocationType,
+      args: {
+        name: { type: GraphQLString },
+        userId: { type: GraphQLID }
+      },
+      resolve(_, args) {
+        return LocationService.checkAndCreate(args);
+      }
+    },
+    deleteLocation: {
+      type: LocationType,
+      args: { _id: { type: GraphQLID } },
+      resolve(_, { _id }) {
+        return Location.remove({ _id });
+      }
+    },
     deleteTag: {
       type: TagType,
       args: { _id: { type: GraphQLID } },
@@ -167,16 +183,17 @@ const mutation = new GraphQLObjectType({
       }
     },
 
-    moveToTrash: { 
+    moveToTrash: {
       type: UserType,
       args: {
         userId: { type: GraphQLString },
         taskId: { type: GraphQLString },
         listId: { type: GraphQLString },
-        tagId: { type: GraphQLString}
+        tagId: { type: GraphQLString },
+        locationId: { type: GraphQLString }
       },
       resolve(_, args) {
-        return TaskService.moveToTrash(args)
+        return TaskService.moveToTrash(args);
       }
     },
 

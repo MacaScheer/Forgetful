@@ -103,7 +103,6 @@ class TaskIndex extends React.Component {
 
     // result = fuse.search(tomDATE)
 
-    result = input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;
   }
 
