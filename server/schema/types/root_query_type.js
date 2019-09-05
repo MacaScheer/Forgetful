@@ -7,11 +7,13 @@ const UserType = require("./user_type");
 const ListType = require("./list_type");
 const TaskType = require("./task_type");
 const TagType = require("./tag_type");
+const LocationType = require('./location_type');
 
 const User = mongoose.model("users");
 const Tag = mongoose.model("tags");
 const List = mongoose.model("lists");
 const Task = mongoose.model("tasks");
+const Location = mongoose.model("locations")
 
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",

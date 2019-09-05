@@ -6,13 +6,10 @@ export default class DateOption extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: "",
-      showDatePicker: false
+      date: ""
     };
     this.updateDate = this.updateDate.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.toggleDatePicker = this.toggleDatePicker.bind(this);
-    this.formatDate = this.formatDate.bind(this);
   }
 
   updateDate(e) {
@@ -20,17 +17,8 @@ export default class DateOption extends Component {
     this.setState({ date: e.target.value });
   }
 
-  toggleDatePicker(e) {
-    e.preventDefault();
-    this.setState({ showDatePicker: !this.state.showDatePicker });
-  }
-
-  formatDate(dateObj) {
-    return dateObj.toDateString();
-  }
-
   handleChange = date => {
-    let newDate = this.formatDate(date);
+    let newDate = date.toDateString();
     this.setState({
       date: newDate
     });
@@ -41,6 +29,7 @@ export default class DateOption extends Component {
     let dateString = dateObj.toDateString();
     let dayARR = dateString.split(" ");
     let dayINT = parseInt(dayARR[2]);
+
     let todayFullString = dateObj.toDateString();
 
     dateObj.setDate(dayINT + 1);
@@ -61,7 +50,7 @@ export default class DateOption extends Component {
 
     return (
       <div className="date-option-container">
-        <label>{typeof(this.state.date) === 'object' ? this.formatDate(this.state.date) : this.state.date}</label>
+        <div>{this.state.date}</div>
         <button onClick={this.updateDate} value={todayFullString}>
           Today
         </button>
@@ -80,18 +69,10 @@ export default class DateOption extends Component {
         <button onClick={this.updateDate} value={"never"}>
           Never
         </button>
-        <button onClick={this.toggleDatePicker}>Select Date</button>
-        <div className="date-picker">
-          {this.state.showDatePicker ? (
-            <DatePicker
-              // selected={this.state.date}
-              // onSelect={this.handleChange}
-              onChange={this.handleChange}
-            />
-          ) : (
-            <div />
-          )}
-        </div>
+        <label className="date-picker">
+          Select Date
+          <DatePicker selected={this.state.date} onChange={this.handleChange} />
+        </label>
       </div>
     );
   }

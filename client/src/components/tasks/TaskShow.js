@@ -12,8 +12,6 @@ import LocationDetail from "../details/LocationDetail";
 const {FETCH_TASK} = queries;
 
 const TaskShow = props => {
-        // debugger;
-        // debugger;
         return(
             <Query query={FETCH_TASK} variables={{Id: props.match.params.id}}>
                 {({loading, error, data}) => {
@@ -21,7 +19,6 @@ const TaskShow = props => {
                 if (error) return <p> {error} </p>;
                     
     
-                // debugger;
                 return (
                 <div className="task-show-container">
                     <div className="task-show-content">

@@ -30,6 +30,9 @@ export default {
         trash{
           name
         }
+        locations{
+          name
+        }
       }
     }
   `,

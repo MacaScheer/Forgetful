@@ -30,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.11",
     "nodemon": "^1.19.1",
+    "react-datepicker": "^2.9.6",
     "validator": "^11.1.0"
   }
 }

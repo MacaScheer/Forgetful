@@ -43,6 +43,12 @@ const UserType = new GraphQLObjectType({
       resolve(parentValue) {
         return User.findTrash(parentValue._id);
       }
+    },
+    locations: {
+      type: new GraphQLList(require('./location_type')),
+      resolve(parentValue) {
+        return User.findLocations(parentValue._id)
+      }
     }
   })
 });

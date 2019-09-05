@@ -16,6 +16,10 @@ const TaskSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "lists"
   },
+  location: {
+    type: Schema.Types.ObjectId,
+    ref: 'locations'
+  },
   name: {
     type: String,
     required: true
@@ -33,9 +37,6 @@ const TaskSchema = new Schema({
     type: String,
   },
   repeat: {
-    type: String
-  },
-  location: {
     type: String
   }
 });

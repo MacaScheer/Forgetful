@@ -4,7 +4,7 @@ const Task = mongoose.model("tasks");
 const Tag = mongoose.model("tags");
 const List = mongoose.model("lists");
 const User = mongoose.model("users");
-
+const Location = mongoose.model("locations");
 // const graphql = require("graphql");
 // const { GraphQLList } = graphql;
 
@@ -30,7 +30,7 @@ const checkTaskUniqueness = async data => {
     // const newlist = await List.findById("5d6fe15de82b4832bb6b9f1d")
     console.log(newuser);
     // console.log(newlist)
-    if (existingTask) throw new Error("This task already exists");
+    // if (existingTask) throw new Error("This task already exists");
 
     if (!due_date) due_date = "never";
     if (!start_date) start_date = today;
@@ -58,7 +58,7 @@ const checkTaskUniqueness = async data => {
     // newlist.save()
     // newuser.save()
     task.save();
-    return task._id;
+    return {...task._doc};
   } catch (err) {
     throw err;
   }
@@ -67,14 +67,19 @@ const checkTaskUniqueness = async data => {
 const checkTagUniqueness = async data => {
   try {
     const { name, userId } = data;
-    const existingTag = await Tag.findOne({ name });
-    if (existingTag) throw new Error("This tag already exists");
+  const user = await User.findById(userId);
+  const tag = await new Tag({ name, userId });
+  const tagId = await tag._id;
+  const existingtags = await Tag.find({ name: name });
+  existingtags.forEach(tag => {
+    if (user.tags.includes(tag._id))
+      throw new Error("This user already has this tag!");
+  });
 
-    const tag = await new Tag({ name, userId });
-    tag.save();
-    tagId = tag._id;
-
-    return { tagId, userId };
+  user.tags.push(tagId);
+  user.save();
+  tag.save();
+    return { ...tag._doc};
   } catch (err) {
     throw err;
   }
@@ -83,17 +88,19 @@ const checkTagUniqueness = async data => {
 const checkListUniqueness = async data => {
   try {
     const { name, userId } = data;
-    const existingList = await List.findOne({ name });
-
-    if (existingList) throw new Error("This list already exists");
-
+    const user = await User.findById(userId);
     const list = await new List({ name, userId });
+    const listId = await list._id;
+    const existinglists = await List.find({ name: name });
+    existinglists.forEach(list => {
+      if (user.lists.includes(list._id))
+        throw new Error("This user already has this list!");
+    });
 
-    // User.findByIdAndUpdate({ _id: userId }, { lists: })
-    list.save();
-    listId = list._id;
-    // console.log(listId)
-    return { listId, userId };
+    user.lists.push(listId);
+    user.save();
+    location.save();
+    return { ...list._doc };
   } catch (err) {
     throw err;
   }
@@ -101,31 +108,32 @@ const checkListUniqueness = async data => {
 
 const moveToTrash = async data => {
   try {
-    const { userId, taskId, listId, tagId } = data;
+    const { userId, taskId, listId, tagId, locationId } = data;
     const user = await User.findById(userId);
 
     const list = await List.findById(listId);
 
     const tag = await Tag.findById(tagId);
 
+    const location = await Location.findById(locationId);
+
     await user.tasks.pull(taskId);
     (await list) !== null ? list.tasks.pull(taskId) : null;
     (await tag) !== null ? tag.tasks.pull(taskId) : null;
+    (await locations) !== null ? location.tasks.pull(taksId) : null;
 
-    // await user.lists.forEach((list) => list.tasks.remove({ id: taskId }));
-    // await user.tags.forEacH(tag => tag.tasks.remove({ id: taskId }));
-    // console.log(arrayofTasks);
     user.trash.push(taskId);
     user.save();
     list.save();
 
-    return user;
+    return {...user._doc};
   } catch (err) {
     throw err;
   }
 };
 
 const updateTask = async data => {
+
   // try {
   //   const { _id, name, due_date, body } = data
   //   // console.log(_id)

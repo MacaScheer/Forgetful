@@ -47,12 +47,13 @@ const UserSchema = new Schema({
   defaultListObjectId: {
     type: String,
     required: true
-  }
-  // locations: [
-  //   {
-  //     type: String
-  //   }
-  // ]
+  },
+  locations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "locations"
+    }
+  ]
 });
 UserSchema.statics.findTasks = userId => {
   const User = mongoose.model("users");
@@ -77,6 +78,12 @@ UserSchema.statics.findTrash = userId => {
   return User.findById(userId)
     .populate("trash")
     .then(res => res.trash);
+};
+UserSchema.statics.findLocations = userId => {
+  const User = mongoose.model("users");
+  return User.findById(userId)
+    .populate("locations")
+    .then(res => res.locations);
 };
 
 UserSchema.statics.updateList = async (listId, userId) => {
