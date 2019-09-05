@@ -82,29 +82,48 @@ export default {
 
   `,
   UPDATE_TASK_DUE_DATE: gql`
-    mutation updateTask($id: ID, $due_date: String){
-      updateTask(_id: $id, due_date: $due_date){
+    mutation updateTask($_id: ID, $due_date: String){
+      updateTask(_id: $_id, due_date: $due_date){
         _id
         due_date
       }
     }
     `,
     UPDATE_TASK_BODY: gql`
-      mutation updateTaskbody($id: ID, $body: String){
-        updateTask(_id: $id, body: $body){
+      mutation updateTaskbody($_id: ID, $body: String){
+        updateTask(_id: $_id, body: $body){
           _id
           body
         }
       }
       `,
     UPDATE_TASK_PRIORITY: gql`
-      mutation updateTaskbody($id: ID, $priority: String){
-        updateTask(_id: $id, priority: $prioirity){
+      mutation updateTask($_id: ID, $priority: String){
+        updateTask(_id: $_id, priority: $priority){
           _id
           priority
         }
       }
-      `
+    `,
+    UPDATE_TASK_REPEAT: gql`
+      mutation updateTask($_id: ID, $repeat: String){
+        updateTask(_id: $_id, repeat: $repeat){
+          _id
+          repeat
+        }
+      }
+    `,
+    UPDATE_TASK_LOCATION: gql`
+      mutation updateTask($_id: ID, $location: String){
+        updateTask(_id: $_id, location: $location){
+          _id
+          location
+        }
+      }
+    `,
+    
+      
+   
   
     
 

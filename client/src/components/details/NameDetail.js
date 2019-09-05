@@ -69,7 +69,7 @@ class NameDetail extends React.Component {
                         </IconContext.Provider>
                     </div> */}
                     <p onClick={this.handleEdit}>
-                        {this.state.name}
+                        Name: {this.state.name}
                     </p>
                     {/* <h2>Name: {this.state.name}</h2> */}
                 </div>
