@@ -25,7 +25,7 @@ const checkTaskUniqueness = async data => {
     } = data;
 
     const existingTask = await Task.findOne({ name });
-    // let today = new Date();
+    let today = new Date();
     const newuser = await User.findById("5d6fe15de82b4832bb6b9f20");
     // const newlist = await List.findById("5d6fe15de82b4832bb6b9f1d")
     console.log(newuser);
