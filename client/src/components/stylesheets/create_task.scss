@@ -6,6 +6,7 @@
   top: 0;
   height: 100%;
   width: 100%;
+  background: $lightblue;
 }
 .create-task-wrapper {
   position: relative;
@@ -17,7 +18,6 @@
 }
 
 .task-index-page {
-  top: 93px;
   display: flex;
   flex-direction: column;
 }
@@ -58,19 +58,39 @@
   z-index: 0;
   right: 0;
   height: 100%;
-  width: 40%;
+  width: 38%;
   position: absolute;
-  top: 93px;
+  top: 67px;
+  width: 38%;
 }
 
 .tasks-container {
   z-index: 1;
   left: 150px;
-  top: 100px;
-  width: 50%;
+  top: 67px;
+  width: 700px;
   position: absolute;
 }
 
 .hide {
   display: none;
+}
+
+@media screen and (max-width: 900px) {
+  .task-show-container {
+    display: none;
+  }
+
+  .tasks-container {
+    max-width: 700px;
+    left: 12px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .tasks-container {
+    width: 100%;
+    left: 0;
+    top: 50px;
+  }
 }

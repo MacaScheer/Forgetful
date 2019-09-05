@@ -8,34 +8,56 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDropdown: true
-    }
-    this.toggleDropdown = this.toggleDropdown.bind(this)
+      showDropdown: false
+    };
+    this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
   toggleDropdown(e) {
     e.preventDefault();
-    this.setState({ showDropdown: !this.state.showDropdown });
+    const container = document.getElementById("st-container");
+
+    this.setState({
+      showDropdown: !this.state.showDropdown
+    });
+
+    if (!this.state.showDropdown) {
+      container.classList.remove("slide");
+      container.classList.add("new-slide");
+    } else {
+      container.classList.remove("new-slide");
+      container.classList.add("slide");
+    }
   }
 
   render() {
-    const { showDropdown } = this.state;
     return (
       <div className="toolbar">
         <nav className="toolbar__navigation">
-          <button onClick={this.toggleDropdown}>All Tasks </button>
-          <div />
-          <div className="toolbar__logo">
-            <a href="/">ICON</a>
+          <div className="menu-wrap">
+            <div className="st-container">
+              <div id="st-trigger-effects">
+                <button
+                  onClick={this.toggleDropdown}
+                  className="all-tasks-button"
+                  data-effect="st-effect-13"
+                >
+                  <div className="hamburger">
+                    <div></div>
+                  </div>
+                  <p>All Tasks</p>{" "}
+                </button>
+              </div>
+            </div>
+            <div />
           </div>
-
-          {/* <SearchBar queryString={this.state.queryString}/> */}
+          <SearchBar queryString={this.state.queryString} />
           <div className="spacer" />
           <div className="toolbar-navigation-items">
             <Greeting />
           </div>
         </nav>
-        {showDropdown ? <DropDownMenu /> : <div />}
+        <DropDownMenu />
       </div>
     );
   }

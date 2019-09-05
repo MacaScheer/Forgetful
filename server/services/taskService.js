@@ -168,8 +168,6 @@ module.exports = {
   checkTaskUniqueness,
   checkTagUniqueness,
   checkListUniqueness,
-
   updateTask,
-
   moveToTrash
 };
