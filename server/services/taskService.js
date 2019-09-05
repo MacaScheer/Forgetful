@@ -25,7 +25,7 @@ const checkTaskUniqueness = async data => {
     } = data;
 
     const existingTask = await Task.findOne({ name });
-    // let today = new Date();
+    let today = new Date();
     const newuser = await User.findById("5d6fe15de82b4832bb6b9f20");
     // const newlist = await List.findById("5d6fe15de82b4832bb6b9f1d")
     console.log(newuser);
@@ -104,23 +104,20 @@ const moveToTrash = async data => {
     const { userId, taskId, listId, tagId } = data;
     const user = await User.findById(userId);
 
-   
-      const list = await List.findById(listId);
-    
-    
-      const tag = await Tag.findById(tagId);
-    
-    
+    const list = await List.findById(listId);
+
+    const tag = await Tag.findById(tagId);
+
     await user.tasks.pull(taskId);
-    await list !== null ? list.tasks.pull(taskId) : null
-    await tag !== null ? tag.tasks.pull(taskId) : null
+    (await list) !== null ? list.tasks.pull(taskId) : null;
+    (await tag) !== null ? tag.tasks.pull(taskId) : null;
 
     // await user.lists.forEach((list) => list.tasks.remove({ id: taskId }));
     // await user.tags.forEacH(tag => tag.tasks.remove({ id: taskId }));
     // console.log(arrayofTasks);
     user.trash.push(taskId);
-    user.save()
-    list.save()
+    user.save();
+    list.save();
 
     return user;
   } catch (err) {
@@ -166,6 +163,7 @@ const updateTask = async data => {
   );
 }
 
+
 module.exports = {
   checkTaskUniqueness,
   checkTagUniqueness,
@@ -174,5 +172,4 @@ module.exports = {
   updateTask,
 
   moveToTrash
-
 };

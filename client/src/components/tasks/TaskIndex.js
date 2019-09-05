@@ -22,7 +22,8 @@ class TaskIndex extends React.Component {
       input = URLArray[1];
     } else {
       input = URLArray[0];
-      URLArray[0] === "trash" ? (key = "trash") : (key = "due_date");
+      // URLArray[0] === "trash" ? (key = "trash") : (key = "due_date");
+      URLArray[0] === "trash" ? (key = "trash") : (key = "start_date");
     }
     const trigger = URLArray[0] === "all" ? false : true;
     this.state = {
@@ -32,7 +33,6 @@ class TaskIndex extends React.Component {
       input: input,
       trigger: trigger,
       urlLength: URLArray.length
-      
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -57,10 +57,53 @@ class TaskIndex extends React.Component {
       minMatchCharLength: 1
     };
     let fuse = new Fuse(modifiedData, options);
+
   
     if (check) return fuse.search("never")
     const result = input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
 
+
+    // if (check) return fuse.search("never"); // stuff
+    // let result;
+    // if (check) {
+    //   let today = new Date();
+
+    //   let today = new Date();
+    //   let todayString = today.toDateString();
+    //   let dayARR = todayString.split(" ");
+    //   let weekDayString = dayARR[0];
+    //   let dayINT = parseInt(dayARR[2])
+    //   let tomINT = dayINT + 1
+    //   let nextDATE;
+
+    //   if (input === 'tomorrow') {
+    //     nextDATE = today.setDate(tomINT);
+    //   }
+    //   if (input === "nextWeek") {
+    //     if (weekDayString === 'Mon') {
+    //       nextWeekINT = dayINT + 7;
+    //     } else if (weekDayString === 'Tues') {
+    //       nextWeekINT = dayINT + 6;
+    //     } else if (weekDayString === 'Wed') {
+    //       nextWeekINT = dayINT + 5;
+    //     } else if (weekDayString === 'Thurs') {
+    //       nextWeekINT = dayINT + 4;
+    //     } else if (weekDayString === 'Fri') {
+    //       nextWeekINT = dayINT + 3;
+    //     } else if (weekDayString === 'Sat') {
+    //       nextWeekINT = dayINT + 2;
+    //     } else {
+    //       nextWeekINT = dayINT + 1;
+    //     }
+    //     nextDATE = today.setDate(nextWeekINT);
+    //   }
+
+    //when query for this week ==> find tasks that are scheduled until the end of this week (Sunday)
+    // let nextWeekDATE = today.setDate(nextWeekINT);
+
+    // result = fuse.search(tomDATE)
+
+    result = input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;
   }
 
