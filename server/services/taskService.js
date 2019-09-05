@@ -129,21 +129,41 @@ const moveToTrash = async data => {
 };
 
 const updateTask = async data => {
-  try {
-    const { _id, name, due_date, body } = data
-    // console.log(_id)
-    const existingTask = await Task.findById(_id);
+  // try {
+  //   const { _id, name, due_date, body } = data
+  //   // console.log(_id)
+  //   const existingTask = await Task.findById(_id);
 
-    await name !== null ? existingTask.name = name : null;
-    await due_date !== null ? existingTask.due_date = due_date : null;
-    await body !== null ? existingTask.body = body : null
-    // console.log(name)
-    existingTask.save()
-    return existingTask
+  //   await name !== null ? existingTask.name = name : null;
+  //   await due_date !== null ? existingTask.due_date = due_date : null;
+  //   await body !== null ? existingTask.body = body : null;
+  //   // console.log(name)
+  //   existingTask.save()
+  //   return existingTask
     
-  } catch (err) {
-    throw err
-  }
+  // } catch (err) {
+  //   throw err
+  // }
+  const updateObj = {};
+
+  const { _id, name, due_date, body, priority, repeat, location } = data;
+  if (_id) updateObj._id = _id;
+  if (name) updateObj.name = name;
+  if (due_date) updateObj.due_date = due_date;
+  if (body) updateObj.body = body;
+  if (priority) updateObj.priority = priority;
+  if (repeat) updateObj.repeat = repeat;
+  if (location) updateObj.location = location;
+
+
+  return Task.findOneAndUpdate(
+    { _id: _id },
+    { $set: updateObj },
+    { new: true },
+    (err, task) => {
+      return task;
+    }
+  );
 }
 
 module.exports = {
@@ -151,7 +171,7 @@ module.exports = {
   checkTagUniqueness,
   checkListUniqueness,
 
-  updateTask
+  updateTask,
 
   moveToTrash
 

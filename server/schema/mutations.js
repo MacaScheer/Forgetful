@@ -47,8 +47,11 @@ const mutation = new GraphQLObjectType({
       args:{
         _id: {type: GraphQLID},
         name:{type: GraphQLString},
-        due_date: {type: GraphQLString},
-        body: {type: GraphQLString}
+        due_date:{type: GraphQLString},
+        body: {type: GraphQLString},
+        priority: {type: GraphQLString},
+        repeat: {type: GraphQLString},
+        location: {type: GraphQLString}
       },
       resolve(_, args) {
      
