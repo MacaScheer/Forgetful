@@ -12,6 +12,7 @@ const { FETCH_USER } = Queries;
 class TaskIndex extends React.Component {
   constructor(props) {
     super(props);
+
     const URL = this.props.history.location.pathname;
     let URLArray = URL.split("/").filter(Boolean);
     let key;
@@ -36,6 +37,7 @@ class TaskIndex extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.runSearch = this.runSearch.bind(this);
+
   }
 
   runSearch(data) {
@@ -55,6 +57,11 @@ class TaskIndex extends React.Component {
       minMatchCharLength: 1
     };
     let fuse = new Fuse(modifiedData, options);
+
+  
+    if (check) return fuse.search("never")
+    const result = input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
+
 
     // if (check) return fuse.search("never"); // stuff
     // let result;
@@ -124,6 +131,7 @@ class TaskIndex extends React.Component {
   render() {
     const cid = localStorage.getItem("currentuserId");
     const trigger = this.state.trigger;
+
     return (
       <Query query={FETCH_USER} variables={{ Id: cid }}>
         {({ loading, error, data }) => {
@@ -131,34 +139,57 @@ class TaskIndex extends React.Component {
           if (error) return `Error! ${error.message}`;
           if (data.user.tasks) {
             return (
-              <div className="task-index">
-                <div className="task-index-container">
-                  <div className="create-task-wrapper">
-                    <CreateTask />
-                  </div>
-                  <div className="task-list-container">
-                    <div className="task-list">
-                      {trigger
-                        ? this.runSearch(data.user).map((task, i) => (
-                            <div className="task-list-item" key={i}>
-                              <Taskline _id={task._id} name={task.name} />
-                            </div>
-                          ))
-                        : data.user.tasks.map((task, i) => (
-                            <div className="task-list-item" key={i}>
-                              <Taskline _id={task._id} name={task.name} />
-                            </div>
-                          ))}
+              <div className="task-index-container">
+                <div className="task-index-wrapper">
+                  <div className="task-index-page">
+                    <div className="task-index-page-content">
+                      <div className="task-show-container">
+                        <div className="task-show-list">
+                          <div className="task-show-index-content">
+                            <p>First Page</p>
+                          </div>
+                          <div className="task-show-content hide">
+                            <p>Show Page</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="tasks-container">
+                        <div className="create-task-container">
+                          <div className="create-task-wrapper">
+                            <CreateTask />
+                          </div>
+                        </div>
+                        <div className="task-list-container">
+                          <div className="task-list">
+                            {trigger
+                              ? this.runSearch(data.user).map((task, i) => (
+                                <div className="task-list-item" key={i}>
+                                  <Taskline _id={task._id} name={task.name} />
+                                </div>
+                              ))
+                              : data.user.tasks.map((task, i) => (
+                                <div className="task-list-item" key={i}>
+                                  <Taskline _id={task._id} name={task.name} />
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <TaskSummary />
+                <div className="task-summary-container">
+                  <div className="task-summary">
+                    <TaskSummary />
+                  </div>
+                </div>
               </div>
             );
           } else {
             return null;
           }
-        }}
+          }
+        }
       </Query>
     );
   }

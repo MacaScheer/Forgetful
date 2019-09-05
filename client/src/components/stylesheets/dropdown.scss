@@ -1,0 +1,24 @@
+@import "variables";
+
+.icons {
+  margin: 0 2.5px;
+  padding: 5px;
+}
+
+.flex-buttons {
+  display: flex;
+}
+
+.inbox-subcat {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.left-nav-inbox-container {
+  width: 10%;
+}
+
+.left-nav-container {
+  width: 10%;
+}
