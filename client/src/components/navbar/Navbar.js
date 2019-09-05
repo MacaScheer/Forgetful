@@ -9,8 +9,8 @@ class Navbar extends React.Component {
     super(props);
     this.state = {
       showDropdown: true
-    }
-    this.toggleDropdown = this.toggleDropdown.bind(this)
+    };
+    this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
   toggleDropdown(e) {
@@ -23,7 +23,14 @@ class Navbar extends React.Component {
     return (
       <div className="toolbar">
         <nav className="toolbar__navigation">
-          <button onClick={this.toggleDropdown}>All Tasks </button>
+          <div className="menu-wrap">
+            <button onClick={this.toggleDropdown} className="all-tasks-button">
+              <div className="hamburger">
+                <div></div>
+              </div>
+              <p>All Tasks</p>{" "}
+            </button>
+          </div>
           <div />
           <div className="toolbar__logo">
             <a href="/">ICON</a>

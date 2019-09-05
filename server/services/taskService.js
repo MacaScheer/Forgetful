@@ -150,9 +150,7 @@ module.exports = {
   checkTaskUniqueness,
   checkTagUniqueness,
   checkListUniqueness,
-
-  updateTask
-
+  updateTask,
   moveToTrash
 
 };

@@ -33,4 +33,7 @@ input[type="checkbox"] {
 
 .delete-task-button {
   float: right;
+  padding: 2px 10px;
+  background-color: $purple;
+  color: white;
 }

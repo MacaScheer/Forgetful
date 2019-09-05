@@ -32,12 +32,10 @@ class TaskIndex extends React.Component {
       input: input,
       trigger: trigger,
       urlLength: URLArray.length
-      
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.runSearch = this.runSearch.bind(this);
-
   }
 
   runSearch(data) {
@@ -57,9 +55,10 @@ class TaskIndex extends React.Component {
       minMatchCharLength: 1
     };
     let fuse = new Fuse(modifiedData, options);
-  
-    if (check) return fuse.search("never")
-    const result = input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
+
+    if (check) return fuse.search("never");
+    const result =
+      input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
 
     return result;
   }
@@ -103,7 +102,7 @@ class TaskIndex extends React.Component {
                       <div className="task-show-container">
                         <div className="task-show-list">
                           <div className="task-show-index-content">
-                            <p>First Page</p>
+                            <TaskSummary />
                           </div>
                           <div className="task-show-content hide">
                             <p>Show Page</p>
@@ -120,15 +119,15 @@ class TaskIndex extends React.Component {
                           <div className="task-list">
                             {trigger
                               ? this.runSearch(data.user).map((task, i) => (
-                                <div className="task-list-item" key={i}>
-                                  <Taskline _id={task._id} name={task.name} />
-                                </div>
-                              ))
+                                  <div className="task-list-item" key={i}>
+                                    <Taskline _id={task._id} name={task.name} />
+                                  </div>
+                                ))
                               : data.user.tasks.map((task, i) => (
-                                <div className="task-list-item" key={i}>
-                                  <Taskline _id={task._id} name={task.name} />
-                                </div>
-                              ))}
+                                  <div className="task-list-item" key={i}>
+                                    <Taskline _id={task._id} name={task.name} />
+                                  </div>
+                                ))}
                           </div>
                         </div>
                       </div>
@@ -136,17 +135,14 @@ class TaskIndex extends React.Component {
                   </div>
                 </div>
                 <div className="task-summary-container">
-                  <div className="task-summary">
-                    <TaskSummary />
-                  </div>
+                  <div className="task-summary"></div>
                 </div>
               </div>
             );
           } else {
             return null;
           }
-          }
-        }
+        }}
       </Query>
     );
   }

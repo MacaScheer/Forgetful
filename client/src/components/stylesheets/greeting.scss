@@ -22,8 +22,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: white;
-  height: 81px;
+  background: $purple;
+  color: white;
+  height: 50px;
   z-index: 100;
 
   .toolbar__navigation {
@@ -35,6 +36,8 @@
 
   .toolbar__logo {
     padding: 0 20px;
+    position: absolute;
+    left: 200px;
 
     .logo {
       position: relative;
@@ -59,11 +62,70 @@
 
 .logout-button {
   padding: 0 10px;
+  border: none;
+  background: none;
   color: white;
-  background: purple;
   margin: 0 5px;
 }
 
 .toolbar-navigation-items {
   width: 100%;
+}
+
+.all-tasks-button {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  color: white;
+  position: absolute;
+  left: 20px;
+  width: 100%;
+  top: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  p {
+    float: right;
+    font-size: 15px;
+  }
+}
+
+.menu-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 150px;
+}
+
+.menu-wrap .hamburger {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  z-index: 1;
+  width: 60px;
+  padding: 1rem;
+}
+
+.menu-wrap .hamburger > div {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Top and bottom lines */
+.menu-wrap .hamburger > div:before,
+.menu-wrap .hamburger > div:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  width: 100%;
+  height: 2px;
+  background-color: white;
 }
