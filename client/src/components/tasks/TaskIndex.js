@@ -32,7 +32,8 @@ class TaskIndex extends React.Component {
       keys: key,
       input: input,
       trigger: trigger,
-      urlLength: URLArray.length
+      urlLength: URLArray.length,
+      url: URL
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -157,12 +158,20 @@ class TaskIndex extends React.Component {
                             {trigger
                               ? this.runSearch(data.user).map((task, i) => (
                                   <div className="task-list-item" key={i}>
-                                    <Taskline _id={task._id} name={task.name} />
+                                    <Taskline
+                                      url={this.state.url}
+                                      _id={task._id}
+                                      name={task.name}
+                                    />
                                   </div>
                                 ))
                               : data.user.tasks.map((task, i) => (
                                   <div className="task-list-item" key={i}>
-                                    <Taskline _id={task._id} name={task.name} />
+                                    <Taskline
+                                      url={this.state.url}
+                                      _id={task._id}
+                                      name={task.name}
+                                    />
                                   </div>
                                 ))}
                           </div>

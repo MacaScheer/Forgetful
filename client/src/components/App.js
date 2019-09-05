@@ -21,7 +21,8 @@ const App = () => {
     <div>
       <Nav />
       <Route path="/date" component={DateOption} />
-      <Route exact path="/tasks/:id" component={TaskShow} />
+      <Route exact path="/all/:id" component={TaskShow} />
+
       <Route path="/routetest" component={DropDownMenu} />
       <Route exact path="/search/:searchResults" component={SearchResults} />
       <Route path="/all" component={TaskIndex} />
