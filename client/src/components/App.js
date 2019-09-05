@@ -15,6 +15,7 @@ import TaskShow from "./tasks/TaskShow";
 
 import SearchResults from "./tasks/SearchResults";
 import DropDownMenu from "./navbar/DropDownMenu";
+import LocationOption from "./tasks/LocationOption";
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
       <Nav />
       <Route path="/date" component={DateOption} />
       <Route exact path="/all/:id" component={TaskShow} />
-      <Route path="/routetest" component={DropDownMenu} />
+      <Route path="/routetest" component={LocationOption} />
       <Route exact path="/search/:searchResults" component={SearchResults} />
       <Route path="/all" component={TaskIndex} />
       <Route path="/lists/inbox" component={TaskIndex} />

@@ -16,20 +16,33 @@ export default class LocationOption extends Component {
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.closer = this.closer.bind(this);
   }
 
+  closer() {
+    this.setState({ render: false });
+  }
   toggleModal(e) {
     e.preventDefault();
     this.setState({ render: !this.state.render });
   }
 
   renderModal() {
-    return this.state.render ? <CreateModal type={this.state.type} /> : <div />;
+    return this.state.render ? (
+      <CreateModal closer={this.closer} type={this.state.type} />
+    ) : (
+      <div />
+    );
   }
 
   updateState(e) {
     e.preventDefault();
-    this.setState({ name: e.target.name, locationId: e.target.value });
+    this.setState({
+      name: e.target.name,
+      locationId: e.target.value
+    });
+    this.props.inputAdder(this.state.name);
+    this.props.stateBinder({ locationId: e.target.value });
   }
 
   render() {
@@ -40,14 +53,14 @@ export default class LocationOption extends Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           if (data.user.locations) {
-            debugger
+            // debugger
             return (
               <div>
                 <div className="task-list-container">
                   <div className="task-list">
                     {data.user.locations.map((location, i) => (
                       <button
-                        className="task-location-item"
+                        className="task-list-item"
                         key={i}
                         value={location._id}
                         name={location.name}
@@ -57,7 +70,7 @@ export default class LocationOption extends Component {
                       </button>
                     ))}
                   </div>
-                  <button onClick={this.toggleModal}>Add List</button>
+                  <button onClick={this.toggleModal}>Add Location</button>
                 </div>
                 {this.renderModal()}
               </div>

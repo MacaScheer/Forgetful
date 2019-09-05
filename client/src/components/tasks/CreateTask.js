@@ -5,6 +5,7 @@ import Queries from "../../graphql/queries";
 import "../stylesheets/create_task.scss";
 import TagOption from "./TagOption";
 import ListOption from "./ListOption";
+import LocationOption from "./LocationOption";
 const { ALL_TASKS } = Queries;
 const { CREATE_TASK } = Mutations;
 
@@ -15,20 +16,23 @@ class CreateTask extends React.Component {
       input: "",
       listId: "",
       tagId: "",
+      locationId: "",
       start: "",
-      message: ""
+      message: "",
+      due_date: ""
     };
     this.renderTools = this.renderTools.bind(this);
     this.inputChar = this.inputChar.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
     this.renderLists = this.renderLists.bind(this);
     this.renderButton = this.renderButton.bind(this);
-
-
+    this.inputAdder = this.inputAdder.bind(this)
   }
-
-  stateBinder(key, value) {
-    this.setState({key: value})
+  inputAdder(value) {
+    this.setState({ input: this.state.input.concat(value) });
+  }
+  stateBinder(value) {
+    this.setState(value)
   }
 
   tools() {
@@ -42,8 +46,12 @@ class CreateTask extends React.Component {
           <i className="fas fa-list icons" value="*" />
         </button>
         {/* list */}
+        <button onClick={this.inputChar} value="#">
+          <i className="fas fa-tags icons" value="#" />
+        </button>
+        {/* tag */}
         <button onClick={this.inputChar} value="@">
-          <i className="fas fa-tags icons" value="@" />
+          <i className="fas fa-map-marker-alt" value="@" />
         </button>
         {/* tag */}
       </div>
@@ -54,19 +62,39 @@ class CreateTask extends React.Component {
     return this.state.input.length > 0 ? this.tools() : <div />;
   }
   renderButton() {
-    
-    return this.state.input.length > 0 ? <button className="create-task-button">Add Task</button>: <div />;
+    return this.state.input.length > 0 ? (
+      <button className="create-task-button">Add Task</button>
+    ) : (
+      <div />
+    );
   }
   renderLists() {
     const iArr = this.state.input.split("");
-    const lastIndex = iArr.length - 1
+    const lastIndex = iArr.length - 1;
     const lastChar = iArr[lastIndex];
-    
+
     switch (lastChar) {
       case "*":
-        return <ListOption stateBinder={this.stateBinder}/>;
+        return (
+          <ListOption
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
+      case "#":
+        return (
+          <TagOption
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
       case "@":
-        return <TagOption stateBinder={this.stateBinder}/>;
+        return (
+          <LocationOption
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
       default:
         return <div />;
     }

@@ -17,8 +17,8 @@ export default class DateOption extends Component {
 
   updateDate(e) {
     e.preventDefault();
-    debugger
     this.setState({ date: e.target.value });
+    
   }
 
   toggleDatePicker(e) {

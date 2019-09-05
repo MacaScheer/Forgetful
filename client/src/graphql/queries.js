@@ -35,6 +35,7 @@ export default {
           name
         }
         locations{
+          _id
           name
           tasks{
             _id
