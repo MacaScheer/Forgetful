@@ -81,22 +81,22 @@ class CreateTask extends React.Component {
     return e => this.setState({ [field]: e.target.value });
   }
 
-  updateCache(cache, { data }) {
-    let tasks;
-    try {
-      tasks = cache.readQuery({ query: ALL_TASKS });
-    } catch (err) {
-      return;
-    }
-    if (tasks) {
-      let tasksArray = tasks.tasks;
-      let newTask = data.newTask;
-      cache.writeQuery({
-        query: ALL_TASKS,
-        data: { tasks: tasksArray.concat(newTask) }
-      });
-    }
-  }
+  // updateCache(cache, { data }) {
+  //   let tasks;
+  //   try {
+  //     tasks = cache.readQuery({ query: ALL_TASKS });
+  //   } catch (err) {
+  //     return;
+  //   }
+  //   if (tasks) {
+  //     let tasksArray = tasks.tasks;
+  //     let newTask = data.newTask;
+  //     cache.writeQuery({
+  //       query: ALL_TASKS,
+  //       data: { tasks: tasksArray.concat(newTask) }
+  //     });
+  //   }
+  // }
   render() {
     return (
       <Mutation

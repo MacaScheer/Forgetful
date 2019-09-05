@@ -104,23 +104,20 @@ const moveToTrash = async data => {
     const { userId, taskId, listId, tagId } = data;
     const user = await User.findById(userId);
 
-   
-      const list = await List.findById(listId);
-    
-    
-      const tag = await Tag.findById(tagId);
-    
-    
+    const list = await List.findById(listId);
+
+    const tag = await Tag.findById(tagId);
+
     await user.tasks.pull(taskId);
-    await list !== null ? list.tasks.pull(taskId) : null
-    await tag !== null ? tag.tasks.pull(taskId) : null
+    (await list) !== null ? list.tasks.pull(taskId) : null;
+    (await tag) !== null ? tag.tasks.pull(taskId) : null;
 
     // await user.lists.forEach((list) => list.tasks.remove({ id: taskId }));
     // await user.tags.forEacH(tag => tag.tasks.remove({ id: taskId }));
     // console.log(arrayofTasks);
     user.trash.push(taskId);
-    user.save()
-    list.save()
+    user.save();
+    list.save();
 
     return user;
   } catch (err) {
@@ -130,29 +127,26 @@ const moveToTrash = async data => {
 
 const updateTask = async data => {
   try {
-    const { _id, name, due_date, body } = data
+    const { _id, name, due_date, body } = data;
     // console.log(_id)
     const existingTask = await Task.findById(_id);
 
-    await name !== null ? existingTask.name = name : null;
-    await due_date !== null ? existingTask.due_date = due_date : null;
-    await body !== null ? existingTask.body = body : null
+    (await name) !== null ? (existingTask.name = name) : null;
+    (await due_date) !== null ? (existingTask.due_date = due_date) : null;
+    (await body) !== null ? (existingTask.body = body) : null;
     // console.log(name)
-    existingTask.save()
-    return existingTask
-    
+    existingTask.save();
+    return existingTask;
   } catch (err) {
-    throw err
+    throw err;
   }
-}
+};
 
 module.exports = {
   checkTaskUniqueness,
   checkTagUniqueness,
   checkListUniqueness,
-
-  updateTask
+  updateTask,
 
   moveToTrash
-
 };

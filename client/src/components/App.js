@@ -10,17 +10,16 @@ import CreateTask from "./tasks/CreateTask";
 import TagOption from "./tasks/TagOption";
 import ListOption from "./tasks/ListOption";
 import SearchBar from "./navbar/SearchBar";
-
-import TaskShow from "./tasks/TaskShow"
+import DateOption from "./tasks/DateOption";
+import TaskShow from "./tasks/TaskShow";
 
 import SearchResults from "./tasks/SearchResults";
-
 
 const App = () => {
   return (
     <div>
       <Nav />
-
+      <Route path="/date" component={DateOption} />
       <Route exact path="/tasks/:id" component={TaskShow} />
 
       <Route exact path="/search/:searchResults" component={SearchResults} />
