@@ -32,9 +32,11 @@ export default class DateOption extends Component {
 
   handleChange = async date => {
     let newDate = this.formatDate(date);
-   this.setState({
-      date: newDate
-    });
+    if (typeof newDate === "string") {
+      this.setState({
+        date: newDate
+      });
+    }
   };
 
   render() {
@@ -46,7 +48,7 @@ export default class DateOption extends Component {
 
     dateObj.setDate(dayINT + 1);
     const tomorrowFullString = dateObj.toDateString();
-    const tomorrowName = tomorrowFullString.split(" ")[0];
+    // const tomorrowName = tomorrowFullString.split(" ")[0];
 
     dateObj.setDate(dayINT + 2);
     const dayTwoFullString = dateObj.toDateString();
@@ -62,7 +64,11 @@ export default class DateOption extends Component {
 
     return (
       <div className="date-option-container">
-        {/* <label>{typeof(this.state.date) === 'object' ? this.formatDate(this.state.date) : this.state.date}</label> */}
+        <label>
+          {typeof this.state.date === "object"
+            ? this.formatDate(this.state.date)
+            : this.state.date}
+        </label>
         <button onClick={this.updateDate} value={todayFullString}>
           Today
         </button>
