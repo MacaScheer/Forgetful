@@ -19,7 +19,6 @@ export default class DateOption extends Component {
 
   handleChange = date => {
     let newDate = date.toDateString();
-    debugger;
     this.setState({
       date: newDate
     });

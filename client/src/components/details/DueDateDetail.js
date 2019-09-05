@@ -29,7 +29,6 @@ class DueDateDetail extends React.Component {
     }
 
     render() {
-        // debugger;
         if (this.state.editing) {
             return (
                 <Mutation mutation={UPDATE_TASK_DUE_DATE}>

@@ -12,7 +12,6 @@ const {UPDATE_TASK_NAME} = Mutations;
 class NameDetail extends React.Component {
     constructor(props){
         super(props);
-        // debugger;
         this.state = {
             editing: false,
             name: this.props.name || ""
@@ -32,7 +31,6 @@ class NameDetail extends React.Component {
     }
     
     render() {
-        // debugger;
         if (this.state.editing){
             return(
                 <Mutation mutation={UPDATE_TASK_NAME}>

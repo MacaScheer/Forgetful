@@ -29,7 +29,6 @@ class BodyDetail extends React.Component {
     }
 
     render() {
-        // debugger;
         
         if (this.state.editing) {
             return (
