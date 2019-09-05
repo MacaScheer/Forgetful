@@ -134,9 +134,6 @@ class TaskIndex extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="task-summary-container">
-                  <div className="task-summary"></div>
-                </div>
               </div>
             );
           } else {

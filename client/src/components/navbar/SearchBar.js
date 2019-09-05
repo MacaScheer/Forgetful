@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import "../stylesheets/searchbar.scss";
 // import Queries from "../../graphql/queries";
 // const { FETCH_USER } = Queries;
 
@@ -32,7 +33,6 @@ class SearchBar extends React.Component {
           placeholder="Search Tasks..."
           value={this.state.input}
         />
-        <input type="submit" value="submit"></input>
       </form>
     );
   }

@@ -66,10 +66,10 @@
   background: none;
   color: white;
   margin: 0 5px;
-}
 
-.toolbar-navigation-items {
-  width: 100%;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .all-tasks-button {
@@ -84,6 +84,7 @@
 
   &:hover {
     cursor: pointer;
+    background: $hover;
   }
 
   p {
@@ -97,7 +98,7 @@
   top: 0;
   left: 0;
   z-index: 1;
-  width: 150px;
+  width: 140px;
 }
 
 .menu-wrap .hamburger {
@@ -128,4 +129,18 @@
   width: 100%;
   height: 2px;
   background-color: white;
+}
+
+@media screen and (max-width: 700px) {
+  .greeting {
+    display: none;
+  }
+}
+
+.slide {
+  transform: translate(0, -500px);
+}
+
+.new-slide {
+  transform: translate(0, 20px);
 }

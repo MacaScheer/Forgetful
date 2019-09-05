@@ -7,12 +7,20 @@
 
 .flex-buttons {
   display: flex;
+
+  a {
+    color: black;
+  }
 }
 
 .inbox-subcat {
   display: flex;
   flex-direction: column;
   padding: 0 20px;
+
+  a {
+    color: black;
+  }
 }
 
 .left-nav-inbox-container {
@@ -20,5 +28,13 @@
 }
 
 .left-nav-container {
-  width: 10%;
+  position: absolute;
+  width: 150px;
+  transition: transform 0.9s;
+  background: $lightblue;
+  color: #484848;
+}
+
+.title {
+  padding-bottom: 10px;
 }

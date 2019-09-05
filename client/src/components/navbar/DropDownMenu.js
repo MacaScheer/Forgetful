@@ -20,6 +20,11 @@ export default class DropDownMenu extends Component {
     this.toggleLocations = this.toggleLocations.bind(this);
   }
 
+  // componentDidMount() {
+  //   debugger
+  //   this.dropdown.classList.add("slide");
+  // }
+
   toggleInbox(e) {
     e.preventDefault();
     this.setState({ showInbox: !this.state.showInbox });
@@ -55,7 +60,7 @@ export default class DropDownMenu extends Component {
 
   render() {
     const cid = localStorage.getItem("currentuserId");
-    const { showLists, showTags, showLocations } = this.state;
+    const { showLists, showTags } = this.state;
     return (
       <Query query={FETCH_USER} variables={{ Id: cid }}>
         {({ loading, error, data }) => {
@@ -63,8 +68,13 @@ export default class DropDownMenu extends Component {
           if (error) return `Error! ${error.message}`;
           if (data.user) {
             return (
-              <div className="left-nav-container">
+              <div
+                className="left-nav-container st-effect-13 slide"
+                id="st-container"
+              >
                 <div className="left-nav-inbox-container">
+                  <h2 className="title">Forgetful</h2>
+
                   <div className="flex-buttons">
                     <i
                       onClick={this.toggleInbox}
@@ -78,7 +88,10 @@ export default class DropDownMenu extends Component {
                   </div>
                   {this.renderInboxCat()}
                 </div>
-                <div className="left-nav-lists-container">
+                <div
+                  className="left-nav-lists-container"
+                  id="st-container"
+                >
                   <div onClick={this.toggleList}>
                     <i className="fas fa-sort-down icons"></i>
                     Lists
@@ -93,7 +106,8 @@ export default class DropDownMenu extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="left-nav-tags-container">
+                <div className="left-nav-tags-container"
+                  id="st-container">
                   <div onClick={this.toggleTags}>
                     <i className="fas fa-sort-down icons"></i>
                     Tags
@@ -111,27 +125,6 @@ export default class DropDownMenu extends Component {
                       )}
                     </div>
                   </div>
-                </div>
-                <div className="left-nav-locations-container">
-                  {/* <div onClick={this.toggleLocations}> */}
-                  {/* <i className="fas fa-sort-down"></i>
-                    Locations
-                    <div className="locations-subcat">
-                      {showLocations ? (
-                        data.user.locations.length !== 0 ? (
-                          data.user.locations.map(location => (
-                            <Link to={`locations/${location.name}`}>
-                              {location.name}
-                            </Link>
-                          ))
-                        ) : (
-                          <div />
-                        )
-                      ) : (
-                        <div />
-                      )}
-                    </div>
-                  </div> */}
                 </div>
               </div>
             );
