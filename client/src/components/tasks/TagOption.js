@@ -1,20 +1,26 @@
 import React, { Component } from "react";
-import CreateModal from './CreateModal'
-import {Query} from 'react-apollo'
-import Queries from '../../graphql/queries'
-import '../stylesheets/tag_and_list_option.scss'
+import CreateModal from "./CreateModal";
+import { Query } from "react-apollo";
+import Queries from "../../graphql/queries";
+import "../stylesheets/tag_and_list_option.scss";
 
-const { FETCH_USER} = Queries 
+const { FETCH_USER } = Queries;
 export default class TagOption extends Component {
   constructor(props) {
     super(props);
     this.state = {
       render: false,
-      objectId: "",
+      tagId: "",
       name: "",
       type: "tag"
     };
     this.toggleModal = this.toggleModal.bind(this);
+    this.updateState = this.updateState.bind(this);
+    this.closer = this.closer.bind(this);
+  }
+
+  closer() {
+    this.setState({ render: false });
   }
   toggleModal(e) {
     e.preventDefault();
@@ -22,8 +28,21 @@ export default class TagOption extends Component {
   }
 
   renderModal() {
-    return this.state.render ? <CreateModal type={this.state.type} /> :
-      <div/>
+    return this.state.render ? (
+      <CreateModal closer={this.closer} type={this.state.type} />
+    ) : (
+      <div />
+    );
+  }
+
+  updateState(e) {
+    e.preventDefault();
+    this.setState({
+      name: e.target.name,
+      tagId: e.target.value
+    });
+    this.props.inputAdder(this.state.name);
+    this.props.stateBinder({ tagId: e.target.value });
   }
 
   render() {
@@ -40,11 +59,24 @@ export default class TagOption extends Component {
                   <div className="task-list">
                     {data.user.tags.map((tag, i) => (
                       <div className="task-list-item" key={i}>
-                        {tag.name}
+                        <button
+                          className="task-list-item"
+                          key={i}
+                          value={tag._id}
+                          name={tag.name}
+                          onClick={this.updateState}
+                        >
+                          {tag.name}
+                        </button>
                       </div>
                     ))}
                   </div>
-                  <button className="task-list-button" onClick={this.toggleModal}>Add Tag</button>
+                  <button
+                    className="task-list-button"
+                    onClick={this.toggleModal}
+                  >
+                    Add Tag
+                  </button>
                 </div>
                 {this.renderModal()}
               </div>
