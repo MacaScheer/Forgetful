@@ -17,6 +17,7 @@ export default class DateOption extends Component {
 
   updateDate(e) {
     e.preventDefault();
+    debugger
     this.setState({ date: e.target.value });
   }
 
@@ -29,9 +30,9 @@ export default class DateOption extends Component {
     return dateObj.toDateString();
   }
 
-  handleChange = date => {
+  handleChange = async date => {
     let newDate = this.formatDate(date);
-    this.setState({
+   this.setState({
       date: newDate
     });
   };
@@ -61,7 +62,7 @@ export default class DateOption extends Component {
 
     return (
       <div className="date-option-container">
-        <label>{typeof(this.state.date) === 'object' ? this.formatDate(this.state.date) : this.state.date}</label>
+        {/* <label>{typeof(this.state.date) === 'object' ? this.formatDate(this.state.date) : this.state.date}</label> */}
         <button onClick={this.updateDate} value={todayFullString}>
           Today
         </button>
