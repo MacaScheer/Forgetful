@@ -98,7 +98,6 @@ class TaskIndex extends React.Component {
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;
-    return result;
   }
 
   toggleDropdown() {

@@ -8,8 +8,8 @@ class CheckLine extends React.Component {
     this.state = {
       hidden: true,
       completed: false
+      
     };
-
     this.handleChange = this.handleChange.bind(this);
   }
 
