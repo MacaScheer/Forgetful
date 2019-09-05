@@ -35,7 +35,7 @@ class CheckLine extends React.Component {
           <Link
             id="task"
             className={this.state.completed ? "strike" : ""}
-            to={`/tasks/${this.props._id}`}
+            to={`${this.props.url}/${this.props._id}`}
           >
             {this.props.name}
           </Link>

@@ -10,6 +10,7 @@ export default {
     query FetchUser($Id: ID!) {
       user(_id: $Id) {
         tasks {
+          _id
           name
           due_date
         }
