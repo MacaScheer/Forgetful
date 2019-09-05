@@ -12,10 +12,10 @@ const UserType = require("./types/user_type");
 const TaskType = require("./types/task_type");
 const ListType = require("./types/list_type");
 const TagType = require("./types/tag_type");
-const LocationType = require('./types/location_type')
+const LocationType = require("./types/location_type");
 const TaskService = require("../services/taskService");
 const AuthService = require("../services/auth");
-const LocationService = require("../services/locationService")
+const LocationService = require("../services/locationService");
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -46,18 +46,14 @@ const mutation = new GraphQLObjectType({
     },
     updateTask: {
       type: TaskType,
-
- { type: GraphQLString }
-
-      args:{
-        _id: {type: GraphQLID},
-        name:{type: GraphQLString},
-        due_date:{type: GraphQLString},
-        body: {type: GraphQLString},
-        priority: {type: GraphQLString},
-        repeat: {type: GraphQLString},
-        location: {type: GraphQLString}
-
+      args: {
+        _id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        due_date: { type: GraphQLString },
+        body: { type: GraphQLString },
+        priority: { type: GraphQLString },
+        repeat: { type: GraphQLString },
+        location: { type: GraphQLString }
       },
       resolve(_, args) {
         TaskService.updateTask(args);

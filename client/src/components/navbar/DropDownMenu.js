@@ -60,7 +60,7 @@ export default class DropDownMenu extends Component {
 
   render() {
     const cid = localStorage.getItem("currentuserId");
-    const { showLists, showTags } = this.state;
+    const { showLists, showTags, showLocations } = this.state;
     return (
       <Query query={FETCH_USER} variables={{ Id: cid }}>
         {({ loading, error, data }) => {

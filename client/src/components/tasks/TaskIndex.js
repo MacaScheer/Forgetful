@@ -55,11 +55,7 @@ class TaskIndex extends React.Component {
       maxPatternLength: 32,
       minMatchCharLength: 1
     };
-    let fuse = new Fuse(modifiedData, options);
 
-
-    // if (check) return fuse.search("never"); // stuff
-    // let result;
     // if (check) {
     //   let today = new Date();
 
@@ -96,8 +92,11 @@ class TaskIndex extends React.Component {
     //when query for this week ==> find tasks that are scheduled until the end of this week (Sunday)
     // let nextWeekDATE = today.setDate(nextWeekINT);
 
-    // result = fuse.search(tomDATE)
-
+    let fuse = new Fuse(modifiedData, options);
+    if (check) return fuse.search("never");
+    const result =
+      input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
+    return result;
     return result;
   }
 
