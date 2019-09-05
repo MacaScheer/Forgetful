@@ -47,11 +47,17 @@ const mutation = new GraphQLObjectType({
     updateTask: {
       type: TaskType,
 
-      args: {
-        _id: { type: GraphQLID },
-        name: { type: GraphQLString },
-        due_date: { type: GraphQLString },
-        body: { type: GraphQLString }
+ { type: GraphQLString }
+
+      args:{
+        _id: {type: GraphQLID},
+        name:{type: GraphQLString},
+        due_date:{type: GraphQLString},
+        body: {type: GraphQLString},
+        priority: {type: GraphQLString},
+        repeat: {type: GraphQLString},
+        location: {type: GraphQLString}
+
       },
       resolve(_, args) {
         TaskService.updateTask(args);

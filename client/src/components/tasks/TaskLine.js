@@ -20,12 +20,12 @@ class CheckLine extends React.Component {
   }
 
   renderDelete() {
-    return this.state.completed ? <button>Delete Task</button> : <div />;
+    return this.state.completed ? <button className="delete-task-button">Delete Task</button> : <div />;
   }
 
   render() {
     return (
-      <div>
+      <div className="task-line-container">
         <form>
           <input
             type="checkbox"

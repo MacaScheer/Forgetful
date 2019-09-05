@@ -42,16 +42,18 @@ class SearchResults extends React.Component {
           if (error) return `Error! ${error.message}`;
           if (data.user.tasks) {
             return (
-              <div className="task-list-container">
-                <div className="task-list">
-                  {this.runSearch(data.user.tasks).map((filteredTask, i) => (
-                    <div className="task-list-item" key={i}>
-                      <Taskline
-                        _id={filteredTask._id}
-                        name={filteredTask.name}
-                      />
-                    </div>
-                  ))}
+              <div className="tasks-container">
+                <div className="task-list-container">
+                  <div className="task-list">
+                    {this.runSearch(data.user.tasks).map((filteredTask, i) => (
+                      <div className="task-list-item" key={i}>
+                        <Taskline
+                          _id={filteredTask._id}
+                          name={filteredTask.name}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             );

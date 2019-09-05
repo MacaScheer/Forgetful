@@ -61,6 +61,9 @@ export default {
         due_date
         body
         start_date
+        priority
+        repeat
+        location
       }
     }
   `,

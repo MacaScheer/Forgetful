@@ -3,16 +3,16 @@ import { Mutation } from "react-apollo";
 import "../stylesheets/showpage_css.scss";
 import mutations from "../../graphql/mutations";
 
-const { UPDATE_TASK_PRIORITY } = mutations;
+const { UPDATE_TASK_LOCATION } = mutations;
 
 
-class PriorityDetail extends React.Component {
+class LocationDetail extends React.Component {
     constructor(props) {
         super(props);
         // debugger;
         this.state = {
             editing: false,
-            priority: this.props.priority || ""
+            location: this.props.location || ""
         };
 
         this.handleEdit = this.handleEdit.bind(this);
@@ -32,22 +32,22 @@ class PriorityDetail extends React.Component {
         // debugger;
         if (this.state.editing) {
             return (
-                <Mutation mutation={UPDATE_TASK_PRIORITY}>
+                <Mutation mutation={UPDATE_TASK_LOCATION}>
                     {(updateTask) => (
                         <div>
                             <form
                                 onSubmit={e => {
                                     e.preventDefault();
                                     updateTask({
-                                        variables: { _id: this.props.id, priority: this.state.priority }
+                                        variables: { _id: this.props.id, location: this.state.location }
                                     }).then(() => this.setState({ editing: false }));
                                 }}
                             >
                                 <input
                                     value={this.state.priority}
-                                    onChange={this.fieldUpdate("priority")}
+                                    onChange={this.fieldUpdate("location")}
                                 />
-                                <button type="submit">Update Priority </button>
+                                <button type="submit">Update Location </button>
                             </form>
                         </div>
                     )}
@@ -57,9 +57,9 @@ class PriorityDetail extends React.Component {
         else {
             return (
                 <div className="show-task-priority">
-                    
+
                     <p onClick={this.handleEdit}>
-                        Priority: {this.state.priority}
+                        Location: {this.state.location}
                     </p>
                     {/* <h2>Name: {this.state.name}</h2> */}
                 </div>
@@ -68,4 +68,4 @@ class PriorityDetail extends React.Component {
     }
 }
 
-export default PriorityDetail;
+export default LocationDetail;
