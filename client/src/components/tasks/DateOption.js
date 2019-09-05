@@ -31,7 +31,7 @@ export default class DateOption extends Component {
   }
 
   handleChange = async date => {
-    let newDate = this.formatDate(date);
+    let newDate = this.formatDate(date.target.valueAsDate);
     if (typeof newDate === "string") {
       this.setState({
         date: newDate
@@ -69,6 +69,7 @@ export default class DateOption extends Component {
             ? this.formatDate(this.state.date)
             : this.state.date}
         </label>
+        <br />
         <button onClick={this.updateDate} value={todayFullString}>
           Today
         </button>
@@ -90,11 +91,13 @@ export default class DateOption extends Component {
         <button onClick={this.toggleDatePicker}>Select Date</button>
         <div className="date-picker">
           {this.state.showDatePicker ? (
-            <DatePicker
-              // selected={this.state.date}
-              // onSelect={this.handleChange}
-              onChange={this.handleChange}
-            />
+            // <DatePicker
+            //   className="date-picker-selector"
+            //   // selected={this.state.date}
+            //   // onSelect={this.handleChange}
+            //   onChange={this.handleChange}
+            // />
+            <input type="date" onChange={this.handleChange} />
           ) : (
             <div />
           )}
