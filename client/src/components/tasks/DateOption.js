@@ -31,7 +31,6 @@ export default class DateOption extends Component {
 
   handleChange = date => {
     let newDate = this.formatDate(date);
-    debugger;
     this.setState({
       date: newDate
     });
