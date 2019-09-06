@@ -26,6 +26,7 @@ class CreateTask extends React.Component {
     this.inputChar = this.inputChar.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
     this.renderLists = this.renderLists.bind(this);
+
     this.renderButton = this.renderButton.bind(this);
     this.inputAdder = this.inputAdder.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -39,6 +40,8 @@ class CreateTask extends React.Component {
 
   tools() {
     return (
+
+      <div className="filter-buttons">
       <div className="flex-buttons">
         <button onClick={this.inputChar} value="~">
           <i className="fas fa-play" value="~" />
@@ -59,6 +62,8 @@ class CreateTask extends React.Component {
           <i className="fas fa-map-marker-alt" value="@" />
         </button>
         {/* tag */}
+     <button className="create-task-button">Add Task</button>
+       </div>
       </div>
     );
   }
@@ -66,13 +71,7 @@ class CreateTask extends React.Component {
   renderTools() {
     return this.state.input.length > 0 ? this.tools() : <div />;
   }
-  renderButton() {
-    return this.state.input.length > 0 ? (
-      <button className="create-task-button">Add Task</button>
-    ) : (
-      <div />
-    );
-  }
+
   renderLists() {
     const iArr = this.state.input.split("");
     const lastIndex = iArr.length - 1;
@@ -80,6 +79,7 @@ class CreateTask extends React.Component {
 
     switch (lastChar) {
       case "*":
+
         return (
           <ListOption
             inputAdder={this.inputAdder}
@@ -116,6 +116,7 @@ class CreateTask extends React.Component {
             stateBinder={this.stateBinder}
           />
         );
+
       default:
         return <div />;
     }
@@ -143,6 +144,7 @@ class CreateTask extends React.Component {
     return e => this.setState({ [field]: e.target.value });
   }
 
+
   handleSubmit(e, newTask) {
     e.preventDefaul()
     const name = this.stringParser(this.state.input)
@@ -159,6 +161,7 @@ class CreateTask extends React.Component {
       }
     })
   }
+
   render() {
     return (
       <Mutation
@@ -172,7 +175,7 @@ class CreateTask extends React.Component {
           });
         }}
       >
-        {(newTask, { data }) => (
+        {newTask => (
           <div className="create-task-container">
             <form
               className="create-task-form"
@@ -186,7 +189,6 @@ class CreateTask extends React.Component {
               />
               {this.renderTools()}
               {this.renderLists()}
-              {this.renderButton()}
             </form>
           </div>
         )}

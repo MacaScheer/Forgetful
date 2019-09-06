@@ -30,12 +30,14 @@ export default {
             name
           }
         }
+
         trash{
           _id
           name
         }
         locations{
           _id
+
           name
           tasks{
             _id
@@ -63,8 +65,8 @@ export default {
     }
   `,
   FETCH_TASK: gql`
-    query FetchTask($Id: ID!){
-      task(_id: $Id){
+    query FetchTask($Id: ID!) {
+      task(_id: $Id) {
         _id
         name
         due_date

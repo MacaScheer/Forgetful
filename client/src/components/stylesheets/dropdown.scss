@@ -5,21 +5,55 @@
   padding: 5px;
 }
 
-.flex-buttons {
+.filter-buttons {
   display: flex;
+  justify-content: space-between;
+  background: white;
+  height: 40px;
+  padding: 0 12px;
 
-  a {
-    color: black;
+  .flex-buttons {
+    display: flex;
+
+    button {
+      border: none;
+      color: $blue;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    a {
+      color: black;
+      margin-top: 11px;
+    }
+  }
+  .create-task-button {
+    float: right;
+    padding: 0 14px;
+    color: white;
+    background: $blue;
+    border-radius: 4px;
+    margin: 5px 0;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
-.inbox-subcat {
+.inbox-subcat,
+.tags-subcat,
+.lists-subcat,
+.locations-subcat {
   display: flex;
   flex-direction: column;
   padding: 0 20px;
 
   a {
     color: black;
+    margin: 5px 0;
   }
 }
 
@@ -28,7 +62,8 @@
 }
 
 .left-nav-container {
-  position: absolute;
+  display: flex;
+  flex-direction: column;
   width: 150px;
   transition: transform 0.9s;
   background: $lightblue;
@@ -37,4 +72,26 @@
 
 .title {
   padding-bottom: 10px;
+}
+
+.tags-subcat {
+  display: flex;
+  flex-direction: column;
+}
+
+.rotate {
+  transition: 0.2s ease-in;
+  transform: rotate(-90deg);
+}
+
+.unrotate {
+  transition: 0.2s ease-in;
+  transform: rotate(0deg);
+}
+
+.drop-headers {
+  margin: 0;
+  padding: 0;
+  color: $blue;
+  font-weight: bolder;
 }
