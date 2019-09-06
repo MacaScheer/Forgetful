@@ -14,10 +14,29 @@ class LocationDetail extends React.Component {
             location: this.props.location || ""
         };
 
+        this.Ref = React.createRef();
         this.handleEdit = this.handleEdit.bind(this);
-
+        this.handleClick = this.handleClick.bind(this);
     }
 
+    componentWillMount() {
+        document.addEventListener('mousedown', this.handleClick, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick, false);
+    }
+
+    handleClick = (e) => {
+        
+        if (this.Ref.current.contains(e.target)) {
+            return;
+        } else {
+            this.setState({ editing: false });
+        }
+
+
+    }
     handleEdit(e) {
         e.preventDefault();
         this.setState({ editing: true });
@@ -34,6 +53,7 @@ class LocationDetail extends React.Component {
                     {(updateTask) => (
                         <div>
                             <form
+                                ref={this.Ref}
                                 onSubmit={e => {
                                     e.preventDefault();
                                     updateTask({
@@ -42,6 +62,7 @@ class LocationDetail extends React.Component {
                                 }}
                             >
                                 <input
+                                    
                                     value={this.state.priority}
                                     onChange={this.fieldUpdate("location")}
                                 />
@@ -56,7 +77,9 @@ class LocationDetail extends React.Component {
             return (
                 <div className="show-task-priority">
 
-                    <p onClick={this.handleEdit}>
+                    <p
+                        ref={this.Ref} 
+                    onClick={this.handleEdit}>
                         Location: {this.state.location}
                     </p>
                     {/* <h2>Name: {this.state.name}</h2> */}

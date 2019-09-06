@@ -1,8 +1,11 @@
 import React from "react";
 import Greeting from "./Greeting";
+import { ApolloConsumer, Query } from "react-apollo";
 import "../stylesheets/greeting.scss";
 import DropDownMenu from "./DropDownMenu";
 import SearchBar from "./SearchBar";
+import Queries from "../../graphql/queries";
+const { IS_LOGGED_IN } = Queries;
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -41,33 +44,56 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      <div className="toolbar">
-        <nav className="toolbar__navigation">
-          <div className="menu-wrap">
-            <div className="st-container">
-              <div id="st-trigger-effects">
-                <button
-                  onClick={this.toggleDropdown}
-                  className="all-tasks-button"
-                  data-effect="st-effect-13"
-                >
-                  <div className="hamburger">
-                    <div></div>
+      <ApolloConsumer>
+        {client => (
+          <Query query={IS_LOGGED_IN}>
+            {({ data }) => {
+              if (data.isLoggedIn) {
+                return (
+                  <div className="toolbar">
+                    <nav className="toolbar__navigation">
+                      <div className="menu-wrap">
+                        <div className="st-container">
+                          <div id="st-trigger-effects">
+                            <button
+                              onClick={this.toggleDropdown}
+                              className="all-tasks-button"
+                              data-effect="st-effect-13"
+                            >
+                              <div className="hamburger">
+                                <div></div>
+                              </div>
+                              <p>All Tasks</p>{" "}
+                            </button>
+                          </div>
+                        </div>
+                        <div />
+                      </div>
+                      <SearchBar queryString={this.state.queryString} />
+                      <div className="spacer" />
+                      <div className="toolbar-navigation-items">
+                        <Greeting />
+                      </div>
+                    </nav>
+                    <DropDownMenu />
                   </div>
-                  <p>All Tasks</p>{" "}
-                </button>
-              </div>
-            </div>
-            <div />
-          </div>
-          <SearchBar queryString={this.state.queryString} />
-          <div className="spacer" />
-          <div className="toolbar-navigation-items">
-            <Greeting />
-          </div>
-        </nav>
-        <DropDownMenu />
-      </div>
+                )
+              } else {
+                return(
+                  <div className="toolbar">
+                    <nav className="toolbar__navigation">
+                      <div className="toolbar-navigation-items">
+                        <Greeting />
+                      </div>
+                    </nav>
+                  </div>
+                )
+              }
+            }}
+          </Query>
+        )}
+      </ApolloConsumer>
+      
     );
   }
 }

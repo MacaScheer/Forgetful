@@ -14,13 +14,33 @@ class BodyDetail extends React.Component {
       editing: false,
       body: this.props.body || ""
     };
-
+    this.Ref = React.createRef();
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleEdit(e) {
     e.preventDefault();
     this.setState({ editing: true });
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (e) => {
+
+    if (this.Ref.current.contains(e.target)) {
+      return;
+    } else {
+      this.setState({ editing: false });
+    }
+
+
   }
 
   fieldUpdate(field) {
@@ -34,6 +54,7 @@ class BodyDetail extends React.Component {
           {updateTask => (
             <div>
               <form
+                ref={this.Ref}
                 onSubmit={e => {
                   e.preventDefault();
                   updateTask({
@@ -42,6 +63,7 @@ class BodyDetail extends React.Component {
                 }}
               >
                 <input
+                  
                   value={this.state.body}
                   onChange={this.fieldUpdate("body")}
                 />
@@ -63,7 +85,7 @@ class BodyDetail extends React.Component {
                         </IconContext.Provider>
                     </div> */}
           {/* <h2>Body: </h2> */}
-          <p onClick={this.handleEdit}>Body: {this.state.body}</p>
+          <p ref={this.Ref} onClick={this.handleEdit}>Body: {this.state.body}</p>
         </div>
       );
     }

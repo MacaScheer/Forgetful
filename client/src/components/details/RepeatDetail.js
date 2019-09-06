@@ -14,10 +14,29 @@ class RepeatDetail extends React.Component {
             repeat: this.props.repeat || ""
         };
 
+        this.Ref = React.createRef();
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
     }
 
+    componentWillMount() {
+        document.addEventListener('mousedown', this.handleClick, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick, false);
+    }
+
+    handleClick = (e) => {
+        if (this.Ref.current.contains(e.target)) {
+            return;
+        } else {
+            this.setState({ editing: false });
+        }
+
+
+    }
     handleEdit(e) {
         e.preventDefault();
         this.setState({ editing: true });
@@ -34,6 +53,7 @@ class RepeatDetail extends React.Component {
                     {(updateTask) => (
                         <div>
                             <form
+                                ref={this.Ref}
                                 onSubmit={e => {
                                     e.preventDefault();
                                     updateTask({
@@ -42,6 +62,7 @@ class RepeatDetail extends React.Component {
                                 }}
                             >
                                 <input
+                                    
                                     value={this.state.priority}
                                     onChange={this.fieldUpdate("repeat")}
                                 />
@@ -56,7 +77,9 @@ class RepeatDetail extends React.Component {
             return (
                 <div className="show-task-priority">
 
-                    <p onClick={this.handleEdit}>
+                    <p 
+                        ref={this.Ref}
+                    onClick={this.handleEdit}>
                         Repeat: {this.state.repeat}
                     </p>
                     {/* <h2>Name: {this.state.name}</h2> */}

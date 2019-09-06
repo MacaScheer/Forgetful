@@ -5,6 +5,7 @@ import Login from "./sessions/Login";
 import Signup from "./sessions/Signup";
 
 import Nav from "./navbar/Navbar";
+// import SplashPage from "./splashpage/splashpage";
 import TaskIndex from "./tasks/TaskIndex";
 import CreateTask from "./tasks/CreateTask";
 import TagOption from "./tasks/TagOption";
@@ -16,11 +17,14 @@ import TaskShow from "./tasks/TaskShow";
 import SearchResults from "./tasks/SearchResults";
 import DropDownMenu from "./navbar/DropDownMenu";
 import LocationOption from "./tasks/LocationOption";
+import SplashPage from "./splashpage/splashpage";
 
 const App = () => {
   return (
     <div>
       <Nav />
+
+      <Route exact path="/" component={SplashPage} />
 
       <Route path="/date" component={DateOption} />
       <Route exact path="/all/:id" component={TaskShow} />
@@ -28,7 +32,6 @@ const App = () => {
       <Route exact path="/search/:searchResults" component={TaskIndex} />
       <Route exact path="/" component={TaskIndex} />
       <Route path="/all" component={TaskIndex} />
-      <Route path="/lists/inbox" component={TaskIndex} />
       <Route path="/today" component={TaskIndex} />
       <Route path="/tomorrow" component={TaskIndex} />
       <Route path="/thisweek" component={TaskIndex} />
@@ -38,6 +41,7 @@ const App = () => {
       <Route path="/trash/trash" component={TaskIndex} />
       <Route exact path="/tasks" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
+
 
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
