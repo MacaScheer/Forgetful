@@ -24,24 +24,17 @@ const mutation = new GraphQLObjectType({
       type: TaskType,
       args: {
         name: { type: GraphQLString }, //required
-        body: { type: GraphQLString }, //should be changed to required false
         due_date: { type: GraphQLString }, //should be changed to required false
-        priority: { type: GraphQLString }, //should be changed to required false
-        repeat: { type: GraphQLString }, //not required
-        location: { type: GraphQLString }, //not required
-        tags: { type: GraphQLString },
-        list: { type: GraphQLString }
+        start_date: { type: GraphQLString},
+        locationId: { type: GraphQLString }, //not required
+        tagId: { type: GraphQLString },
+        listId: { type: GraphQLString },
+        userId: { type: GraphQLString }
       },
-      resolve(_, { name, body, due_date, priority, repeat, location, list }) {
-        return TaskService.checkTaskUniqueness({
-          name,
-          body,
-          due_date,
-          priority,
-          repeat,
-          location,
-          list
-        });
+      resolve(_, args) {
+        return TaskService.createTask(
+          args
+        );
       }
     },
     updateTask: {
