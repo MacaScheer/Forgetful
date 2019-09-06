@@ -10,54 +10,41 @@ const Location = mongoose.model("locations");
 
 // const validateTaskInput = require("../validation/task");
 
-const checkTaskUniqueness = async data => {
+const createTask = async data => {
   try {
     let {
       name,
-      body,
       due_date,
       start_date,
-      priority,
-      repeat,
-      location,
-      list,
-      user
+      locationId,
+      tagId,
+      listId,
+      userId
     } = data;
-
-    const existingTask = await Task.findOne({ name });
-    let today = new Date();
-    const newuser = await User.findById("5d6fe15de82b4832bb6b9f20");
-    // const newlist = await List.findById("5d6fe15de82b4832bb6b9f1d")
-    console.log(newuser);
-    // console.log(newlist)
-    // if (existingTask) throw new Error("This task already exists");
+  const user = await User.findById(userId);
+ (await listId) !== null ? user.lists.push(listId) : null;
+ (await tagId) !== null ? user.tags.push(tagId) : null;
+ (await locationId) !== null ? user.locations.push(taksId) : null;
 
     if (!due_date) due_date = "never";
-    if (!start_date) start_date = today;
-    // if (!list) list = "5d6fe15de82b4832bb6b9f1d"
-    // if (!user) user = "5d6fe15de82b4832bb6b9f20"
-    // if (!list) list = localStorage.getItem(defaultListObjectId);
+    if (!start_date) start_date = "nevver";
+
     const task = await new Task(
       {
         name,
-        body,
         due_date,
         start_date,
-        priority,
-        repeat,
-        location,
-        list,
-        user
+        location: locationId,
+        tag: tagId,
+        list: listId,
+        user: userId
       },
       err => {
         if (err) throw err;
       }
     );
-    // newlist.tasks.push(task._id)
-    // newuser.tasks.push(task._id)
-    // newlist.save()
-    // newuser.save()
     task.save();
+    user.save()
     return {...task._doc};
   } catch (err) {
     throw err;
@@ -173,7 +160,7 @@ const updateTask = async data => {
 
 
 module.exports = {
-  checkTaskUniqueness,
+  createTask,
   checkTagUniqueness,
   checkListUniqueness,
   updateTask,

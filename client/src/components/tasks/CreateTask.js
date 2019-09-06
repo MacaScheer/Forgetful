@@ -18,16 +18,17 @@ class CreateTask extends React.Component {
       listId: "",
       tagId: "",
       locationId: "",
-      start: "",
-      message: "",
+      start_date: "",
       due_date: ""
     };
+   
     this.renderTools = this.renderTools.bind(this);
     this.inputChar = this.inputChar.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
     this.renderLists = this.renderLists.bind(this);
     this.renderButton = this.renderButton.bind(this);
-    this.inputAdder = this.inputAdder.bind(this)
+    this.inputAdder = this.inputAdder.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   inputAdder(value) {
     this.setState({ input: this.state.input.concat(value) });
@@ -125,26 +126,39 @@ class CreateTask extends React.Component {
     this.setState({ input: this.state.input.concat(e.currentTarget.value) });
   }
 
+  
+  stringParser(string) {
+    const filter = "~^*#@".split("")
+    const firstKey = string.split("").find(ele => filter.includes(ele))
+    const i = string.indexOf(firstKey)
+    debugger 
+    if (i === null) return string
+
+    return string.slice(0, i).trim()
+  }
+    
+  
+
   update(field) {
     return e => this.setState({ [field]: e.target.value });
   }
 
-  // updateCache(cache, { data }) {
-  //   let tasks;
-  //   try {
-  //     tasks = cache.readQuery({ query: ALL_TASKS });
-  //   } catch (err) {
-  //     return;
-  //   }
-  //   if (tasks) {
-  //     let tasksArray = tasks.tasks;
-  //     let newTask = data.newTask;
-  //     cache.writeQuery({
-  //       query: ALL_TASKS,
-  //       data: { tasks: tasksArray.concat(newTask) }
-  //     });
-  //   }
-  // }
+  handleSubmit(e, newTask) {
+    e.preventDefaul()
+    const name = this.stringParser(this.state.input)
+    newTask({
+      variables: {
+        name: name,
+        due_date: this.state.due_date,
+        start_date: this.state.start_date,
+        locationId: this.state.locationId,
+        tagId: this.state.tagId,
+        listId: this.state.listId,
+        userId: localStorage.getItem("currentuserId")
+
+      }
+    })
+  }
   render() {
     return (
       <Mutation

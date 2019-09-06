@@ -44,16 +44,6 @@ const TaskType = new GraphQLObjectType({
             return task.list;
           });
       }
-    },
-    list: {
-      type: require("./location_type"),
-      resolve(parentValue) {
-        return Task.findById(parentValue._id)
-          .populate("location")
-          .then(task => {
-            return task.location;
-          });
-      }
     }
   })
 });
