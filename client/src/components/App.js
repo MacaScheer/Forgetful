@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Link, Route } from "react-router-dom";
+import { Switch, Link, Route, Redirect } from "react-router-dom";
 import { ProtectedRoute, AuthRoute } from "../util/route_util";
 import Login from "./sessions/Login";
 import Signup from "./sessions/Signup";
@@ -23,14 +23,16 @@ const App = () => {
   return (
     <div>
       <Nav />
-
-      <Route exact path="/" component={SplashPage} />
+      {localStorage.getItem("auth-token") === null ? (
+        <Redirect from="/" exact to="/splash" />
+      ) : (
+        <Redirect from="/" exact to="/all" />
+      )}
 
       <Route path="/date" component={DateOption} />
       <Route exact path="/all/:id" component={TaskShow} />
       <Route path="/routetest" component={LocationOption} />
       <Route exact path="/search/:searchResults" component={TaskIndex} />
-      <Route exact path="/" component={TaskIndex} />
       <Route path="/all" component={TaskIndex} />
       <Route path="/today" component={TaskIndex} />
       <Route path="/tomorrow" component={TaskIndex} />
@@ -41,7 +43,7 @@ const App = () => {
       <Route path="/trash/trash" component={TaskIndex} />
       <Route exact path="/tasks" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
-
+      <Route path="/splash" component={SplashPage} />
 
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />

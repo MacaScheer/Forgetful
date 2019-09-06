@@ -36,7 +36,7 @@ class Signup extends Component {
           localStorage.setItem("defaultListObjectId", defaultListObjectId);
           localStorage.setItem("currentuserId", _id)
 
-          this.props.history.push("/");
+          this.props.history.push("/all");
         }}
         update={(client, data) => this.updateCache(client, data)}
       >

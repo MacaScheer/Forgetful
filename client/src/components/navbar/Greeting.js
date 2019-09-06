@@ -71,7 +71,7 @@ class Greeting extends React.Component {
 
                         localStorage.removeItem("currentuserId");
                         client.writeData({ data: { isLoggedIn: false } });
-                        this.props.history.push("/");
+                        this.props.history.push("/splash");
                       }}
                     >
                       Logout
