@@ -41,7 +41,7 @@ class Login extends Component {
           localStorage.setItem("name", name);
           localStorage.setItem("defaultListObjectId", defaultListObjectId);
           localStorage.setItem("currentuserId", _id)
-          this.props.history.push("/"); //redirecting to homepage afterwards
+          this.props.history.push("/all"); //redirecting to homepage afterwards
         }}
         update={(client, data) => this.updateCache(client, data)} //update gets trigger on success of mutation
       >
