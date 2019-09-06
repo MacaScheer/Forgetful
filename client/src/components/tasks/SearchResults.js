@@ -5,6 +5,7 @@ import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import { withRouter } from "react-router-dom";
 import Taskline from "./TaskLine";
+import TaskIndex from "./TaskIndex";
 const { FETCH_USER } = Queries;
 
 class SearchResults extends React.Component {
@@ -42,7 +43,7 @@ class SearchResults extends React.Component {
           if (error) return `Error! ${error.message}`;
           if (data.user.tasks) {
             return (
-              <div className="tasks-container">
+              <div className="tasks-container" id="tasks-container">
                 <div className="task-list-container">
                   <div className="task-list">
                     {this.runSearch(data.user.tasks).map((filteredTask, i) => (

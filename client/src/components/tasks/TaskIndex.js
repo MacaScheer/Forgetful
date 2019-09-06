@@ -36,7 +36,7 @@ class TaskIndex extends React.Component {
       urlLength: URLArray.length,
       url: URL,
       showPage: false,
-      taskId: "",
+      taskId: ""
     };
 
     this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -44,10 +44,8 @@ class TaskIndex extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.runSearch = this.runSearch.bind(this);
     this.getTaskId = this.getTaskId.bind(this);
-    this.myFunc = this.myFunc.bind(this);
+    // this.myFunc = this.myFunc.bind(this);
   }
-
-
 
   getTaskId(task_id) {
     this.setState({
@@ -105,20 +103,18 @@ class TaskIndex extends React.Component {
     this.setState(
       {
         showPage: !this.state.showPage
-      },
-      this.myFunc()
+      }
+      // this.myFunc()
     );
-  }
 
-  myFunc() {
     const showPage = document.getElementById("task-show");
-    const summaryPage = document.getElementById("task-summary");
+    // const summaryPage = document.getElementById("task-summary");
     if (!this.state.showPage) {
-      showPage.classList.remove("hide");
-      summaryPage.classList.add("hide");
+      showPage.classList.remove("show-move-right");
+      showPage.classList.add("show-move-left");
     } else {
-      summaryPage.classList.remove("hide");
-      showPage.classList.add("hide");
+      showPage.classList.remove("show-move-left");
+      showPage.classList.add("show-move-right");
     }
   }
 
@@ -144,7 +140,7 @@ class TaskIndex extends React.Component {
                           </div>
                         </div>
                         <div className="task-show-container">
-                          <div className="task-show-page hide" id="task-show">
+                          <div className="task-show-page show-move-right" id="task-show">
                             {this.state.taskId.length > 1 ? (
                               <TaskShow taskId={this.state.taskId} />
                             ) : (
@@ -164,7 +160,7 @@ class TaskIndex extends React.Component {
                             {trigger
                               ? this.runSearch(data.user).map((task, i) => (
                                   <div
-                                    onClick={this.handleClick}
+                                    // onClick={this.handleClick}
                                     className="task-list-item"
                                     key={i}
                                   >
