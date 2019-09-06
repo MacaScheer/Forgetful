@@ -43,7 +43,7 @@ class CheckLine extends React.Component {
             onChange={this.handleChange}
           />
           <div id="task" className={this.state.completed ? "strike" : ""}>
-            <button onClick={this.handleClick}>{this.props.name}</button>
+            <button className="task-line-button" onClick={this.handleClick}>{this.props.name}</button>
             {this.renderDelete()}
           </div>
         </form>
