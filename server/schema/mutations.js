@@ -32,7 +32,7 @@ const mutation = new GraphQLObjectType({
         userId: { type: GraphQLString }
       },
       resolve(_, args) {
-        TaskService.createTask(
+        return TaskService.createTask(
           args
         );
       }

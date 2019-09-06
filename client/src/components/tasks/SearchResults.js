@@ -13,7 +13,7 @@ class SearchResults extends React.Component {
     this.state = {};
   }
 
-  runSearch(tasks) {
+  runSearchResult(tasks) {
     let input = localStorage.getItem("userInput");
     const options = {
       keys: ["due_date", "body", "name"],
