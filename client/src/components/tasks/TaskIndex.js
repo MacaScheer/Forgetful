@@ -55,7 +55,27 @@ class TaskIndex extends React.Component {
     });
   }
 
+  runSearchResult(tasks) {
+    let input = localStorage.getItem("userInput");
+    const options = {
+      keys: ["due_date", "body", "name"],
+      shouldSort: true,
+      tokenize: true,
+      findAllMatches: true,
+      threshold: 0.2,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1
+    };
+    let fuse = new Fuse(tasks.tasks, options);
+    let result = fuse.search(input);
+    return result;
+  }
+
   runSearch(data) {
+    if(this.state.keys === "search") return(this.runSearchResult(data))
+
     const check = this.state.urlLength === 1;
     const modifiedData = check ? data.tasks : data[this.state.keys];
     let input = this.state.input;
@@ -73,7 +93,9 @@ class TaskIndex extends React.Component {
     };
 
     let fuse = new Fuse(modifiedData, options);
-    if (check) return fuse.search("never");
+    if (check) {
+      return fuse.search("never")
+    };
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;

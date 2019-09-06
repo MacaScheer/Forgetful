@@ -72,6 +72,9 @@ export default {
         userId: $userId
       ) {
         name
+        _id
+        due_date 
+        start_date
       }
     }
   `,

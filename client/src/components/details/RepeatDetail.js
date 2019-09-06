@@ -9,7 +9,6 @@ const { UPDATE_TASK_REPEAT } = mutations;
 class RepeatDetail extends React.Component {
     constructor(props) {
         super(props);
-        // debugger;
         this.state = {
             editing: false,
             repeat: this.props.repeat || ""
@@ -29,7 +28,6 @@ class RepeatDetail extends React.Component {
     }
 
     render() {
-        // debugger;
         if (this.state.editing) {
             return (
                 <Mutation mutation={UPDATE_TASK_REPEAT}>

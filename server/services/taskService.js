@@ -70,7 +70,7 @@ const createTask = async data => {
     if (existinglocation) existinglocation.save();
     existinguser.save();
     console.log("complete");
-    // return { ...task._doc };
+    return { ...task._doc };
   } catch (err) {
     throw err;
   }

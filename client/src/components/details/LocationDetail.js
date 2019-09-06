@@ -9,7 +9,6 @@ const { UPDATE_TASK_LOCATION } = mutations;
 class LocationDetail extends React.Component {
     constructor(props) {
         super(props);
-        // debugger;
         this.state = {
             editing: false,
             location: this.props.location || ""
@@ -29,7 +28,6 @@ class LocationDetail extends React.Component {
     }
 
     render() {
-        // debugger;
         if (this.state.editing) {
             return (
                 <Mutation mutation={UPDATE_TASK_LOCATION}>
