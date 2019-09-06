@@ -68,11 +68,12 @@ class TaskIndex extends React.Component {
     };
     let fuse = new Fuse(tasks.tasks, options);
     let result = fuse.search(input);
+    debugger;
     return result;
   }
 
   runSearch(data) {
-    if(this.state.keys === "search") return(this.runSearchResult(data))
+    if (this.state.keys === "search") return this.runSearchResult(data);
 
     const check = this.state.urlLength === 1;
     const modifiedData = check ? data.tasks : data[this.state.keys];
@@ -91,9 +92,42 @@ class TaskIndex extends React.Component {
     };
 
     let fuse = new Fuse(modifiedData, options);
+    // return fuse.search("never")
     if (check) {
-      return fuse.search("never")
-    };
+      let today = new Date();
+      let todayString = today.toDateString();
+      let dayARR = todayString.split(" ");
+      let weekDayString = dayARR[0];
+      let dayINT = parseInt(dayARR[2]);
+      let tomINT = dayINT + 1;
+      let nextDATE;
+      let taskList = [];
+      let dueDateList = [];
+      if (input === "today") {
+        dueDateList.push(todayString);
+      }
+      if (input === "tomorrow") {
+        today.setDate(tomINT);
+        debugger;
+        let tomorrowString = today.toDateString();
+        dueDateList.push(tomorrowString);
+      }
+      if (input === "nextweek") {
+        [0, 1, 2, 3, 4, 5, 6, 7].forEach(num => {
+          today.setDate(dayINT + num);
+          let weekString = today.toDateString();
+          dueDateList.push(weekString);
+        });
+        debugger;
+      }
+      fuse.list.forEach(task => {
+        let due_date = task.due_date;
+        if (dueDateList.includes(due_date)) {
+          taskList.push(task);
+        }
+        debugger;
+      });
+    }
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;

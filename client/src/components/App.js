@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Link, Route,} from "react-router-dom";
+import { Switch, Link, Route } from "react-router-dom";
 import { ProtectedRoute, AuthRoute } from "../util/route_util";
 import Login from "./sessions/Login";
 import Signup from "./sessions/Signup";
@@ -21,7 +21,7 @@ const App = () => {
   return (
     <div>
       <Nav />
-      
+
       <Route path="/date" component={DateOption} />
       <Route exact path="/all/:id" component={TaskShow} />
       <Route path="/routetest" component={LocationOption} />
@@ -30,6 +30,8 @@ const App = () => {
       <Route path="/all" component={TaskIndex} />
       <Route path="/lists/inbox" component={TaskIndex} />
       <Route path="/today" component={TaskIndex} />
+      <Route path="/tomorrow" component={TaskIndex} />
+      <Route path="/thisweek" component={TaskIndex} />
       <Route path="/lists/:list" component={TaskIndex} />
       <Route path="/tags/:list" component={TaskIndex} />
       <Route path="/locations/:list" component={TaskIndex} />
