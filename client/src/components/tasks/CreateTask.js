@@ -7,7 +7,7 @@ import TagOption from "./TagOption";
 import ListOption from "./ListOption";
 import LocationOption from "./LocationOption";
 import DateOption from "./DateOption";
-const { ALL_TASKS } = Queries;
+const { FETCH_USER} = Queries;
 const { CREATE_TASK } = Mutations;
 
 class CreateTask extends React.Component {
@@ -129,7 +129,6 @@ class CreateTask extends React.Component {
     const firstKey = string.split("").find(ele => filter.includes(ele)); //retunrs -1 if none found
     const i = string.indexOf(firstKey);
     if (i === -1) return string;
-    // debugger
     return string.slice(0, i).trim();
   }
 
@@ -150,7 +149,34 @@ class CreateTask extends React.Component {
         listId: this.state.listId,
         userId: localStorage.getItem("currentuserId")
       }
-    }).then(this.setState({input: ""}))
+    }).then(res => {
+      this.setState({ input: "" })
+    })
+  }
+
+  updateCache(cache, { data}  ) {
+    let tasks;
+    try {
+      const id = localStorage.getItem('currentuserId')
+
+      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id}})
+
+      // debugger
+    } catch (err) {
+      return;
+    }
+    if (tasks) {
+      const id = localStorage.getItem('currentuserId')
+      let newTask = data.newTask;
+      tasks.user.tasks.push(newTask) 
+      // debugger 
+      cache.writeQuery({
+        query: FETCH_USER,
+        variables: { Id: id },
+        data: { user: tasks.user }
+      })
+      // debugger
+    }
   }
 
   render() {
@@ -158,12 +184,13 @@ class CreateTask extends React.Component {
       <Mutation
         mutation={CREATE_TASK}
         onError={err => this.setState({ message: err.message })}
-        onCompleted={data => {
-          const { name } = data.newTask;
-          this.setState({
-            message: `new task ${name} created successfully`
-          });
-        }}
+        // onCompleted={data => {
+        //   const { name } = data.newTask;
+        //   this.setState({
+        //     message: `new task ${name} created successfully`
+        //   });
+        // }}
+        update= {(cache, data) => this.updateCache(cache, data)}
       >
         {newTask => (
           <div className="create-task-container">

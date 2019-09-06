@@ -9,7 +9,6 @@ const { UPDATE_TASK_PRIORITY } = mutations;
 class PriorityDetail extends React.Component {
     constructor(props) {
         super(props);
-        // debugger;
         this.state = {
             editing: false,
             priority: this.props.priority || ""
@@ -48,7 +47,7 @@ class PriorityDetail extends React.Component {
     }
 
     render() {
-      
+
         if (this.state.editing) {
             return (
                 <Mutation mutation={UPDATE_TASK_PRIORITY}>

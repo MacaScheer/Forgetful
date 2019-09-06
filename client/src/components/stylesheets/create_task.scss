@@ -8,6 +8,7 @@
   .create-task-form {
     background: white;
     padding: 20px;
+    border-radius: 6px;
 
     .create-task-input {
       width: 100%;
@@ -26,7 +27,7 @@
 .right-side {
   right: 0;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 67px;
   width: 50%;
 }
@@ -34,7 +35,9 @@
 .tasks-container {
   z-index: 1;
   left: 12px;
+  border: 1px solid white;
   top: 67px;
+  border-radius: 6px;
   width: 700px;
   position: absolute;
 }

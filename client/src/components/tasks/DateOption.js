@@ -21,7 +21,7 @@ export default class DateOption extends Component {
     e.preventDefault()
     this.props.inputAdder(this.state.dateDetail);
     this.props.type === "start_date" ? this.props.stateBinder({ start_date: this.state.date }) :
-      this.props.stateBinder({due_date: this.props.date})
+      this.props.stateBinder({due_date: this.state.date})
   }
   updateDate(e) {
     e.preventDefault();

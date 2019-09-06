@@ -58,7 +58,6 @@ export default class LocationOption extends Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           if (data.user.locations) {
-            // debugger
             return (
               <div>
                 <div className="task-list-container">

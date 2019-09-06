@@ -47,23 +47,16 @@ export default {
       }
     }
   `,
-  ALL_TASKS: gql`
-    {
-      tasks {
+  FETCH_USER_TASKS: gql`
+  query FetchUserTasks( $Id: ID!){
+    user(_id: $Id){
+      tasks{
         name
-        _id
-        tags {
-          name
-        }
-        list {
-          name
-        }
-        body
-        due_date
-        start_date
       }
     }
+  }
   `,
+ 
   FETCH_TASK: gql`
     query FetchTask($Id: ID!) {
       task(_id: $Id) {
@@ -80,6 +73,15 @@ export default {
       }
     }
   `,
+  FETCH_TASKS: gql`
+  query FetchTasks{
+    tasks{
+      name
+      _id
+    }
+  }
+  `,
+
   SEARCH_RESULTS: gql`
     query searchResult {
       searchResults @client

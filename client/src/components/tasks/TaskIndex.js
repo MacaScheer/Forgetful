@@ -36,7 +36,7 @@ class TaskIndex extends React.Component {
       urlLength: URLArray.length,
       url: URL,
       showPage: false,
-      taskId: "",
+      taskId: ""
     };
 
     this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -44,10 +44,8 @@ class TaskIndex extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.runSearch = this.runSearch.bind(this);
     this.getTaskId = this.getTaskId.bind(this);
-    this.myFunc = this.myFunc.bind(this);
+    // this.myFunc = this.myFunc.bind(this);
   }
-
-
 
   getTaskId(task_id) {
     this.setState({
@@ -55,7 +53,27 @@ class TaskIndex extends React.Component {
     });
   }
 
+  runSearchResult(tasks) {
+    let input = localStorage.getItem("userInput");
+    const options = {
+      keys: ["due_date", "body", "name"],
+      shouldSort: true,
+      tokenize: true,
+      findAllMatches: true,
+      threshold: 0.2,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1
+    };
+    let fuse = new Fuse(tasks.tasks, options);
+    let result = fuse.search(input);
+    return result;
+  }
+
   runSearch(data) {
+    if (this.state.keys === "search") return this.runSearchResult(data);
+
     const check = this.state.urlLength === 1;
     const modifiedData = check ? data.tasks : data[this.state.keys];
     let input = this.state.input;
@@ -71,9 +89,57 @@ class TaskIndex extends React.Component {
       maxPatternLength: 32,
       minMatchCharLength: 1
     };
-
     let fuse = new Fuse(modifiedData, options);
-    if (check) return fuse.search("never");
+    // return fuse.search("never")
+    if (check) {
+      let today = new Date();
+      let todayString = today.toDateString();
+      let dayARR = todayString.split(" ");
+      let weekDayString = dayARR[0];
+      let dayINT = parseInt(dayARR[2]);
+      let tomINT = dayINT + 1;
+      let nextDATE;
+      let taskList = [];
+      let dueDateList = [];
+      if (input === "today") {
+        dueDateList.push(todayString);
+      }
+      if (input === "tomorrow") {
+        today.setDate(tomINT);
+        let tomorrowString = today.toDateString();
+        dueDateList.push(tomorrowString);
+      }
+      if (input === "thisweek") {
+        let numsARR = [];
+        if (weekDayString === "Sun") {
+          numsARR = [0, 1, 2, 3, 4, 5, 6, 7];
+        } else if (weekDayString === "Mon") {
+          numsARR = [0, 1, 2, 3, 4, 5, 6];
+        } else if (weekDayString === "Tues") {
+          numsARR = [0, 1, 2, 3, 4, 5];
+        } else if (weekDayString === "Wed") {
+          numsARR = [0, 1, 2, 3, 4];
+        } else if (weekDayString === "Thurs") {
+          numsARR = [0, 1, 2, 3];
+        } else if (weekDayString === "Fri") {
+          numsARR = [0, 1, 2];
+        } else if (weekDayString === "Sat") {
+          numsARR = [0, 1];
+        }
+        numsARR.forEach(num => {
+          today.setDate(dayINT + num);
+          let weekString = today.toDateString();
+          dueDateList.push(weekString);
+        });
+      }
+      fuse.list.forEach(task => {
+        let due_date = task.due_date;
+        if (dueDateList.includes(due_date)) {
+          taskList.push(task);
+        }
+      });
+      return taskList;
+    }
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;
@@ -105,20 +171,18 @@ class TaskIndex extends React.Component {
     this.setState(
       {
         showPage: !this.state.showPage
-      },
-      this.myFunc()
+      }
+      // this.myFunc()
     );
-  }
 
-  myFunc() {
     const showPage = document.getElementById("task-show");
-    const summaryPage = document.getElementById("task-summary");
+    // const summaryPage = document.getElementById("task-summary");
     if (!this.state.showPage) {
-      showPage.classList.remove("hide");
-      summaryPage.classList.add("hide");
+      showPage.classList.remove("show-move-right");
+      showPage.classList.add("show-move-left");
     } else {
-      summaryPage.classList.remove("hide");
-      showPage.classList.add("hide");
+      showPage.classList.remove("show-move-left");
+      showPage.classList.add("show-move-right");
     }
   }
 
@@ -144,7 +208,10 @@ class TaskIndex extends React.Component {
                           </div>
                         </div>
                         <div className="task-show-container">
-                          <div className="task-show-page hide" id="task-show">
+                          <div
+                            className="task-show-page show-move-right"
+                            id="task-show"
+                          >
                             {this.state.taskId.length > 1 ? (
                               <TaskShow taskId={this.state.taskId} />
                             ) : (
@@ -164,7 +231,7 @@ class TaskIndex extends React.Component {
                             {trigger
                               ? this.runSearch(data.user).map((task, i) => (
                                   <div
-                                    onClick={this.handleClick}
+                                    // onClick={this.handleClick}
                                     className="task-list-item"
                                     key={i}
                                   >

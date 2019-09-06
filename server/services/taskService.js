@@ -70,7 +70,8 @@ const createTask = async data => {
     if (existinglocation) existinglocation.save();
     existinguser.save();
     console.log("complete");
-    // return { ...task._doc };
+    console.log(task)
+    return { ...task._doc };
   } catch (err) {
     throw err;
   }
@@ -99,20 +100,23 @@ const checkTagUniqueness = async data => {
 
 const checkListUniqueness = async data => {
   try {
+    console.log('start')
     const { name, userId } = data;
     const user = await User.findById(userId);
     const list = await new List({ name, userId });
-    const listId = await list._id;
+    const listId =  list._id;
     const existinglists = await List.find({ name: name });
     existinglists.forEach(list => {
       if (user.lists.includes(list._id))
         throw new Error("This user already has this list!");
     });
-
+    console.log('test2')
     user.lists.push(listId);
     user.save();
-    location.save();
+    list.save();
+    console.log("complete")
     return { ...list._doc };
+   
   } catch (err) {
     throw err;
   }
