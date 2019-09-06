@@ -68,7 +68,6 @@ class TaskIndex extends React.Component {
     };
     let fuse = new Fuse(tasks.tasks, options);
     let result = fuse.search(input);
-    debugger;
     return result;
   }
 
@@ -90,7 +89,6 @@ class TaskIndex extends React.Component {
       maxPatternLength: 32,
       minMatchCharLength: 1
     };
-
     let fuse = new Fuse(modifiedData, options);
     // return fuse.search("never")
     if (check) {
@@ -108,25 +106,39 @@ class TaskIndex extends React.Component {
       }
       if (input === "tomorrow") {
         today.setDate(tomINT);
-        debugger;
         let tomorrowString = today.toDateString();
         dueDateList.push(tomorrowString);
       }
-      if (input === "nextweek") {
-        [0, 1, 2, 3, 4, 5, 6, 7].forEach(num => {
+      if (input === "thisweek") {
+        let numsARR = [];
+        if (weekDayString === "Sun") {
+          numsARR = [0, 1, 2, 3, 4, 5, 6, 7];
+        } else if (weekDayString === "Mon") {
+          numsARR = [0, 1, 2, 3, 4, 5, 6];
+        } else if (weekDayString === "Tues") {
+          numsARR = [0, 1, 2, 3, 4, 5];
+        } else if (weekDayString === "Wed") {
+          numsARR = [0, 1, 2, 3, 4];
+        } else if (weekDayString === "Thurs") {
+          numsARR = [0, 1, 2, 3];
+        } else if (weekDayString === "Fri") {
+          numsARR = [0, 1, 2];
+        } else if (weekDayString === "Sat") {
+          numsARR = [0, 1];
+        }
+        numsARR.forEach(num => {
           today.setDate(dayINT + num);
           let weekString = today.toDateString();
           dueDateList.push(weekString);
         });
-        debugger;
       }
       fuse.list.forEach(task => {
         let due_date = task.due_date;
         if (dueDateList.includes(due_date)) {
           taskList.push(task);
         }
-        debugger;
       });
+      return taskList;
     }
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
@@ -196,7 +208,10 @@ class TaskIndex extends React.Component {
                           </div>
                         </div>
                         <div className="task-show-container">
-                          <div className="task-show-page show-move-right" id="task-show">
+                          <div
+                            className="task-show-page show-move-right"
+                            id="task-show"
+                          >
                             {this.state.taskId.length > 1 ? (
                               <TaskShow taskId={this.state.taskId} />
                             ) : (
