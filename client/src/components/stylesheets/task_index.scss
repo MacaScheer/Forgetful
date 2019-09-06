@@ -1,7 +1,6 @@
 @import "variables";
 
 .task-list {
-  border: 1px dotted #eee;
   padding: 15px;
   height: 100%;
   background: white;
@@ -14,7 +13,7 @@
   padding: 5px 20px 15px 5px;
   margin-bottom: 10px;
   width: 100%;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px dotted #e5e5e5;
   font-size: 13px;
   color: #333333;
 }
@@ -44,8 +43,18 @@ input[type="checkbox"] {
   }
 }
 
-.hide {
-  visibility: hidden;
+.summary-container {
+  padding: 50px;
+}
+
+.show-move-left {
+  transform: translate(1px, 0);
+  transition: 0.8s ease-in;
+}
+
+.show-move-right {
+  transform: translate(1000px, 0);
+  transition: 0.8s ease-in;
 }
 
 .move-right {
@@ -59,8 +68,14 @@ input[type="checkbox"] {
 }
 
 .task-show-page {
-  width: 100%;
+  width: 700px;
+  background: white;
+  color: #484848;
   height: 100%;
+  border: 1px solid rgb(226, 226, 226);
+  border-left: 2.4px solid lightgray;
+  border-radius: 6px;
+  z-index: 5;
 }
 
 #task {
@@ -73,6 +88,7 @@ input[type="checkbox"] {
 
 .task-line-button {
   border: none;
+  display: inline;
 
   &:hover {
     cursor: pointer;
