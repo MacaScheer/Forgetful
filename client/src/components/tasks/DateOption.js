@@ -8,15 +8,21 @@ export default class DateOption extends Component {
     this.state = {
       date: "",
       showDatePicker: false,
-      displayDate: "",
       dateDetail: ""
     };
     this.updateDate = this.updateDate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.toggleDatePicker = this.toggleDatePicker.bind(this);
     this.formatDate = this.formatDate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.inputAdder(this.state.dateDetail);
+    this.props.type === "start_date" ? this.props.stateBinder({ start_date: this.state.date }) :
+      this.props.stateBinder({due_date: this.props.date})
+  }
   updateDate(e) {
     e.preventDefault();
     if (e.currentTarget.value === "never") {
@@ -54,7 +60,6 @@ export default class DateOption extends Component {
       .split(" ")[1]
       .concat(" ")
       .concat(newDate.split(" ")[2]);
-    debugger;
     if (typeof newDate === "string") {
       this.setState({
         date: newDate,
@@ -109,33 +114,32 @@ export default class DateOption extends Component {
     return (
       <div className="date-option-container">
         <label>
-          {/* {typeof this.state.date === "object"
-            ? this.formatDate(this.state.date)
-            : this.state.date} */}
-          <h3>{this.state.dateDetail}</h3>
+          {this.props.type === "start_date" ? <p>Select a Start Date:</p> :
+        <p>Select a Due Date</p>}
+           <h3>{this.state.dateDetail}</h3>
         </label>
         <br />
         <button
           onClick={this.updateDate}
           value={todayFullString}
-          dateName="Today"
-          dateDetail={todayDateDetail}
+          datename="Today"
+          datedetail={todayDateDetail}
         >
           Today<div className="date-detail">{todayDateDetail}</div>
         </button>
         <button
           onClick={this.updateDate}
           value={tomorrowFullString}
-          dateName="Tomorrow"
-          dateDetail={tomorrowDateDetail}
+          datename="Tomorrow"
+          datedetail={tomorrowDateDetail}
         >
           Tomorrow<div className="date-detail">{tomorrowDateDetail}</div>
         </button>
         <button
           onClick={this.updateDate}
           value={dayTwoFullString}
-          dateName={dayTwoName}
-          dateDetail={dayTwoDateDetail}
+          datename={dayTwoName}
+          datedetail={dayTwoDateDetail}
         >
           {dayTwoName}
           <div className="date-detail">{dayTwoDateDetail}</div>
@@ -143,8 +147,8 @@ export default class DateOption extends Component {
         <button
           onClick={this.updateDate}
           value={dayThreeFullString}
-          dateName={dayThreeName}
-          dateDetail={dayThreeDateDetail}
+          datename={dayThreeName}
+          datedetail={dayThreeDateDetail}
         >
           {dayThreeName}
           <div className="date-detail">{dayThreeDateDetail}</div>
@@ -152,8 +156,8 @@ export default class DateOption extends Component {
         <button
           onClick={this.updateDate}
           value={dayFourFullString}
-          dateName={dayFourName}
-          dateDetail={dayFourDateDetail}
+          datename={dayFourName}
+          datedetail={dayFourDateDetail}
         >
           {dayFourName}
           <div className="date-detail">{dayFourDateDetail}</div>
@@ -175,6 +179,7 @@ export default class DateOption extends Component {
             <div />
           )}
         </div>
+        <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
   }

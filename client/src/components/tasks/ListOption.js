@@ -1,26 +1,27 @@
 import React, { Component } from "react";
-import CreateModal from './CreateModal'
-import { Query } from 'react-apollo'
-import Queries from '../../graphql/queries'
-import '../stylesheets/tag_and_list_option.scss'
-const { FETCH_USER } = Queries 
+import CreateModal from "./CreateModal";
+import { Query } from "react-apollo";
+import Queries from "../../graphql/queries";
+import "../stylesheets/tag_and_list_option.scss";
+const { FETCH_USER } = Queries;
 
 export default class ListOption extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       listId: "",
       name: "",
       render: false,
       type: "list"
-    }
+    };
     this.toggleModal = this.toggleModal.bind(this);
     this.updateState = this.updateState.bind(this);
     this.closer = this.closer.bind(this);
+    this.binder = this.binder.bind(this);
   }
 
   closer() {
-    this.setState({render: false})
+    this.setState({ render: false });
   }
 
   toggleModal(e) {
@@ -35,13 +36,18 @@ export default class ListOption extends Component {
       <div />
     );
   }
-  
+
   updateState(e) {
     e.preventDefault();
-    this.setState({ name: e.target.name, listId: e.target.value })
-      this.props.inputAdder(this.state.name);
-      this.props.stateBinder({ listId: e.target.value });
-    ;;
+    this.setState({
+      name: e.target.name,
+      listId: e.target.value
+    }, this.binder());
+    
+  }
+  binder() {
+    this.props.inputAdder(this.state.name);
+    this.props.stateBinder({ listId: this.state.listId });
   }
 
   render() {
