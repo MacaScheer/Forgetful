@@ -67,8 +67,17 @@ input[type="checkbox"] {
   transition: 0.6s ease-in;
 }
 
+.task-index-page-content {
+  width: 100%;
+}
+
+.task-container {
+  width: 49%;
+}
+
+
 .task-show-page {
-  width: 700px;
+  width: 100%;
   background: white;
   color: #484848;
   height: 100%;

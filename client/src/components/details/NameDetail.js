@@ -7,17 +7,17 @@ import "../stylesheets/showpage_css.scss";
 import Mutations from "../../graphql/mutations";
 // import UPDATE_TASK_NAME from "../../graphql/mutations";
 
-const {UPDATE_TASK_NAME} = Mutations;
+const { UPDATE_TASK_NAME } = Mutations;
 
 class NameDetail extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            editing: false,
-            name: this.props.name || ""
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: false,
+      name: this.props.name || ""
+    };
 
-        this.handleEdit = this.handleEdit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
 
         this.Ref = React.createRef();
         this.handleEdit = this.handleEdit.bind(this);
@@ -83,6 +83,7 @@ class NameDetail extends React.Component {
             return (
                 <div className="show-task-name">
                     {/* <div 
+
                         onClick={this.handleEdit}
                         style={{ fontSize: "10px", cursor: "pointer", display: "inline"}}
                     >
@@ -90,6 +91,7 @@ class NameDetail extends React.Component {
                             <FaPencilAlt />
                         </IconContext.Provider>
                     </div> */}
+
                     <p
                         ref={this.Ref} 
                     onClick={this.handleEdit}>
@@ -99,7 +101,9 @@ class NameDetail extends React.Component {
                 </div>
             )
         }
+
     }
+  }
 }
 
 export default NameDetail;

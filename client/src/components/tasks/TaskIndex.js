@@ -230,11 +230,12 @@ class TaskIndex extends React.Component {
                           <div className="task-list">
                             {trigger
                               ? this.runSearch(data.user).map((task, i) => (
-                                  <div
-                                    // onClick={this.handleClick}
-                                    className="task-list-item"
-                                    key={i}
-                                  >
+                                  <div>
+                                    <div
+                                      onClick={this.handleClick}
+                                      className="task-list-item"
+                                      key={i}
+                                    ></div>
                                     <Taskline
                                       url={this.state.url}
                                       _id={task._id}
@@ -244,11 +245,12 @@ class TaskIndex extends React.Component {
                                   </div>
                                 ))
                               : data.user.tasks.map((task, i) => (
-                                  <div
-                                    onClick={this.handleClick}
-                                    className="task-list-item"
-                                    key={i}
-                                  >
+                                  <div>
+                                    <div
+                                      onClick={this.handleClick}
+                                      className="task-list-item"
+                                      key={i}
+                                    ></div>
                                     <Taskline
                                       url={this.state.url}
                                       _id={task._id}
