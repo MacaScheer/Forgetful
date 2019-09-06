@@ -19,8 +19,30 @@ class NameDetail extends React.Component {
 
         this.handleEdit = this.handleEdit.bind(this);
 
+        this.Ref = React.createRef();
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+
     }
 
+    componentWillMount() {
+        document.addEventListener('mousedown', this.handleClick, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick, false);
+    }
+
+    handleClick = (e) => {
+        
+        if (this.Ref.current.contains(e.target)) {
+            return;
+        } else {
+            this.setState({ editing: false });
+        }
+
+
+    }
     handleEdit(e) {
         e.preventDefault();
         this.setState({editing:true});
@@ -37,6 +59,7 @@ class NameDetail extends React.Component {
                     {(updateTask) => (
                         <div>
                             <form
+                                ref={this.Ref}
                                 onSubmit={e => {
                                     e.preventDefault();
                                     updateTask({
@@ -45,6 +68,7 @@ class NameDetail extends React.Component {
                                 }}
                             >
                                 <input
+                                    
                                     value={this.state.name}
                                     onChange={this.fieldUpdate("name")}
                                 />
@@ -66,7 +90,9 @@ class NameDetail extends React.Component {
                             <FaPencilAlt />
                         </IconContext.Provider>
                     </div> */}
-                    <p onClick={this.handleEdit}>
+                    <p
+                        ref={this.Ref} 
+                    onClick={this.handleEdit}>
                         Name: {this.state.name}
                     </p>
                     {/* <h2>Name: {this.state.name}</h2> */}

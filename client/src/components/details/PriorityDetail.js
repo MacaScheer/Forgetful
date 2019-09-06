@@ -14,9 +14,28 @@ class PriorityDetail extends React.Component {
             editing: false,
             priority: this.props.priority || ""
         };
-
+        this.Ref = React.createRef();
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
+    }
+    componentWillMount(){
+        document.addEventListener('mousedown', this.handleClick, false);
+    }
+
+    componentWillUnmount(){
+        document.removeEventListener('mousedown', this.handleClick, false);
+    }
+
+    handleClick = (e) => {
+ 
+        if (this.Ref.current.contains(e.target)) {
+            return;
+        }else{
+            this.setState({ editing: false });
+        }
+        
+        
     }
 
     handleEdit(e) {
@@ -29,13 +48,14 @@ class PriorityDetail extends React.Component {
     }
 
     render() {
-        // debugger;
+      
         if (this.state.editing) {
             return (
                 <Mutation mutation={UPDATE_TASK_PRIORITY}>
                     {(updateTask) => (
                         <div>
-                            <form
+                            <form 
+                                ref={this.Ref}
                                 onSubmit={e => {
                                     e.preventDefault();
                                     updateTask({
@@ -44,12 +64,14 @@ class PriorityDetail extends React.Component {
                                 }}
                             >
                                 <input
+                                    
                                     value={this.state.priority}
                                     onChange={this.fieldUpdate("priority")}
                                 />
                                 <button type="submit">Update Priority </button>
                             </form>
                         </div>
+
                     )}
                 </Mutation>
             );
@@ -58,7 +80,9 @@ class PriorityDetail extends React.Component {
             return (
                 <div className="show-task-priority">
                     
-                    <p onClick={this.handleEdit}>
+                    <p 
+                    ref={this.Ref} 
+                    onClick={this.handleEdit}>
                         Priority: {this.state.priority}
                     </p>
                     {/* <h2>Name: {this.state.name}</h2> */}

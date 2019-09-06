@@ -74,7 +74,9 @@ export default {
         start_date
         priority
         repeat
-        location
+        location{
+          name
+        }
       }
     }
   `,

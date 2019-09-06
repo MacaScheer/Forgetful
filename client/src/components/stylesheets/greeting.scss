@@ -9,7 +9,7 @@
     margin: 20px 10px;
 
     a {
-      color: $blue;
+      color: white;
       text-decoration: none;
       padding: 32px 20px;
     }
@@ -100,6 +100,14 @@
   left: 0;
   z-index: 1;
   width: 140px;
+}
+
+.home-image{
+  margin-top: 5%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 .menu-wrap .hamburger {

@@ -15,10 +15,30 @@ class DueDateDetail extends React.Component {
             due_date: this.props.due_date || ""
         };
 
+        this.Ref = React.createRef();
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+
 
     }
+    componentWillMount() {
+        document.addEventListener('mousedown', this.handleClick, false);
+    }
 
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick, false);
+    }
+
+    handleClick = (e) => {
+      
+        if (this.Ref.current.contains(e.target)) {
+            return;
+        } else {
+            this.setState({ editing: false });
+        }
+
+
+    }
     handleEdit(e) {
         e.preventDefault();
         this.setState({ editing: true });
@@ -35,6 +55,7 @@ class DueDateDetail extends React.Component {
                     {(updateTask) => (
                         <div>
                             <form
+                                ref={this.Ref}
                                 onSubmit={e => {
                                     e.preventDefault();
                                     updateTask({
@@ -43,6 +64,7 @@ class DueDateDetail extends React.Component {
                                 }}
                             >
                                 <input
+                                    
                                     value={this.state.due_date}
                                     onChange={this.fieldUpdate("due_date")}
                                 />
@@ -66,7 +88,9 @@ class DueDateDetail extends React.Component {
                     </div> */}
 
                     {/* <h2>Due_date: {this.state.due_date}</h2> */}
-                    <p onClick={this.handleEdit}>
+                    <p 
+                        ref={this.Ref}
+                        onClick={this.handleEdit}>
                         Due_date: {this.state.due_date}
                     </p>
                 </div>

@@ -120,7 +120,9 @@ export default {
       mutation updateTask($_id: ID, $location: String){
         updateTask(_id: $_id, location: $location){
           _id
-          location
+          location{
+            name
+          }
         }
       }
     `,

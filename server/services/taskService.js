@@ -145,21 +145,8 @@ const moveToTrash = async data => {
 };
 
 const updateTask = async data => {
-  // try {
-  //   const { _id, name, due_date, body } = data
-  //   // console.log(_id)
-  //   const existingTask = await Task.findById(_id);
-
-  //   await name !== null ? existingTask.name = name : null;
-  //   await due_date !== null ? existingTask.due_date = due_date : null;
-  //   await body !== null ? existingTask.body = body : null;
-  //   // console.log(name)
-  //   existingTask.save()
-  //   return existingTask
-
-  // } catch (err) {
-  //   throw err
-  // }
+  try {
+  
   const updateObj = {};
 
   const { _id, name, due_date, body, priority, repeat, location } = data;
@@ -171,14 +158,20 @@ const updateTask = async data => {
   if (repeat) updateObj.repeat = repeat;
   if (location) updateObj.location = location;
 
-  return Task.findOneAndUpdate(
+  Task.findOneAndUpdate(
     { _id: _id },
     { $set: updateObj },
     { new: true },
     (err, task) => {
       return task;
     }
-  );
+  ).then(res => console.log(res));
+    // task.save();
+    // return{...task._doc}
+  }
+  catch (err){
+    return err
+  }
 };
 
 module.exports = {
