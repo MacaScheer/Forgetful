@@ -104,6 +104,6 @@ class NameDetail extends React.Component {
 
     }
   }
-}
+
 
 export default NameDetail;
