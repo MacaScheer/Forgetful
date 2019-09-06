@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
+import Queries from "../../graphql/queries"
 const { CREATE_TAG, CREATE_LIST, CREATE_LOCATION } = Mutations;
-
+const { FETCH_USER } = Queries
 export default class CreateModal extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,7 @@ export default class CreateModal extends Component {
     };
 
     this.mutationPicker = this.mutationPicker.bind(this);
+    this.updateCache = this.updateCache.bind(this);
   }
 
   update(field) {
@@ -37,6 +39,7 @@ export default class CreateModal extends Component {
     let mutation;
     switch (this.props.type) {
       case "list":
+        // debugger 
         return (mutation = CREATE_LIST);
       case "tag":
         return (mutation = CREATE_TAG);
@@ -47,9 +50,50 @@ export default class CreateModal extends Component {
     }
   }
 
+  updateCache(cache, { data }) {
+    let user;
+    try {
+      const id = localStorage.getItem('currentuserId')
+
+      user = cache.readQuery({ query: FETCH_USER, variables: { Id: id } })
+
+    } catch (err) {
+      return;
+    }
+    if (user) {
+      const id = localStorage.getItem('currentuserId')
+      let newObj= data.Obj;
+      
+      if (this.props.type === "list") {
+        user.user.lists.push(newObj)
+        cache.writeQuery({
+          query: FETCH_USER,
+          variables: { Id: id },
+          data: { user: user.user }
+        })
+      } else if (this.props.type === "tag") {
+        user.user.tags.push(newObj)
+        cache.writeQuery({
+          query: FETCH_USER,
+          variables: { Id: id },
+          data: { user: user.user }
+        })
+      } else {
+        user.user.locations.push(newObj)
+        cache.writeQuery({
+          query: FETCH_USER,
+          variables: { Id: id },
+          data: { user: user.user }
+        })
+      } 
+      // debugger
+        
+    }
+  }
+
   render() {
     let mutation;
-
+// debugger 
     return (
       <Mutation
         mutation={this.state.mutation}
@@ -62,6 +106,7 @@ export default class CreateModal extends Component {
           const { name } = newObj;
           console.log(`${name} created succesfully`);
         }}
+        update={(cache, data)=>this.updateCache(cache, data)}
       >
         {(newObj, { data }) => (
           <div className="modal-container">
