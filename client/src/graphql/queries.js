@@ -16,6 +16,7 @@ export default {
         }
         tags {
           tasks {
+            _id
             name
           }
           name
@@ -25,14 +26,23 @@ export default {
           name
           _id
           tasks {
+            _id
             name
           }
         }
-        trash {
+
+        trash{
+          _id
           name
         }
-        locations {
+        locations{
+          _id
+
           name
+          tasks{
+            _id
+            name
+          }
         }
       }
     }

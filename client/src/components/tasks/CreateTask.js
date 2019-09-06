@@ -5,6 +5,8 @@ import Queries from "../../graphql/queries";
 import "../stylesheets/create_task.scss";
 import TagOption from "./TagOption";
 import ListOption from "./ListOption";
+import LocationOption from "./LocationOption";
+import DateOption from "./DateOption";
 const { ALL_TASKS } = Queries;
 const { CREATE_TASK } = Mutations;
 
@@ -15,34 +17,52 @@ class CreateTask extends React.Component {
       input: "",
       listId: "",
       tagId: "",
+      locationId: "",
       start: "",
-      message: ""
+      message: "",
+      due_date: ""
     };
     this.renderTools = this.renderTools.bind(this);
     this.inputChar = this.inputChar.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
     this.renderLists = this.renderLists.bind(this);
-  }
 
-  stateBinder(key, value) {
-    this.setState({ key: value });
+    this.renderButton = this.renderButton.bind(this);
+    this.inputAdder = this.inputAdder.bind(this)
+  }
+  inputAdder(value) {
+    this.setState({ input: this.state.input.concat(value) });
+  }
+  stateBinder(value) {
+    this.setState(value)
   }
 
   tools() {
     return (
+
       <div className="filter-buttons">
-        <div className="flex-buttons">
-          <button onClick={this.inputChar} value="^">
-            <i className="fas fa-calendar icons" value="^" />
-          </button>{" "}
-          <button onClick={this.inputChar} value="*">
-            <i className="fas fa-list icons" value="*" />
-          </button>
-          <button onClick={this.inputChar} value="@">
-            <i className="fas fa-tags icons" value="@" />
-          </button>
-        </div>
-        <button className="create-task-button">Add Task</button>
+      <div className="flex-buttons">
+        <button onClick={this.inputChar} value="~">
+          <i className="fas fa-play" value="~" />
+        </button>
+        <button onClick={this.inputChar} value="^">
+          <i className="fas fa-calendar icons" value="^" />
+        </button>
+        {/* duedate*/}
+        <button onClick={this.inputChar} value="*">
+          <i className="fas fa-list icons" value="*" />
+        </button>
+        {/* list */}
+        <button onClick={this.inputChar} value="#">
+          <i className="fas fa-tags icons" value="#" />
+        </button>
+        {/* tag */}
+        <button onClick={this.inputChar} value="@">
+          <i className="fas fa-map-marker-alt" value="@" />
+        </button>
+        {/* tag */}
+     <button className="create-task-button">Add Task</button>
+       </div>
       </div>
     );
   }
@@ -58,9 +78,44 @@ class CreateTask extends React.Component {
 
     switch (lastChar) {
       case "*":
-        return <ListOption stateBinder={this.stateBinder} />;
+
+        return (
+          <ListOption
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
+      case "#":
+        return (
+          <TagOption
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
       case "@":
-        return <TagOption stateBinder={this.stateBinder} />;
+        return (
+          <LocationOption
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
+      case "~":
+        return (
+          <DateOption
+            type="start date"
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
+      case "^":
+        return (
+          <DateOption
+            type="due date"
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
+
       default:
         return <div />;
     }

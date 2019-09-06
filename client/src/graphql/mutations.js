@@ -44,6 +44,13 @@ export default {
       }
     }
   `,
+  CREATE_LOCATION: gql`
+  mutation CreateLocation($name: String, $userid: ID!){
+    newLocation(name:$ name userId: $userid){
+      name
+    }
+  }
+  `,
 
   CREATE_TASK: gql`
     mutation newTask(

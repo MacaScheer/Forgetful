@@ -3,16 +3,16 @@ import CreateModal from "./CreateModal";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import "../stylesheets/tag_and_list_option.scss";
-
 const { FETCH_USER } = Queries;
-export default class TagOption extends Component {
+
+export default class LocationOption extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      render: false,
-      tagId: "",
+      locationId: "",
       name: "",
-      type: "tag"
+      render: false,
+      type: "location"
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.updateState = this.updateState.bind(this);
@@ -39,10 +39,10 @@ export default class TagOption extends Component {
     e.preventDefault();
     this.setState({
       name: e.target.name,
-      tagId: e.target.value
+      locationId: e.target.value
     });
     this.props.inputAdder(this.state.name);
-    this.props.stateBinder({ tagId: e.target.value });
+    this.props.stateBinder({ locationId: e.target.value });
   }
 
   render() {
@@ -52,31 +52,25 @@ export default class TagOption extends Component {
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          if (data.user.tags) {
+          if (data.user.locations) {
+            // debugger
             return (
               <div>
                 <div className="task-list-container">
                   <div className="task-list">
-                    {data.user.tags.map((tag, i) => (
-                      <div className="task-list-item" key={i}>
-                        <button
-                          className="task-list-item"
-                          key={i}
-                          value={tag._id}
-                          name={tag.name}
-                          onClick={this.updateState}
-                        >
-                          {tag.name}
-                        </button>
-                      </div>
+                    {data.user.locations.map((location, i) => (
+                      <button
+                        className="task-list-item"
+                        key={i}
+                        value={location._id}
+                        name={location.name}
+                        onClick={this.updateState}
+                      >
+                        {location.name}
+                      </button>
                     ))}
                   </div>
-                  <button
-                    className="task-list-button"
-                    onClick={this.toggleModal}
-                  >
-                    Add Tag
-                  </button>
+                  <button onClick={this.toggleModal}>Add Location</button>
                 </div>
                 {this.renderModal()}
               </div>

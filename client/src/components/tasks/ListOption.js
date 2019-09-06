@@ -16,6 +16,11 @@ export default class ListOption extends Component {
     }
     this.toggleModal = this.toggleModal.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.closer = this.closer.bind(this);
+  }
+
+  closer() {
+    this.setState({render: false})
   }
 
   toggleModal(e) {
@@ -24,12 +29,19 @@ export default class ListOption extends Component {
   }
 
   renderModal() {
-    return this.state.render ? <CreateModal type={this.state.type} /> : <div />
+    return this.state.render ? (
+      <CreateModal closer={this.closer} type={this.state.type} />
+    ) : (
+      <div />
+    );
   }
   
   updateState(e) {
     e.preventDefault();
-    this.setState({ name: e.target.name, listId: e.target.value });
+    this.setState({ name: e.target.name, listId: e.target.value })
+      this.props.inputAdder(this.state.name);
+      this.props.stateBinder({ listId: e.target.value });
+    ;;
   }
 
   render() {
