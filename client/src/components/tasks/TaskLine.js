@@ -8,13 +8,13 @@ class CheckLine extends React.Component {
     this.state = {
       hidden: true,
       completed: false
-      
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange() {
+  handleChange(e) {
+    e.preventDefault();
     this.setState({
       completed: !this.state.completed
     });
@@ -43,7 +43,9 @@ class CheckLine extends React.Component {
             onChange={this.handleChange}
           />
           <div id="task" className={this.state.completed ? "strike" : ""}>
-            <button className="task-line-button" onClick={this.handleClick}>{this.props.name}</button>
+            <p className="task-line-button" onClick={this.handleClick}>
+              {this.props.name}
+            </p>
             {this.renderDelete()}
           </div>
         </form>
