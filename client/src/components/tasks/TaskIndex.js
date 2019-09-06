@@ -8,6 +8,7 @@ import CreateTask from "./CreateTask";
 import TaskSummary from "./TaskSummary";
 import Fuse from "fuse.js";
 import TaskShow from "./TaskShow";
+import { isThisSecond } from "date-fns";
 const { FETCH_USER } = Queries;
 
 class TaskIndex extends React.Component {
@@ -35,7 +36,7 @@ class TaskIndex extends React.Component {
       urlLength: URLArray.length,
       url: URL,
       showPage: false,
-      taskId: ""
+      taskId: "",
     };
 
     this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -45,6 +46,8 @@ class TaskIndex extends React.Component {
     this.getTaskId = this.getTaskId.bind(this);
     this.myFunc = this.myFunc.bind(this);
   }
+
+
 
   getTaskId(task_id) {
     this.setState({

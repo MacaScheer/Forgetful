@@ -17,6 +17,7 @@ export default class TagOption extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.updateState = this.updateState.bind(this);
     this.closer = this.closer.bind(this);
+    this.binder = this.binder.bind(this);
   }
 
   closer() {
@@ -40,9 +41,15 @@ export default class TagOption extends Component {
     this.setState({
       name: e.target.name,
       tagId: e.target.value
-    });
+    }, this.binder());
+    
+  }
+
+  binder() {
     this.props.inputAdder(this.state.name);
-    this.props.stateBinder({ tagId: e.target.value });
+    this.props.stateBinder({
+      tagId: this.state.tagId
+    });
   }
 
   render() {

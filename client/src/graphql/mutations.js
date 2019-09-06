@@ -57,10 +57,10 @@ export default {
       $name: String
       $due_date: String
       $start_date: String
-      $locationId: ID
-      $tagId: ID
-      $listId: ID
-      $userId: ID!
+      $locationId: String
+      $tagId: String
+      $listId: String
+      $userId: String
     ) {
       newTask(
         name: $name

@@ -14,7 +14,16 @@ const TaskType = new GraphQLObjectType({
     due_date: { type: GraphQLString },
     priority: { type: GraphQLString },
     repeat: { type: GraphQLString },
-    location: { type: GraphQLString },
+    location: {
+      type: require("./location_type"),
+      resolve(parentValue) {
+        return Task.findById(parentValue._id)
+          .populate("location")
+          .then(task => {
+            return task.location
+          })
+      }
+    },
     user: {
       type: require("./user_type"),
       resolve(parentValue) {

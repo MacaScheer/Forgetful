@@ -21,31 +21,56 @@ const createTask = async data => {
       listId,
       userId
     } = data;
-  const user = await User.findById(userId);
- (await listId) !== null ? user.lists.push(listId) : null;
- (await tagId) !== null ? user.tags.push(tagId) : null;
- (await locationId) !== null ? user.locations.push(taksId) : null;
-
+    console.log("test");
+    console.log(data);
+    const existinguser = await User.findById(userId);
+    const existinglist = listId
+      ? await List.findById(listId)
+      : console.log("nolist");
+    const existingtag = tagId
+      ? await Tag.findById(tagId)
+      : console.log("notag");
+    const existinglocation = locationId
+      ? await Location.findById(locationId)
+      : console.log("nolocation");
+    console.log("test2");
+    const location = locationId ? locationId : null;
+    const tag = tagId ? tagId : null;
+    const list = listId ? listId : null;
+    const user = userId ? userId : null;
     if (!due_date) due_date = "never";
-    if (!start_date) start_date = "nevver";
+    if (!start_date) start_date = "never";
 
-    const task = await new Task(
+    console.log("test6");
+    const task = new Task(
       {
         name,
         due_date,
         start_date,
-        location: locationId,
-        tag: tagId,
-        list: listId,
-        user: userId
+        location,
+        tag,
+        list,
+        user
       },
       err => {
-        if (err) throw err;
+        if (err) throw new Error("herestheissue");
       }
     );
     task.save();
-    user.save()
-    return {...task._doc};
+    console.log("test2");
+    if (existinguser) existinguser.tasks.push(task._id);
+    if (existinglist) existinglist.tasks.push(task._id);
+    if (existingtag) existingtag.tasks.push(task._id);
+    if (existinglocation) existinglocation.tasks.push(task._id);
+    console.log("test4");
+
+    console.log("test5");
+    if (existinglist) existinglist.save();
+    if (existingtag) existingtag.save();
+    if (existinglocation) existinglocation.save();
+    existinguser.save();
+    console.log("complete");
+    // return { ...task._doc };
   } catch (err) {
     throw err;
   }
@@ -54,19 +79,19 @@ const createTask = async data => {
 const checkTagUniqueness = async data => {
   try {
     const { name, userId } = data;
-  const user = await User.findById(userId);
-  const tag = await new Tag({ name, userId });
-  const tagId = await tag._id;
-  const existingtags = await Tag.find({ name: name });
-  existingtags.forEach(tag => {
-    if (user.tags.includes(tag._id))
-      throw new Error("This user already has this tag!");
-  });
+    const user = await User.findById(userId);
+    const tag = await new Tag({ name, userId });
+    const tagId = await tag._id;
+    const existingtags = await Tag.find({ name: name });
+    existingtags.forEach(tag => {
+      if (user.tags.includes(tag._id))
+        throw new Error("This user already has this tag!");
+    });
 
-  user.tags.push(tagId);
-  user.save();
-  tag.save();
-    return { ...tag._doc};
+    user.tags.push(tagId);
+    user.save();
+    tag.save();
+    return { ...tag._doc };
   } catch (err) {
     throw err;
   }
@@ -107,20 +132,19 @@ const moveToTrash = async data => {
     await user.tasks.pull(taskId);
     (await list) !== null ? list.tasks.pull(taskId) : null;
     (await tag) !== null ? tag.tasks.pull(taskId) : null;
-    (await locations) !== null ? location.tasks.pull(taksId) : null;
+    (await locations) !== null ? location.tasks.pull(taskId) : null;
 
     user.trash.push(taskId);
     user.save();
     list.save();
 
-    return {...user._doc};
+    return { ...user._doc };
   } catch (err) {
     throw err;
   }
 };
 
 const updateTask = async data => {
-
   // try {
   //   const { _id, name, due_date, body } = data
   //   // console.log(_id)
@@ -132,7 +156,7 @@ const updateTask = async data => {
   //   // console.log(name)
   //   existingTask.save()
   //   return existingTask
-    
+
   // } catch (err) {
   //   throw err
   // }
@@ -147,7 +171,6 @@ const updateTask = async data => {
   if (repeat) updateObj.repeat = repeat;
   if (location) updateObj.location = location;
 
-
   return Task.findOneAndUpdate(
     { _id: _id },
     { $set: updateObj },
@@ -156,8 +179,7 @@ const updateTask = async data => {
       return task;
     }
   );
-}
-
+};
 
 module.exports = {
   createTask,

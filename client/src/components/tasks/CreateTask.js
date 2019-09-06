@@ -21,49 +21,47 @@ class CreateTask extends React.Component {
       start_date: "",
       due_date: ""
     };
-   
+
     this.renderTools = this.renderTools.bind(this);
     this.inputChar = this.inputChar.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
     this.renderLists = this.renderLists.bind(this);
 
-    this.renderButton = this.renderButton.bind(this);
     this.inputAdder = this.inputAdder.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   inputAdder(value) {
     this.setState({ input: this.state.input.concat(value) });
   }
   stateBinder(value) {
-    this.setState(value)
+    this.setState(value);
   }
 
   tools() {
     return (
-
       <div className="filter-buttons">
-      <div className="flex-buttons">
-        <button onClick={this.inputChar} value="~">
-          <i className="fas fa-play" value="~" />
-        </button>
-        <button onClick={this.inputChar} value="^">
-          <i className="fas fa-calendar icons" value="^" />
-        </button>
-        {/* duedate*/}
-        <button onClick={this.inputChar} value="*">
-          <i className="fas fa-list icons" value="*" />
-        </button>
-        {/* list */}
-        <button onClick={this.inputChar} value="#">
-          <i className="fas fa-tags icons" value="#" />
-        </button>
-        {/* tag */}
-        <button onClick={this.inputChar} value="@">
-          <i className="fas fa-map-marker-alt" value="@" />
-        </button>
-        {/* tag */}
-     <button className="create-task-button">Add Task</button>
-       </div>
+        <div className="flex-buttons">
+          <button onClick={this.inputChar} value="~">
+            <i className="fas fa-play" value="~" />
+          </button>
+          <button onClick={this.inputChar} value="^">
+            <i className="fas fa-calendar icons" value="^" />
+          </button>
+          {/* duedate*/}
+          <button onClick={this.inputChar} value="*">
+            <i className="fas fa-list icons" value="*" />
+          </button>
+          {/* list */}
+          <button onClick={this.inputChar} value="#">
+            <i className="fas fa-tags icons" value="#" />
+          </button>
+          {/* tag */}
+          <button onClick={this.inputChar} value="@">
+            <i className="fas fa-map-marker-alt" value="@" />
+          </button>
+          {/* tag */}
+        </div>
+          <button className="create-task-button">Add Task</button>
       </div>
     );
   }
@@ -79,7 +77,6 @@ class CreateTask extends React.Component {
 
     switch (lastChar) {
       case "*":
-
         return (
           <ListOption
             inputAdder={this.inputAdder}
@@ -103,7 +100,7 @@ class CreateTask extends React.Component {
       case "~":
         return (
           <DateOption
-            type="start date"
+            type="start_date"
             inputAdder={this.inputAdder}
             stateBinder={this.stateBinder}
           />
@@ -111,7 +108,7 @@ class CreateTask extends React.Component {
       case "^":
         return (
           <DateOption
-            type="due date"
+            type="due_date"
             inputAdder={this.inputAdder}
             stateBinder={this.stateBinder}
           />
@@ -127,27 +124,22 @@ class CreateTask extends React.Component {
     this.setState({ input: this.state.input.concat(e.currentTarget.value) });
   }
 
-  
   stringParser(string) {
-    const filter = "~^*#@".split("")
-    const firstKey = string.split("").find(ele => filter.includes(ele))
-    const i = string.indexOf(firstKey)
-    debugger 
-    if (i === null) return string
-
-    return string.slice(0, i).trim()
+    const filter = "~^*#@".split("");
+    const firstKey = string.split("").find(ele => filter.includes(ele)); //retunrs -1 if none found
+    const i = string.indexOf(firstKey);
+    if (i === -1) return string;
+    // debugger
+    return string.slice(0, i).trim();
   }
-    
-  
 
   update(field) {
     return e => this.setState({ [field]: e.target.value });
   }
 
-
   handleSubmit(e, newTask) {
-    e.preventDefaul()
-    const name = this.stringParser(this.state.input)
+    e.preventDefault();
+    const name = this.stringParser(this.state.input);
     newTask({
       variables: {
         name: name,
@@ -157,9 +149,8 @@ class CreateTask extends React.Component {
         tagId: this.state.tagId,
         listId: this.state.listId,
         userId: localStorage.getItem("currentuserId")
-
       }
-    })
+    }).then(this.setState({input: ""}))
   }
 
   render() {
@@ -167,7 +158,6 @@ class CreateTask extends React.Component {
       <Mutation
         mutation={CREATE_TASK}
         onError={err => this.setState({ message: err.message })}
-        update={(cache, data) => this.updateCache(cache, data)}
         onCompleted={data => {
           const { name } = data.newTask;
           this.setState({
