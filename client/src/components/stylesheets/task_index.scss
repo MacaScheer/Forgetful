@@ -63,6 +63,22 @@ input[type="checkbox"] {
   height: 100%;
 }
 
+#task {
+  display: inline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.task-line-button {
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 @media screen and (max-width: 1165px) {
   .task-show-container {
     visibility: hidden;
