@@ -7,6 +7,7 @@ import Taskline from "./TaskLine";
 import CreateTask from "./CreateTask";
 import TaskSummary from "./TaskSummary";
 import Fuse from "fuse.js";
+import TaskShow from "./TaskShow";
 const { FETCH_USER } = Queries;
 
 class TaskIndex extends React.Component {
@@ -22,7 +23,6 @@ class TaskIndex extends React.Component {
       input = URLArray[1];
     } else {
       input = URLArray[0];
-      // URLArray[0] === "trash" ? (key = "trash") : (key = "due_date");
       URLArray[0] === "trash" ? (key = "trash") : (key = "start_date");
     }
     const trigger = URLArray[0] === "all" ? false : true;
@@ -33,11 +33,23 @@ class TaskIndex extends React.Component {
       input: input,
       trigger: trigger,
       urlLength: URLArray.length,
-      url: URL
+      url: URL,
+      showPage: false,
+      taskId: ""
     };
+
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.runSearch = this.runSearch.bind(this);
+    this.getTaskId = this.getTaskId.bind(this);
+    this.myFunc = this.myFunc.bind(this);
+  }
+
+  getTaskId(task_id) {
+    this.setState({
+      taskId: task_id
+    });
   }
 
   runSearch(data) {
@@ -57,47 +69,10 @@ class TaskIndex extends React.Component {
       minMatchCharLength: 1
     };
 
-    // if (check) {
-    //   let today = new Date();
-
-    //   let today = new Date();
-    //   let todayString = today.toDateString();
-    //   let dayARR = todayString.split(" ");
-    //   let weekDayString = dayARR[0];
-    //   let dayINT = parseInt(dayARR[2])
-    //   let tomINT = dayINT + 1
-    //   let nextDATE;
-
-    //   if (input === 'tomorrow') {
-    //     nextDATE = today.setDate(tomINT);
-    //   }
-    //   if (input === "nextWeek") {
-    //     if (weekDayString === 'Mon') {
-    //       nextWeekINT = dayINT + 7;
-    //     } else if (weekDayString === 'Tues') {
-    //       nextWeekINT = dayINT + 6;
-    //     } else if (weekDayString === 'Wed') {
-    //       nextWeekINT = dayINT + 5;
-    //     } else if (weekDayString === 'Thurs') {
-    //       nextWeekINT = dayINT + 4;
-    //     } else if (weekDayString === 'Fri') {
-    //       nextWeekINT = dayINT + 3;
-    //     } else if (weekDayString === 'Sat') {
-    //       nextWeekINT = dayINT + 2;
-    //     } else {
-    //       nextWeekINT = dayINT + 1;
-    //     }
-    //     nextDATE = today.setDate(nextWeekINT);
-    //   }
-
-    //when query for this week ==> find tasks that are scheduled until the end of this week (Sunday)
-    // let nextWeekDATE = today.setDate(nextWeekINT);
-
     let fuse = new Fuse(modifiedData, options);
     if (check) return fuse.search("never");
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
-    return result;
     return result;
   }
 
@@ -122,6 +97,28 @@ class TaskIndex extends React.Component {
     });
   }
 
+  handleClick(e) {
+    e.preventDefault();
+    this.setState(
+      {
+        showPage: !this.state.showPage
+      },
+      this.myFunc()
+    );
+  }
+
+  myFunc() {
+    const showPage = document.getElementById("task-show");
+    const summaryPage = document.getElementById("task-summary");
+    if (!this.state.showPage) {
+      showPage.classList.remove("hide");
+      summaryPage.classList.add("hide");
+    } else {
+      summaryPage.classList.remove("hide");
+      showPage.classList.add("hide");
+    }
+  }
+
   render() {
     const cid = localStorage.getItem("currentuserId");
     const trigger = this.state.trigger;
@@ -137,17 +134,23 @@ class TaskIndex extends React.Component {
                 <div className="task-index-wrapper">
                   <div className="task-index-page">
                     <div className="task-index-page-content">
-                      <div className="task-show-container">
-                        <div className="task-show-list">
-                          <div className="task-show-index-content">
+                      <div className="right-side" id="right-side">
+                        <div className="task-summary-container">
+                          <div className="task-summary" id="task-summary">
                             <TaskSummary />
                           </div>
-                          <div className="task-show-content hide">
-                            <p>Show Page</p>
+                        </div>
+                        <div className="task-show-container">
+                          <div className="task-show-page hide" id="task-show">
+                            {this.state.taskId.length > 1 ? (
+                              <TaskShow taskId={this.state.taskId} />
+                            ) : (
+                              <div />
+                            )}
                           </div>
                         </div>
                       </div>
-                      <div className="tasks-container">
+                      <div className="tasks-container" id="tasks-container">
                         <div className="create-task-container">
                           <div className="create-task-wrapper">
                             <CreateTask />
@@ -157,20 +160,30 @@ class TaskIndex extends React.Component {
                           <div className="task-list">
                             {trigger
                               ? this.runSearch(data.user).map((task, i) => (
-                                  <div className="task-list-item" key={i}>
+                                  <div
+                                    onClick={this.handleClick}
+                                    className="task-list-item"
+                                    key={i}
+                                  >
                                     <Taskline
                                       url={this.state.url}
                                       _id={task._id}
                                       name={task.name}
+                                      getTaskId={this.getTaskId}
                                     />
                                   </div>
                                 ))
                               : data.user.tasks.map((task, i) => (
-                                  <div className="task-list-item" key={i}>
+                                  <div
+                                    onClick={this.handleClick}
+                                    className="task-list-item"
+                                    key={i}
+                                  >
                                     <Taskline
                                       url={this.state.url}
                                       _id={task._id}
                                       name={task.name}
+                                      getTaskId={this.getTaskId}
                                     />
                                   </div>
                                 ))}

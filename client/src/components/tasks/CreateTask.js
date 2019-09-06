@@ -22,30 +22,27 @@ class CreateTask extends React.Component {
     this.inputChar = this.inputChar.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
     this.renderLists = this.renderLists.bind(this);
-    this.renderButton = this.renderButton.bind(this);
-
-
   }
 
   stateBinder(key, value) {
-    this.setState({key: value})
+    this.setState({ key: value });
   }
 
   tools() {
     return (
-      <div className="flex-buttons">
-        <button onClick={this.inputChar} value="^">
-          <i className="fas fa-calendar icons" value="^" />
-        </button>{" "}
-        {/* duedate*/}
-        <button onClick={this.inputChar} value="*">
-          <i className="fas fa-list icons" value="*" />
-        </button>
-        {/* list */}
-        <button onClick={this.inputChar} value="@">
-          <i className="fas fa-tags icons" value="@" />
-        </button>
-        {/* tag */}
+      <div className="filter-buttons">
+        <div className="flex-buttons">
+          <button onClick={this.inputChar} value="^">
+            <i className="fas fa-calendar icons" value="^" />
+          </button>{" "}
+          <button onClick={this.inputChar} value="*">
+            <i className="fas fa-list icons" value="*" />
+          </button>
+          <button onClick={this.inputChar} value="@">
+            <i className="fas fa-tags icons" value="@" />
+          </button>
+        </div>
+        <button className="create-task-button">Add Task</button>
       </div>
     );
   }
@@ -53,20 +50,17 @@ class CreateTask extends React.Component {
   renderTools() {
     return this.state.input.length > 0 ? this.tools() : <div />;
   }
-  renderButton() {
-    
-    return this.state.input.length > 0 ? <button className="create-task-button">Add Task</button>: <div />;
-  }
+
   renderLists() {
     const iArr = this.state.input.split("");
-    const lastIndex = iArr.length - 1
+    const lastIndex = iArr.length - 1;
     const lastChar = iArr[lastIndex];
-    
+
     switch (lastChar) {
       case "*":
-        return <ListOption stateBinder={this.stateBinder}/>;
+        return <ListOption stateBinder={this.stateBinder} />;
       case "@":
-        return <TagOption stateBinder={this.stateBinder}/>;
+        return <TagOption stateBinder={this.stateBinder} />;
       default:
         return <div />;
     }
@@ -81,22 +75,6 @@ class CreateTask extends React.Component {
     return e => this.setState({ [field]: e.target.value });
   }
 
-  // updateCache(cache, { data }) {
-  //   let tasks;
-  //   try {
-  //     tasks = cache.readQuery({ query: ALL_TASKS });
-  //   } catch (err) {
-  //     return;
-  //   }
-  //   if (tasks) {
-  //     let tasksArray = tasks.tasks;
-  //     let newTask = data.newTask;
-  //     cache.writeQuery({
-  //       query: ALL_TASKS,
-  //       data: { tasks: tasksArray.concat(newTask) }
-  //     });
-  //   }
-  // }
   render() {
     return (
       <Mutation
@@ -110,7 +88,7 @@ class CreateTask extends React.Component {
           });
         }}
       >
-        {(newTask, { data }) => (
+        {newTask => (
           <div className="create-task-container">
             <form
               className="create-task-form"
@@ -124,7 +102,6 @@ class CreateTask extends React.Component {
               />
               {this.renderTools()}
               {this.renderLists()}
-              {this.renderButton()}
             </form>
           </div>
         )}

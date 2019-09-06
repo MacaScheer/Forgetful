@@ -1,72 +1,39 @@
 @import "variables";
 
 .task-index-container {
-  position: absolute;
-  overflow: auto;
-  top: 0;
-  height: 100%;
-  width: 100%;
   background: $lightblue;
-}
-.create-task-wrapper {
-  position: relative;
-  z-index: 99;
-  padding: 0;
-  top: 0;
-  width: 100%;
-  overflow: hidden;
-}
-
-.task-index-page {
-  display: flex;
-  flex-direction: column;
-}
-
-.task-index-page-content {
-  height: 100%;
-  position: static;
-  z-index: 0;
-}
-
-.task-list-container {
-  width: 100%;
-  align-content: left;
 }
 
 .create-task-container {
-  position: relative;
-  width: 100%;
-  height: 40px;
-
   .create-task-form {
-    height: 100%;
-    width: 100%;
-    display: flex;
+    background: white;
+    padding: 20px;
 
     .create-task-input {
       width: 100%;
-      border: 1px solid #eee;
-      border-radius: 4px;
+      border: none;
       height: 40px;
       padding-left: 20px;
       color: #484848;
+
+      &:focus {
+        border: 1px solid $blue;
+      }
     }
   }
 }
 
-.task-show-container {
-  z-index: 0;
+.right-side {
   right: 0;
   height: 100%;
-  width: 38%;
   position: absolute;
   top: 67px;
-  width: 38%;
+  width: 50%;
 }
 
 .tasks-container {
   z-index: 1;
-  left: 150px;
+  left: 12px;
   top: 67px;
   width: 700px;
   position: absolute;
@@ -75,6 +42,13 @@
 .hide {
   display: none;
 }
+@media screen and (max-width: 1000px) {
+  .tasks-container {
+    // width: 800px;
+    left: 0;
+    // left: 12px;
+  }
+}
 
 @media screen and (max-width: 900px) {
   .task-show-container {
@@ -82,7 +56,7 @@
   }
 
   .tasks-container {
-    max-width: 700px;
+    width: 700px;
     left: 12px;
   }
 }

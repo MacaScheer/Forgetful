@@ -8,7 +8,7 @@ export default class TaskSummary extends Component {
   render() {
     const { type, numOfTasks, numOfCompleted} = this.props 
     return (
-      <div className="summary-container">
+      <div className="summary-container" id="summary-container">
         <div className="summary-title">{/*{type}*/}</div>
         <div className="sum-count-box">
           <div className="sum-count-txt">

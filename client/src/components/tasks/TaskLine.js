@@ -11,6 +11,7 @@ class CheckLine extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange() {
@@ -19,8 +20,17 @@ class CheckLine extends React.Component {
     });
   }
 
+  handleClick(e) {
+    e.preventDefault();
+    this.props.getTaskId(this.props._id);
+  }
+
   renderDelete() {
-    return this.state.completed ? <button className="delete-task-button">Delete Task</button> : <div />;
+    return this.state.completed ? (
+      <button className="delete-task-button">Delete Task</button>
+    ) : (
+      <div />
+    );
   }
 
   render() {
@@ -32,14 +42,10 @@ class CheckLine extends React.Component {
             checked={this.state.completed}
             onChange={this.handleChange}
           />
-          <Link
-            id="task"
-            className={this.state.completed ? "strike" : ""}
-            to={`${this.props.url}/${this.props._id}`}
-          >
-            {this.props.name}
-          </Link>
-          {this.renderDelete()}
+          <div id="task" className={this.state.completed ? "strike" : ""}>
+            <button onClick={this.handleClick}>{this.props.name}</button>
+            {this.renderDelete()}
+          </div>
         </form>
       </div>
     );

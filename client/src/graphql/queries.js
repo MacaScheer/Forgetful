@@ -28,10 +28,10 @@ export default {
             name
           }
         }
-        trash{
+        trash {
           name
         }
-        locations{
+        locations {
           name
         }
       }
@@ -55,8 +55,8 @@ export default {
     }
   `,
   FETCH_TASK: gql`
-    query FetchTask($Id: ID!){
-      task(_id: $Id){
+    query FetchTask($Id: ID!) {
+      task(_id: $Id) {
         _id
         name
         due_date
