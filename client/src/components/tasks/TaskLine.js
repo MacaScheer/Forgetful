@@ -11,12 +11,25 @@ class CheckLine extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.completeTask = this.completeTask.bind(this);
+    this.incompleteTask = this.incompleteTask.bind(this);
   }
 
   handleChange(e) {
-    e.preventDefault();
     this.setState({
       completed: !this.state.completed
+    });
+  }
+
+  completeTask() {
+    this.setState({
+      completed: true
+    });
+  }
+
+  incompleteTask() {
+    this.setState({
+      completed: false
     });
   }
 
@@ -40,7 +53,12 @@ class CheckLine extends React.Component {
           <input
             type="checkbox"
             checked={this.state.completed}
-            onChange={this.handleChange}
+            onChange={e => {
+              e.stopPropagation();
+              this.state.completed
+                ? this.incompleteTask()
+                : this.completeTask();
+            }}
           />
           <div id="task" className={this.state.completed ? "strike" : ""}>
             <p className="task-line-button" onClick={this.handleClick}>

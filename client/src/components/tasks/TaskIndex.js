@@ -72,7 +72,7 @@ class TaskIndex extends React.Component {
   }
 
   runSearch(data) {
-    if(this.state.keys === "search") return(this.runSearchResult(data))
+    if (this.state.keys === "search") return this.runSearchResult(data);
 
     const check = this.state.urlLength === 1;
     const modifiedData = check ? data.tasks : data[this.state.keys];
@@ -92,8 +92,8 @@ class TaskIndex extends React.Component {
 
     let fuse = new Fuse(modifiedData, options);
     if (check) {
-      return fuse.search("never")
-    };
+      return fuse.search("never");
+    }
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;
@@ -162,7 +162,10 @@ class TaskIndex extends React.Component {
                           </div>
                         </div>
                         <div className="task-show-container">
-                          <div className="task-show-page show-move-right" id="task-show">
+                          <div
+                            className="task-show-page show-move-right"
+                            id="task-show"
+                          >
                             {this.state.taskId.length > 1 ? (
                               <TaskShow taskId={this.state.taskId} />
                             ) : (
@@ -181,11 +184,12 @@ class TaskIndex extends React.Component {
                           <div className="task-list">
                             {trigger
                               ? this.runSearch(data.user).map((task, i) => (
-                                  <div
-                                    // onClick={this.handleClick}
-                                    className="task-list-item"
-                                    key={i}
-                                  >
+                                  <div>
+                                    <div
+                                      onClick={this.handleClick}
+                                      className="task-list-item"
+                                      key={i}
+                                    ></div>
                                     <Taskline
                                       url={this.state.url}
                                       _id={task._id}
@@ -195,11 +199,12 @@ class TaskIndex extends React.Component {
                                   </div>
                                 ))
                               : data.user.tasks.map((task, i) => (
-                                  <div
-                                    onClick={this.handleClick}
-                                    className="task-list-item"
-                                    key={i}
-                                  >
+                                  <div>
+                                    <div
+                                      onClick={this.handleClick}
+                                      className="task-list-item"
+                                      key={i}
+                                    ></div>
                                     <Taskline
                                       url={this.state.url}
                                       _id={task._id}
