@@ -7,7 +7,7 @@ import TagOption from "./TagOption";
 import ListOption from "./ListOption";
 import LocationOption from "./LocationOption";
 import DateOption from "./DateOption";
-const { FETCH_USER, FETCH_USER_TASKS} = Queries;
+const { FETCH_USER} = Queries;
 const { CREATE_TASK } = Mutations;
 
 class CreateTask extends React.Component {
@@ -154,18 +154,28 @@ class CreateTask extends React.Component {
     })
   }
 
-  updateCache(cache,  data ) {
+  updateCache(cache, { data}  ) {
     let tasks;
     try {
       const id = localStorage.getItem('currentuserId')
 
-      tasks = cache.readQuery({ query: FETCH_USER_TASKS, data: { Id: id}})
+      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id}})
 
-
+      // debugger
     } catch (err) {
       return;
     }
     if (tasks) {
+      const id = localStorage.getItem('currentuserId')
+      let newTask = data.newTask;
+      tasks.user.tasks.push(newTask) 
+      // debugger 
+      cache.writeQuery({
+        query: FETCH_USER,
+        variables: { Id: id },
+        data: { user: tasks.user }
+      })
+      // debugger
     }
   }
 
