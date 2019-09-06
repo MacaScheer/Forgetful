@@ -6,6 +6,7 @@ import "../stylesheets/create_task.scss";
 import TagOption from "./TagOption";
 import ListOption from "./ListOption";
 import LocationOption from "./LocationOption";
+import DateOption from "./DateOption";
 const { ALL_TASKS } = Queries;
 const { CREATE_TASK } = Mutations;
 
@@ -38,9 +39,12 @@ class CreateTask extends React.Component {
   tools() {
     return (
       <div className="flex-buttons">
+        <button onClick={this.inputChar} value="~">
+          <i className="fas fa-play" value="~" />
+        </button>
         <button onClick={this.inputChar} value="^">
           <i className="fas fa-calendar icons" value="^" />
-        </button>{" "}
+        </button>
         {/* duedate*/}
         <button onClick={this.inputChar} value="*">
           <i className="fas fa-list icons" value="*" />
@@ -91,6 +95,22 @@ class CreateTask extends React.Component {
       case "@":
         return (
           <LocationOption
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
+      case "~":
+        return (
+          <DateOption
+            type="start date"
+            inputAdder={this.inputAdder}
+            stateBinder={this.stateBinder}
+          />
+        );
+      case "^":
+        return (
+          <DateOption
+            type="due date"
             inputAdder={this.inputAdder}
             stateBinder={this.stateBinder}
           />

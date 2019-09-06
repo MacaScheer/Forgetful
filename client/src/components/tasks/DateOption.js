@@ -7,7 +7,9 @@ export default class DateOption extends Component {
     super(props);
     this.state = {
       date: "",
-      showDatePicker: false
+      showDatePicker: false,
+      displayDate: ""
+
     };
     this.updateDate = this.updateDate.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -17,8 +19,8 @@ export default class DateOption extends Component {
 
   updateDate(e) {
     e.preventDefault();
-    this.setState({ date: e.target.value });
-    
+    debugger
+    this.setState({ date: e.target.value, dispalyDate: e.target.dateName});
   }
 
   toggleDatePicker(e) {
@@ -65,24 +67,45 @@ export default class DateOption extends Component {
     return (
       <div className="date-option-container">
         <label>
-          {typeof this.state.date === "object"
+          {/* {typeof this.state.date === "object"
             ? this.formatDate(this.state.date)
-            : this.state.date}
+            : this.state.date} */}
+          {this.state.dateName}
         </label>
         <br />
-        <button onClick={this.updateDate} value={todayFullString}>
+        <button
+          onClick={this.updateDate}
+          value={todayFullString}
+          dateName="Today"
+        >
           Today
         </button>
-        <button onClick={this.updateDate} value={tomorrowFullString}>
+        <button
+          onClick={this.updateDate}
+          value={tomorrowFullString}
+          dateName="Tomorrow"
+        >
           Tomorrow
         </button>
-        <button onClick={this.updateDate} value={dayTwoFullString}>
+        <button
+          onClick={this.updateDate}
+          value={dayTwoFullString}
+          dateName={dayTwoName}
+        >
           {dayTwoName}
         </button>
-        <button onClick={this.updateDate} value={dayThreeFullString}>
+        <button
+          onClick={this.updateDate}
+          value={dayThreeFullString}
+          dateName={dayThreeName}
+        >
           {dayThreeName}
         </button>
-        <button onClick={this.updateDate} value={dayFourFullString}>
+        <button
+          onClick={this.updateDate}
+          value={dayFourFullString}
+          dateName={dayFourName}
+        >
           {dayFourName}
         </button>
         <button onClick={this.updateDate} value={"never"}>
