@@ -10,40 +10,61 @@ export default class DropDownMenu extends Component {
     super(props);
     this.state = {
       showInbox: true,
-      showLists: false,
+      showLists: true,
       showTags: true,
       showLocations: true
     };
-    this.toggleInbox = this.toggleInbox.bind(this);
-    this.toggleList = this.toggleList.bind(this);
-    this.toggleTags = this.toggleTags.bind(this);
-    this.toggleLocations = this.toggleLocations.bind(this);
+
+    this.toggle = this.toggle.bind(this);
   }
 
-  // componentDidMount() {
-  //   debugger
-  //   this.dropdown.classList.add("slide");
-  // }
-
-  toggleInbox(e) {
+  toggle(e) {
     e.preventDefault();
-    this.setState({ showInbox: !this.state.showInbox });
+    const classList = e.currentTarget.classList;
+    switch (e.currentTarget.id) {
+      case "rotate1":
+        this.setState({ showInbox: !this.state.showInbox });
+        if (this.state.showInbox) {
+          classList.remove("unrotate");
+          classList.add("rotate");
+        } else {
+          classList.remove("rotate");
+          classList.add("unrotate");
+        }
+        return;
+      case "rotate2":
+        this.setState({ showLists: !this.state.showLists });
+        if (this.state.showLists) {
+          classList.remove("unrotate");
+          classList.add("rotate");
+        } else {
+          classList.remove("rotate");
+          classList.add("unrotate");
+        }
+        return;
+      case "rotate3":
+        this.setState({ showTags: !this.state.showTags });
+        if (this.state.showTags) {
+          classList.remove("unrotate");
+          classList.add("rotate");
+        } else {
+          classList.remove("rotate");
+          classList.add("unrotate");
+        }
+        return;
+      case "rotate4":
+        this.setState({ showLocations: !this.state.showLocations });
+        if (this.state.showLocations) {
+          classList.remove("unrotate");
+          classList.add("rotate");
+        } else {
+          classList.remove("rotate");
+          classList.add("unrotate");
+        }
+        return;
+    }
   }
 
-  toggleList(e) {
-    e.preventDefault();
-    this.setState({ showLists: !this.state.showLists });
-  }
-
-  toggleTags(e) {
-    e.preventDefault();
-    this.setState({ showTags: !this.state.showTags });
-  }
-
-  toggleLocations(e) {
-    e.preventDefault();
-    this.setState({ showLocations: !this.state.showLocations });
-  }
   renderInboxCat() {
     if (this.state.showInbox) {
       return (
@@ -74,27 +95,28 @@ export default class DropDownMenu extends Component {
               >
                 <div className="left-nav-inbox-container">
                   <h2 className="title">Forgetful</h2>
-
-                  <div className="flex-buttons">
-                    <i
-                      onClick={this.toggleInbox}
-                      className="fas fa-sort-down icons"
-                    ></i>
-                    {this.state.toggleInbox ? (
-                      <Link to="/lists/inbox">Inbox</Link>
-                    ) : (
-                      <Link to="/all">All Tasks</Link>
-                    )}
-                  </div>
+                  <i
+                    id="rotate1"
+                    onClick={this.toggle}
+                    className="fas fa-sort-down icons"
+                  ></i>
+                  {this.state.toggle ? (
+                    <Link to="/lists/inbox" className="drop-headers">
+                      <span className="drop-headers">Inbox</span>
+                    </Link>
+                  ) : (
+                      <Link to="/all"><span className="drop-headers">All Tasks</span></Link>
+                  )}
                   {this.renderInboxCat()}
                 </div>
-                <div
-                  className="left-nav-lists-container"
-                  id="st-container"
-                >
-                  <div onClick={this.toggleList}>
-                    <i className="fas fa-sort-down icons"></i>
-                    Lists
+                <div className="left-nav-lists-container" id="st-container">
+                  <div>
+                    <i
+                      className="fas fa-sort-down icons"
+                      id="rotate2"
+                      onClick={this.toggle}
+                    ></i>
+                    <span className="drop-headers">Lists</span>
                   </div>
                   <div className="lists-subcat">
                     {showLists ? (
@@ -108,17 +130,22 @@ export default class DropDownMenu extends Component {
                     )}
                   </div>
                 </div>
-                <div className="left-nav-tags-container"
-                  id="st-container">
-                  <div onClick={this.toggleTags}>
-                    <i className="fas fa-sort-down icons"></i>
-                    Tags
+                <div className="left-nav-tags-container" id="st-container">
+                  <div>
+                    <i
+                      className="fas fa-sort-down icons"
+                      id="rotate3"
+                      onClick={this.toggle}
+                    ></i>
+                    <span className="drop-headers">Tags</span>
                   </div>
                   <div className="tags-subcat">
                     {showTags ? (
                       data.user.tags.length !== 0 ? (
-                        data.user.tags.map(tag => (
-                          <Link to={`/tags/${tag.name}`}>{tag.name}</Link>
+                        data.user.tags.map((tag, i) => (
+                          <Link to={`/tags/${tag.name}`} key={i}>
+                            {tag.name}
+                          </Link>
                         ))
                       ) : (
                         <div />
@@ -130,14 +157,18 @@ export default class DropDownMenu extends Component {
                 </div>
 
                 <div className="left-nav-locations-container">
-                  <div onClick={this.toggleLocations}>
-                    <i className="fas fa-sort-down"></i>
-                    Locations
+                  <div>
+                    <i
+                      className="fas fa-sort-down icons"
+                      id="rotate4"
+                      onClick={this.toggle}
+                    ></i>
+                    <span className="drop-headers">Locations</span>
                     <div className="locations-subcat">
                       {showLocations ? (
                         data.user.locations.length !== 0 ? (
-                          data.user.locations.map(location => (
-                            <Link to={`/locations/${location.name}`}>
+                          data.user.locations.map((location, i) => (
+                            <Link to={`/locations/${location.name}`} key={i}>
                               {location.name}
                             </Link>
                           ))
@@ -150,7 +181,6 @@ export default class DropDownMenu extends Component {
                     </div>
                   </div>
                 </div>
-
               </div>
             );
           } else {
