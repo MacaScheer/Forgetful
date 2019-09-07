@@ -4,8 +4,14 @@
   //   position: relative;
   .summary-title {
     .sum-count-box {
-      background: $blue;
+ 
       .sum-count-txt {
+        background-color: $blue;
+        display: block;
+        border: 1px solid rgb(226, 226, 226);
+        border-radius: 6px;
+        z-index: 5;
+
         .sum-count-subtxt {
         }
         .list-details {

@@ -202,9 +202,17 @@ class TaskIndex extends React.Component {
                         <div className="task-summary-container">
                           <div className="task-summary" id="task-summary">
                             {trigger ? (
-                              <TaskSummary isAll={false} data={summary} />
+                              <TaskSummary
+                                group={this.state.input}
+                                isAll={false}
+                                data={summary}
+                              />
                             ) : (
-                                <TaskSummary isAll={true} data={data} />
+                              <TaskSummary
+                                group={this.state.input}
+                                isAll={true}
+                                data={data}
+                              />
                             )}
                           </div>
                         </div>
