@@ -5,10 +5,6 @@ const Tag = mongoose.model("tags");
 const List = mongoose.model("lists");
 const User = mongoose.model("users");
 const Location = mongoose.model("locations");
-// const graphql = require("graphql");
-// const { GraphQLList } = graphql;
-
-// const validateTaskInput = require("../validation/task");
 
 const createTask = async data => {
   try {
@@ -70,7 +66,7 @@ const createTask = async data => {
     if (existinglocation) existinglocation.save();
     existinguser.save();
     console.log("complete");
-    console.log(task)
+    console.log(task);
     return { ...task._doc };
   } catch (err) {
     throw err;
@@ -100,23 +96,22 @@ const checkTagUniqueness = async data => {
 
 const checkListUniqueness = async data => {
   try {
-    console.log('start')
+    console.log("start");
     const { name, userId } = data;
     const user = await User.findById(userId);
     const list = await new List({ name, userId });
-    const listId =  list._id;
+    const listId = list._id;
     const existinglists = await List.find({ name: name });
     existinglists.forEach(list => {
       if (user.lists.includes(list._id))
         throw new Error("This user already has this list!");
     });
-    console.log('test2')
+    console.log("test2");
     user.lists.push(listId);
     user.save();
     list.save();
-    console.log("complete")
+    console.log("complete");
     return { ...list._doc };
-   
   } catch (err) {
     throw err;
   }
@@ -150,31 +145,27 @@ const moveToTrash = async data => {
 
 const updateTask = async data => {
   try {
-  
-  const updateObj = {};
+    const updateObj = {};
 
-  const { _id, name, due_date, body, priority, repeat, location } = data;
-  if (_id) updateObj._id = _id;
-  if (name) updateObj.name = name;
-  if (due_date) updateObj.due_date = due_date;
-  if (body) updateObj.body = body;
-  if (priority) updateObj.priority = priority;
-  if (repeat) updateObj.repeat = repeat;
-  if (location) updateObj.location = location;
+    const { _id, name, due_date, body, priority, repeat, location } = data;
+    if (_id) updateObj._id = _id;
+    if (name) updateObj.name = name;
+    if (due_date) updateObj.due_date = due_date;
+    if (body) updateObj.body = body;
+    if (priority) updateObj.priority = priority;
+    if (repeat) updateObj.repeat = repeat;
+    if (location) updateObj.location = location;
 
-  Task.findOneAndUpdate(
-    { _id: _id },
-    { $set: updateObj },
-    { new: true },
-    (err, task) => {
-      return task;
-    }
-  ).then(res => console.log(res));
-    // task.save();
-    // return{...task._doc}
-  }
-  catch (err){
-    return err
+    Task.findOneAndUpdate(
+      { _id: _id },
+      { $set: updateObj },
+      { new: true },
+      (err, task) => {
+        return task;
+      }
+    ).then(res => console.log(res));
+  } catch (err) {
+    return err;
   }
 };
 

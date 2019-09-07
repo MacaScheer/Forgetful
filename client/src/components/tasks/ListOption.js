@@ -39,11 +39,13 @@ export default class ListOption extends Component {
 
   updateState(e) {
     e.preventDefault();
-    this.setState({
-      name: e.target.name,
-      listId: e.target.value
-    }, this.binder());
-    
+    this.setState(
+      {
+        name: e.target.name,
+        listId: e.target.value
+      },
+      this.binder()
+    );
   }
   binder() {
     this.props.inputAdder(this.state.name);
@@ -60,8 +62,8 @@ export default class ListOption extends Component {
           if (data.user.lists) {
             return (
               <div>
-                <div className="task-list-container">
-                  <div className="task-list">
+                <div className="task-list-container ">
+                  <div className="task-list task-list-filter">
                     {data.user.lists.map((list, i) => (
                       <button
                         className="task-list-item"
@@ -74,7 +76,12 @@ export default class ListOption extends Component {
                       </button>
                     ))}
                   </div>
-                  <button onClick={this.toggleModal}>Add List</button>
+                  <button
+                    className="add-list-button"
+                    onClick={this.toggleModal}
+                  >
+                    Add List
+                  </button>
                 </div>
                 {this.renderModal()}
               </div>
