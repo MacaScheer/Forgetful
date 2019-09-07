@@ -7,7 +7,7 @@ import TagOption from "./TagOption";
 import ListOption from "./ListOption";
 import LocationOption from "./LocationOption";
 import DateOption from "./DateOption";
-const { FETCH_USER} = Queries;
+const { FETCH_USER } = Queries;
 const { CREATE_TASK } = Mutations;
 
 class CreateTask extends React.Component {
@@ -61,7 +61,7 @@ class CreateTask extends React.Component {
           </button>
           {/* tag */}
         </div>
-          <button className="create-task-button">Add Task</button>
+        <button className="create-task-button">Add Task</button>
       </div>
     );
   }
@@ -126,7 +126,7 @@ class CreateTask extends React.Component {
 
   stringParser(string) {
     const filter = "~^*#@".split("");
-    const firstKey = string.split("").find(ele => filter.includes(ele)); //retunrs -1 if none found
+    const firstKey = string.split("").find(ele => filter.includes(ele));
     const i = string.indexOf(firstKey);
     if (i === -1) return string;
     return string.slice(0, i).trim();
@@ -150,32 +150,29 @@ class CreateTask extends React.Component {
         userId: localStorage.getItem("currentuserId")
       }
     }).then(res => {
-      this.setState({ input: "" })
-    })
+      this.setState({ input: "" });
+    });
   }
 
-  updateCache(cache, { data}  ) {
+  updateCache(cache, { data }) {
     let tasks;
     try {
-      const id = localStorage.getItem('currentuserId')
+      const id = localStorage.getItem("currentuserId");
 
-      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id}})
-
-      // debugger
+      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } });
     } catch (err) {
       return;
     }
     if (tasks) {
-      const id = localStorage.getItem('currentuserId')
+      const id = localStorage.getItem("currentuserId");
       let newTask = data.newTask;
-      tasks.user.tasks.push(newTask) 
-      // debugger 
+      tasks.user.tasks.push(newTask);
+
       cache.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
         data: { user: tasks.user }
-      })
-      // debugger
+      });
     }
   }
 
@@ -184,13 +181,7 @@ class CreateTask extends React.Component {
       <Mutation
         mutation={CREATE_TASK}
         onError={err => this.setState({ message: err.message })}
-        // onCompleted={data => {
-        //   const { name } = data.newTask;
-        //   this.setState({
-        //     message: `new task ${name} created successfully`
-        //   });
-        // }}
-        update= {(cache, data) => this.updateCache(cache, data)}
+        update={(cache, data) => this.updateCache(cache, data)}
       >
         {newTask => (
           <div className="create-task-container">

@@ -30,10 +30,10 @@ const TaskShow = props => {
                 priority={data.task.priority}
               />
               <RepeatDetail id={data.task._id} repeat={data.task.repeat} />
-              <LocationDetail
+              {/* <LocationDetail
                 id={data.task._id}
                 location={data.task.location}
-              />
+              /> */}
               <p>Start_Date: {data.task.start_date}</p>
             </div>
           </div>

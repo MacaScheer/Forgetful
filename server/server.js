@@ -18,18 +18,8 @@ mongoose
 app.use(bodyParser.json());
 
 const cors = require("cors");
-//...
 app.use(cors());
 
-
-// app.use(
-//   "/graphql",
-//   expressGraphQL({
-//     schema,
-//     graphiql: true
-//   })
-// );
-// after user auth
 app.use(
   "/graphql",
   expressGraphQL(req => {

@@ -11,35 +11,35 @@ export const AuthRoute = ({
   routeType,
   ...rest
 }) => (
-    <Query query={IS_LOGGED_IN}>
-      {({ data }) => {
-        if (routeType === "auth") {
-          return (
-            <Route
-              path={path}
-              exact={exact}
-              render={props =>
-                !data.isLoggedIn ? <Component {...props} /> : <Redirect to="/" />
-              }
-            />
-          );
-        } else {
-          return (
-            <Route
-              {...rest}
-              render={props =>
-                data.isLoggedIn ? (
-                  <Component {...props} />
-                ) : (
-                    <Redirect to="/login" />
-                  )
-              }
-            />
-          );
-        }
-      }}
-    </Query>
-  );
+  <Query query={IS_LOGGED_IN}>
+    {({ data }) => {
+      if (routeType === "auth") {
+        return (
+          <Route
+            path={path}
+            exact={exact}
+            render={props =>
+              !data.isLoggedIn ? <Component {...props} /> : <Redirect to="/" />
+            }
+          />
+        );
+      } else {
+        return (
+          <Route
+            {...rest}
+            render={props =>
+              data.isLoggedIn ? (
+                <Component {...props} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+        );
+      }
+    }}
+  </Query>
+);
 export const ProtectedRoute = ({
   component: Component,
   path,
@@ -47,35 +47,32 @@ export const ProtectedRoute = ({
   routeType,
   ...rest
 }) => (
-    <Query query={IS_LOGGED_IN}>
-      {({ data }) => {
-        if (routeType === "auth") {
-          return (
-            <Route
-              path={path}
-              exact={exact}
-              render={props =>
-                !data.isLoggedIn ? <Component {...props} /> : <Redirect to="/" />
-              }
-            />
-          );
-        } else {
-          return (
-            <Route
-              {...rest}
-              render={props =>
-                data.isLoggedIn ? (
-                  <Component {...props} />
-                ) : (
-                    <Redirect to="/login" />
-                  )
-              }
-            />
-          );
-        }
-      }}
-    </Query>
-  );
-
-// export default AuthRoute;
-// export default ProtectedRoute;
+  <Query query={IS_LOGGED_IN}>
+    {({ data }) => {
+      if (routeType === "auth") {
+        return (
+          <Route
+            path={path}
+            exact={exact}
+            render={props =>
+              !data.isLoggedIn ? <Component {...props} /> : <Redirect to="/" />
+            }
+          />
+        );
+      } else {
+        return (
+          <Route
+            {...rest}
+            render={props =>
+              data.isLoggedIn ? (
+                <Component {...props} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+        );
+      }
+    }}
+  </Query>
+);

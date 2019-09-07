@@ -5,7 +5,6 @@ import Login from "./sessions/Login";
 import Signup from "./sessions/Signup";
 
 import Nav from "./navbar/Navbar";
-// import SplashPage from "./splashpage/splashpage";
 import TaskIndex from "./tasks/TaskIndex";
 import CreateTask from "./tasks/CreateTask";
 import TagOption from "./tasks/TagOption";

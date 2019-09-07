@@ -44,7 +44,6 @@ class TaskIndex extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.runSearch = this.runSearch.bind(this);
     this.getTaskId = this.getTaskId.bind(this);
-    // this.myFunc = this.myFunc.bind(this);
   }
 
   getTaskId(task_id) {
@@ -89,8 +88,9 @@ class TaskIndex extends React.Component {
       maxPatternLength: 32,
       minMatchCharLength: 1
     };
+
+    
     let fuse = new Fuse(modifiedData, options);
-    // return fuse.search("never")
     if (check) {
       let today = new Date();
       let todayString = today.toDateString();
@@ -140,6 +140,9 @@ class TaskIndex extends React.Component {
       });
       return taskList;
     }
+
+
+
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;
@@ -168,15 +171,11 @@ class TaskIndex extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.setState(
-      {
-        showPage: !this.state.showPage
-      }
-      // this.myFunc()
-    );
+    this.setState({
+      showPage: !this.state.showPage
+    });
 
     const showPage = document.getElementById("task-show");
-    // const summaryPage = document.getElementById("task-summary");
     if (!this.state.showPage) {
       showPage.classList.remove("show-move-right");
       showPage.classList.add("show-move-left");
@@ -201,7 +200,7 @@ class TaskIndex extends React.Component {
                 <div className="task-index-wrapper">
                   <div className="task-index-page">
                     <div className="task-index-page-content">
-                      <div className="right-side" id="right-side">
+                      <div className="right-side move-right" id="right-side">
                         <div className="task-summary-container">
                           <div className="task-summary" id="task-summary">
                             <TaskSummary />
@@ -220,7 +219,7 @@ class TaskIndex extends React.Component {
                           </div>
                         </div>
                       </div>
-                      <div className="tasks-container" id="tasks-container">
+                      <div className="tasks-container move-right" id="tasks-container">
                         <div className="create-task-container">
                           <div className="create-task-wrapper">
                             <CreateTask />
