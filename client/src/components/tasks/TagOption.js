@@ -38,11 +38,13 @@ export default class TagOption extends Component {
 
   updateState(e) {
     e.preventDefault();
-    this.setState({
-      name: e.target.name,
-      tagId: e.target.value
-    }, this.binder());
-    
+    this.setState(
+      {
+        name: e.target.name,
+        tagId: e.target.value
+      },
+      this.binder()
+    );
   }
 
   binder() {
@@ -63,23 +65,21 @@ export default class TagOption extends Component {
             return (
               <div>
                 <div className="task-list-container">
-                  <div className="task-list">
+                  <div className="task-list task-list-filter">
                     {data.user.tags.map((tag, i) => (
-                      <div className="task-list-item" key={i}>
-                        <button
-                          className="task-list-item"
-                          key={i}
-                          value={tag._id}
-                          name={tag.name}
-                          onClick={this.updateState}
-                        >
-                          {tag.name}
-                        </button>
-                      </div>
+                      <button
+                        className="task-list-items"
+                        key={i}
+                        value={tag._id}
+                        name={tag.name}
+                        onClick={this.updateState}
+                      >
+                        {tag.name}
+                      </button>
                     ))}
                   </div>
                   <button
-                    className="task-list-button"
+                    className="add-list-button"
                     onClick={this.toggleModal}
                   >
                     Add Tag

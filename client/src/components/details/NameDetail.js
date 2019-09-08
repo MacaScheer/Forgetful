@@ -63,10 +63,13 @@ class NameDetail extends React.Component {
                 }}
               >
                 <input
+                  className="update-input"
                   value={this.state.name}
                   onChange={this.fieldUpdate("name")}
                 />
-                <button type="submit">Update Name </button>
+                <button className="update-button" type="submit">
+                  Update Task{" "}
+                </button>
               </form>
             </div>
           )}

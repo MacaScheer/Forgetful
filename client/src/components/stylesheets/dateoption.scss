@@ -26,15 +26,11 @@
 
   &:hover {
     cursor: pointer;
-    background: $blue;
-    color: white;
-    border-radius: 4px;
-    padding: 2px 5px;
   }
 }
 
 .select-date-button-container {
-  padding: 20px 0;
+  padding: 40px 0 0 0;
 
   .select-date {
     display: flex;
@@ -51,6 +47,7 @@
 
     &:hover {
       cursor: pointer;
+      opacity: 0.8;
     }
   }
 }

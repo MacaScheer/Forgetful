@@ -18,6 +18,25 @@
   color: #333333;
 }
 
+.task-list-items {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 20px 15px 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  border-bottom: 1px dotted #e5e5e5;
+  font-size: 13px;
+  color: #333333;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    border-color: $blue;
+    background: $lightblue;
+  }
+}
+
 input[type="checkbox"] {
   margin-right: 10px;
 }
@@ -74,7 +93,6 @@ input[type="checkbox"] {
 .task-container {
   width: 49%;
 }
-
 
 .task-show-page {
   width: 100%;

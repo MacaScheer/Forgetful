@@ -62,11 +62,11 @@ export default class ListOption extends Component {
           if (data.user.lists) {
             return (
               <div>
-                <div className="task-list-container ">
+                <div className="task-list-container">
                   <div className="task-list task-list-filter">
                     {data.user.lists.map((list, i) => (
                       <button
-                        className="task-list-item"
+                        className="task-list-items"
                         key={i}
                         value={list._id}
                         name={list.name}
