@@ -38,11 +38,13 @@ export default class LocationOption extends Component {
 
   updateState(e) {
     e.preventDefault();
-    this.setState({
-      name: e.target.name,
-      locationId: e.target.value
-    }, this.binder());
-    
+    this.setState(
+      {
+        name: e.target.name,
+        locationId: e.target.value
+      },
+      this.binder()
+    );
   }
 
   binder() {
@@ -61,10 +63,10 @@ export default class LocationOption extends Component {
             return (
               <div>
                 <div className="task-list-container">
-                  <div className="task-list">
+                  <div className="task-list task-list-filter">
                     {data.user.locations.map((location, i) => (
                       <button
-                        className="task-list-item"
+                        className="task-list-items"
                         key={i}
                         value={location._id}
                         name={location.name}

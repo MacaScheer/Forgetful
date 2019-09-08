@@ -25,23 +25,20 @@ class BodyDetail extends React.Component {
   }
 
   componentWillMount() {
-    document.addEventListener('mousedown', this.handleClick, false);
+    document.addEventListener("mousedown", this.handleClick, false);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, false);
+    document.removeEventListener("mousedown", this.handleClick, false);
   }
 
-  handleClick = (e) => {
-
+  handleClick = e => {
     if (this.Ref.current.contains(e.target)) {
       return;
     } else {
       this.setState({ editing: false });
     }
-
-
-  }
+  };
 
   fieldUpdate(field) {
     return e => this.setState({ [field]: e.target.value });
@@ -63,11 +60,12 @@ class BodyDetail extends React.Component {
                 }}
               >
                 <input
-                  
                   value={this.state.body}
                   onChange={this.fieldUpdate("body")}
                 />
-                <button type="submit">Update Body </button>
+                <button className="update-button" type="submit">
+                  Update Body{" "}
+                </button>
               </form>
             </div>
           )}
@@ -85,7 +83,9 @@ class BodyDetail extends React.Component {
                         </IconContext.Provider>
                     </div> */}
           {/* <h2>Body: </h2> */}
-          <p ref={this.Ref} onClick={this.handleEdit}>Body: {this.state.body}</p>
+          <p ref={this.Ref} onClick={this.handleEdit}>
+            Body: {this.state.body}
+          </p>
         </div>
       );
     }
