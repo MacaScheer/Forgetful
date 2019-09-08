@@ -4,6 +4,7 @@ import "../stylesheets/tasksummary.scss";
 export default class TaskSummary extends Component {
   constructor(props) {
     super(props);
+
     this.props.isAll
       ? (this.state = {
           data: this.props.data,
@@ -18,6 +19,10 @@ export default class TaskSummary extends Component {
       : (this.state = {
           tasks: this.props.data
         });
+    if (this.props.group === "tomorrow") this.state.group = "Tomorrow's Tasks";
+    if (this.props.group === "thisweek") this.state.group = "This Week's Tasks";
+    if (this.props.group === "today") this.state.group = "Today's Tasks";
+    if (this.props.group === "all") this.state.group = "All Tasks";
 
     this.dueTomorrow = this.dueTomorrow.bind(this);
   }
@@ -44,7 +49,7 @@ export default class TaskSummary extends Component {
       : null;
     return (
       <div className="summary-container" id="summary-container">
-        <h2 className="summary-title">{this.props.group}</h2>
+        <h2 className="summary-title">{this.state.group}</h2>
         <div className="sum-count-box">
           <div className="sum-count-txt">
             {this.state.isAll ? (
@@ -76,11 +81,11 @@ export default class TaskSummary extends Component {
             )}
           </div>
           <div className="due-tomorrow">due tomorrow: {dueTomorrow}</div>
-        </div>
 
-        <div className="sum-completed-box">
-          <div className="sum-completed-txt">
-            <div className="sum-completed-subtxt">completed:</div>
+          <div className="sum-completed-box">
+            <div className="sum-completed-txt">
+              <div className="sum-completed-subtxt">completed:</div>
+            </div>
           </div>
         </div>
       </div>

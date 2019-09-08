@@ -3,22 +3,21 @@
 .summary-container {
   //   position: relative;
   .summary-title {
+    // align-content: left;
+    padding-bottom: 20px;
+    padding-right: 200px;
     .sum-count-box {
- 
-      .sum-count-txt {
-        background-color: $blue;
-        display: block;
-        border: 1px solid rgb(226, 226, 226);
-        border-radius: 6px;
-        z-index: 5;
+      display: block;
 
-        .sum-count-subtxt {
-        }
-        .list-details {
-        }
-        .location-details {
-        }
-      }
+      margin: 13px 0 0 27px;
+      white-space: nowrap;
+
+      width: 400px;
+      height: 200px;
+      border: 10px solid black;
+      border-radius: 6px;
+      z-index: 5;
+      outline-color: $blue;
     }
     .sum-completed-box {
       .sum-completed-txt {
