@@ -36,7 +36,8 @@ class TaskIndex extends React.Component {
       urlLength: URLArray.length,
       url: URL,
       showPage: false,
-      taskId: ""
+      taskId: "",
+      localTasks: []
     };
 
     this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -72,7 +73,6 @@ class TaskIndex extends React.Component {
 
   runSearch(data) {
     if (this.state.keys === "search") return this.runSearchResult(data);
-
     const check = this.state.urlLength === 1;
     const modifiedData = check ? data.tasks : data[this.state.keys];
     let input = this.state.input;
@@ -89,7 +89,6 @@ class TaskIndex extends React.Component {
       minMatchCharLength: 1
     };
 
-    
     let fuse = new Fuse(modifiedData, options);
     if (check) {
       let today = new Date();
@@ -140,8 +139,6 @@ class TaskIndex extends React.Component {
       });
       return taskList;
     }
-
-
 
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
@@ -195,6 +192,7 @@ class TaskIndex extends React.Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           if (data.user.tasks) {
+            const summary = this.runSearch(data.user);
             return (
               <div className="task-index-container">
                 <div className="task-index-wrapper">
@@ -203,7 +201,19 @@ class TaskIndex extends React.Component {
                       <div className="right-side move-right" id="right-side">
                         <div className="task-summary-container">
                           <div className="task-summary" id="task-summary">
-                            <TaskSummary />
+                            {trigger ? (
+                              <TaskSummary
+                                group={this.state.input}
+                                isAll={false}
+                                data={summary}
+                              />
+                            ) : (
+                              <TaskSummary
+                                group={this.state.input}
+                                isAll={true}
+                                data={data}
+                              />
+                            )}
                           </div>
                         </div>
                         <div className="task-show-container">
@@ -219,7 +229,10 @@ class TaskIndex extends React.Component {
                           </div>
                         </div>
                       </div>
-                      <div className="tasks-container move-right" id="tasks-container">
+                      <div
+                        className="tasks-container move-right"
+                        id="tasks-container"
+                      >
                         <div className="create-task-container">
                           <div className="create-task-wrapper">
                             <CreateTask />

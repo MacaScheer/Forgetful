@@ -1,0 +1,29 @@
+@import "variables";
+
+.summary-container {
+  //   position: relative;
+  .summary-title {
+    // align-content: left;
+    // padding-bottom: 20px;
+    // padding-right: 200px;
+    .sum-count-box {
+      //   display: block;
+
+      //   margin: 13px 0 0 27px;
+      //   white-space: nowrap;
+
+      //   width: 400px;
+      //   height: 200px;
+      //   border: 10px solid black;
+      //   border-radius: 6px;
+      //   z-index: 5;
+      //   outline-color: $blue;
+    }
+    .sum-completed-box {
+      .sum-completed-txt {
+        .sum-completed-subtxt {
+        }
+      }
+    }
+  }
+}
