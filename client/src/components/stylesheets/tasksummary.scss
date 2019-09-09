@@ -1,29 +1,37 @@
 @import "variables";
 
 .summary-container {
-  position: relative;
-  display: flex;
-  color: $blue;
-  width: 400px;
-  height: 180px;
-  border-radius: 5px;
-  margin-right: 100px;
-  margin-left: 20px;
-  margin-top: 2px;
-  background-color: rgb(219, 232, 245);
-  justify-content: space-between;
   .summary-title {
-    border-right: 1px;
-    border-color: darkblue;
+    text-align: left;
+  }
+
+  .sum-count-txt {
+    padding-right: 20px;
+    background: #dbe8f6;
+    margin-right: 10px;
+    border-radius: 4px;
+    padding: 9px 13px;
+    font-weight: 900;
   }
 
   .sum-count-box {
     display: flex;
     flex-direction: row;
-    margin-bottom: 20px;
-    display: inline-block;
-    padding: 9px 13px;
   }
-  .sum-count-txt {
+
+  .color-number {
+    color: $blue;
+  }
+
+  .red {
+    color: red;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .black {
+    color: black;
   }
 }

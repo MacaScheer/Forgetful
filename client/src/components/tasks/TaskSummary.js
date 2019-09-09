@@ -24,7 +24,6 @@ export default class TaskSummary extends Component {
     if (this.props.group === "thisweek") this.state.group = "This Week's Tasks";
     if (this.props.group === "today") this.state.group = "Today's Tasks";
     if (this.props.group === "all") this.state.group = "All Tasks";
-    debugger;
     this.dueTomorrow = this.dueTomorrow.bind(this);
   }
 
@@ -55,21 +54,24 @@ export default class TaskSummary extends Component {
         </h2>
         <br />
         <div className="sum-count-box" id="sum-count-box">
-          <div className="sum-count-txt">
+          <div className="sum-count">
             {this.state.isAll ? (
-              <div className="sum-count-subtxt">
-                tasks: {this.state.tasks.length}
+              <div className="sum-count-txt">
+                <div className="color-number">{this.state.tasks.length}</div>
+                <div>tasks</div>
               </div>
             ) : (
-              <div className="sum-count-subtxt">
-                tasks: {this.state.tasks.length}
+              <div className="sum-count-txt">
+                <div className="color-number">{this.state.tasks.length}</div>
+                <div>tasks</div>
               </div>
             )}
           </div>
           <div className="sum-count-txt">
             {this.state.isAll ? (
               <div className="list-details">
-                lists: {this.state.lists.length}
+                <div className="color-number black">{this.state.lists.length}</div>
+                <div>lists</div>
               </div>
             ) : (
               <div></div>
@@ -78,14 +80,17 @@ export default class TaskSummary extends Component {
           <div className="sum-count-txt">
             {this.state.isAll ? (
               <div className="location-details">
-                locations: {this.state.locations.length}
+                <div className="color-number green">{this.state.locations.length}</div>
+                <div>locations</div>
               </div>
             ) : (
               <div></div>
             )}
           </div>
-          <div className="due-tomorrow">due tomorrow: {dueTomorrow}</div>
-
+          <div className="due-tomorrow sum-count-txt">
+            <div className="color-number red">{dueTomorrow}</div>
+            <div>due tomorrow</div>
+          </div>
           <div className="sum-completed-box">
             <div className="sum-completed-txt">
               {/* <div className="sum-completed-subtxt">completed:
