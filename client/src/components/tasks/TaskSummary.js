@@ -17,13 +17,14 @@ export default class TaskSummary extends Component {
           group: this.props.group
         })
       : (this.state = {
-          tasks: this.props.data
+          tasks: this.props.data,
+          group: this.props.group
         });
     if (this.props.group === "tomorrow") this.state.group = "Tomorrow's Tasks";
     if (this.props.group === "thisweek") this.state.group = "This Week's Tasks";
     if (this.props.group === "today") this.state.group = "Today's Tasks";
     if (this.props.group === "all") this.state.group = "All Tasks";
-
+    debugger;
     this.dueTomorrow = this.dueTomorrow.bind(this);
   }
 
@@ -49,7 +50,9 @@ export default class TaskSummary extends Component {
       : null;
     return (
       <div className="summary-container" id="summary-container">
-        <h2 className="summary-title" id="summary-title">{this.state.group}</h2>
+        <h2 className="summary-title" id="summary-title">
+          {this.state.group}
+        </h2>
         <br />
         <div className="sum-count-box" id="sum-count-box">
           <div className="sum-count-txt">
