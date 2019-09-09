@@ -1,29 +1,29 @@
 @import "variables";
 
 .summary-container {
-  //   position: relative;
+  position: relative;
+  display: flex;
+  color: $blue;
+  width: 400px;
+  height: 180px;
+  border-radius: 5px;
+  margin-right: 100px;
+  margin-left: 20px;
+  margin-top: 2px;
+  background-color: rgb(219, 232, 245);
+  justify-content: space-between;
   .summary-title {
-    // align-content: left;
-    // padding-bottom: 20px;
-    // padding-right: 200px;
-    .sum-count-box {
-      //   display: block;
+    border-right: 1px;
+    border-color: darkblue;
+  }
 
-      //   margin: 13px 0 0 27px;
-      //   white-space: nowrap;
-
-      //   width: 400px;
-      //   height: 200px;
-      //   border: 10px solid black;
-      //   border-radius: 6px;
-      //   z-index: 5;
-      //   outline-color: $blue;
-    }
-    .sum-completed-box {
-      .sum-completed-txt {
-        .sum-completed-subtxt {
-        }
-      }
-    }
+  .sum-count-box {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 9px 13px;
+  }
+  .sum-count-txt {
   }
 }
