@@ -17,6 +17,7 @@ import SearchResults from "./tasks/SearchResults";
 import DropDownMenu from "./navbar/DropDownMenu";
 import LocationOption from "./tasks/LocationOption";
 import SplashPage from "./splashpage/splashpage";
+const path = require('path');
 
 const App = () => {
   return (
