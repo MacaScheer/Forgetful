@@ -24,7 +24,6 @@ export default class TaskSummary extends Component {
     if (this.props.group === "thisweek") this.state.group = "This Week's Tasks";
     if (this.props.group === "today") this.state.group = "Today's Tasks";
     if (this.props.group === "all") this.state.group = "All Tasks";
-    debugger;
     this.dueTomorrow = this.dueTomorrow.bind(this);
   }
 
