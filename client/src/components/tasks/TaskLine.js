@@ -1,6 +1,8 @@
 import "../stylesheets/task_index.scss";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Mutation } from "reac-apollo"
+import mutations from "../../graphql/mutations"
 
 class CheckLine extends React.Component {
   constructor(props) {
@@ -38,9 +40,13 @@ class CheckLine extends React.Component {
     this.props.getTaskId(this.props._id);
   }
 
+  updateCache() { }
+  
+
   renderDelete() {
     return this.state.completed ? (
-      <button className="delete-task-button">Delete Task</button>
+      <button className="delete-task-button"
+      onClick={this.handleDelete}>Delete Task</button>
     ) : (
       <div />
     );
@@ -48,6 +54,11 @@ class CheckLine extends React.Component {
 
   render() {
     return (
+      <Mutation mutationz={DELETE_TASK}
+        onError={err => this.setState({ message: err.message })}
+        update= {(cache, data) => this.updateCache(cache, data)}
+      >
+
       <div className="task-line-container">
         <form>
           <input
@@ -67,7 +78,8 @@ class CheckLine extends React.Component {
             {this.renderDelete()}
           </div>
         </form>
-      </div>
+        </div>
+      </Mutation>
     );
   }
 }
