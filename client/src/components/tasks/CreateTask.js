@@ -157,10 +157,7 @@ class CreateTask extends React.Component {
   updateCache(cache, { data}  ) {
     let tasks;
     try {
-      const id = localStorage.getItem('currentuserId')
-
-      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id}})
-
+     
       // debugger
     } catch (err) {
       return;

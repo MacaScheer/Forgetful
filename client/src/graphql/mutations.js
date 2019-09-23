@@ -31,25 +31,25 @@ export default {
     }
   `,
   CREATE_TAG: gql`
-    mutation CreateTag($name: String, $userid: ID!){
-      newTag(name:$name, userId: $userid){
+    mutation CreateTag($name: String, $userid: ID!) {
+      newTag(name: $name, userId: $userid) {
         name
       }
     }
   `,
   CREATE_LIST: gql`
-  mutation CreateList($name: String, $userid: ID!){
-      newList(name:$name, userId: $userid){
+    mutation CreateList($name: String, $userid: ID!) {
+      newList(name: $name, userId: $userid) {
         name
       }
     }
   `,
   CREATE_LOCATION: gql`
-  mutation CreateLocation($name: String, $userid: ID!){
-    newLocation(name:$ name userId: $userid){
-      name
+    mutation CreateLocation($name: String, $userid: ID!) {
+      newLocation(name: $name, userId: $userid) {
+        name
+      }
     }
-  }
   `,
 
   CREATE_TASK: gql`
@@ -73,73 +73,67 @@ export default {
       ) {
         name
         _id
-        due_date 
+        due_date
         start_date
       }
     }
   `,
   UPDATE_TASK_NAME: gql`
-    mutation updateTask($_id: ID, $name: String){
-      updateTask(_id: $_id, name: $name){
+    mutation updateTask($_id: ID, $name: String) {
+      updateTask(_id: $_id, name: $name) {
         _id
         name
       }
     }
-
   `,
   UPDATE_TASK_DUE_DATE: gql`
-    mutation updateTask($_id: ID, $due_date: String){
-      updateTask(_id: $_id, due_date: $due_date){
+    mutation updateTask($_id: ID, $due_date: String) {
+      updateTask(_id: $_id, due_date: $due_date) {
         _id
         due_date
       }
     }
-    `,
-    UPDATE_TASK_BODY: gql`
-      mutation updateTaskbody($_id: ID, $body: String){
-        updateTask(_id: $_id, body: $body){
-          _id
-          body
+  `,
+  UPDATE_TASK_BODY: gql`
+    mutation updateTaskbody($_id: ID, $body: String) {
+      updateTask(_id: $_id, body: $body) {
+        _id
+        body
+      }
+    }
+  `,
+  UPDATE_TASK_PRIORITY: gql`
+    mutation updateTask($_id: ID, $priority: String) {
+      updateTask(_id: $_id, priority: $priority) {
+        _id
+        priority
+      }
+    }
+  `,
+  UPDATE_TASK_REPEAT: gql`
+    mutation updateTask($_id: ID, $repeat: String) {
+      updateTask(_id: $_id, repeat: $repeat) {
+        _id
+        repeat
+      }
+    }
+  `,
+  UPDATE_TASK_LOCATION: gql`
+    mutation updateTask($_id: ID, $location: String) {
+      updateTask(_id: $_id, location: $location) {
+        _id
+        location {
+          name
         }
       }
-      `,
-    UPDATE_TASK_PRIORITY: gql`
-      mutation updateTask($_id: ID, $priority: String){
-        updateTask(_id: $_id, priority: $priority){
-          _id
-          priority
-        }
-      }
-    `,
-    UPDATE_TASK_REPEAT: gql`
-      mutation updateTask($_id: ID, $repeat: String){
-        updateTask(_id: $_id, repeat: $repeat){
-          _id
-          repeat
-        }
-      }
-    `,
-    UPDATE_TASK_LOCATION: gql`
-      mutation updateTask($_id: ID, $location: String){
-        updateTask(_id: $_id, location: $location){
-          _id
-          location{
-            name
-          }
-        }
-      }
-    `,
+    }
+  `,
 
   DELETE_TASK: gql`
-    mutation deleteTaks($id: ID){
-      deleteTask(_id: $id){
+    mutation deleteTaks($id: ID) {
+      deleteTask(_id: $id) {
         _id
       }
     }
-    
-      
-   
-  
-    
-
+  `
 };

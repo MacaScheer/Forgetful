@@ -1,9 +1,9 @@
 import "../stylesheets/task_index.scss";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mutation } from "reac-apollo";
+import { Mutation } from "react-apollo";
 import mutations from "../../graphql/mutations";
-const { DELETE_TASK} =mutations
+const { DELETE_TASK } = mutations;
 
 class CheckLine extends React.Component {
   constructor(props) {
@@ -16,6 +16,7 @@ class CheckLine extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.completeTask = this.completeTask.bind(this);
     this.incompleteTask = this.incompleteTask.bind(this);
+    this.handleDelete = this.handleDelete;
   }
 
   handleChange(e) {
@@ -41,12 +42,22 @@ class CheckLine extends React.Component {
     this.props.getTaskId(this.props._id);
   }
 
-  updateCache() {}
+  updateCache(cache, data) {
+    let tasks;
+    try {
+      const id = localStorage.getItem('currentuserId')
+
+      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } })
+    } catch (err) {
+      return
+    }
+  }
 
   handleDelete(e, deleteTask) {
     e.preventDefault();
-    debugger
-    // const task = 
+    const taskId = this.props._id;
+    debugger;
+    deleteTask({ variables: { id: taskId } });
   }
 
   renderDelete() {
