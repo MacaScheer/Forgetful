@@ -129,6 +129,13 @@ export default {
         }
       }
     `,
+
+  DELETE_TASK: gql`
+    mutation deleteTaks($id: ID){
+      deleteTask(_id: $id){
+        _id
+      }
+    }
     
       
    

@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Mutation } from "reac-apollo";
 import mutations from "../../graphql/mutations";
+const { DELETE_TASK} =mutations
 
 class CheckLine extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class CheckLine extends React.Component {
 
   handleDelete(e, deleteTask) {
     e.preventDefault();
+    debugger
     // const task = 
   }
 
@@ -58,7 +60,7 @@ class CheckLine extends React.Component {
   render() {
     return (
       <Mutation
-        mutationz={DELETE_TASK}
+        mutation={DELETE_TASK}
         onError={err => this.setState({ message: err.message })}
         update={(cache, data) => this.updateCache(cache, data)}
       >
