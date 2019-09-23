@@ -1,8 +1,8 @@
 import "../stylesheets/task_index.scss";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mutation } from "reac-apollo"
-import mutations from "../../graphql/mutations"
+import { Mutation } from "reac-apollo";
+import mutations from "../../graphql/mutations";
 
 class CheckLine extends React.Component {
   constructor(props) {
@@ -40,13 +40,16 @@ class CheckLine extends React.Component {
     this.props.getTaskId(this.props._id);
   }
 
-  updateCache() { }
-  
+  updateCache() {}
+
+  handleDelete(e, deleteTask) {
+    e.preventDefault();
+    // const task = 
+  }
 
   renderDelete() {
     return this.state.completed ? (
-      <button className="delete-task-button"
-      onClick={this.handleDelete}>Delete Task</button>
+      <button className="delete-task-button">Delete Task</button>
     ) : (
       <div />
     );
@@ -54,31 +57,33 @@ class CheckLine extends React.Component {
 
   render() {
     return (
-      <Mutation mutationz={DELETE_TASK}
+      <Mutation
+        mutationz={DELETE_TASK}
         onError={err => this.setState({ message: err.message })}
-        update= {(cache, data) => this.updateCache(cache, data)}
+        update={(cache, data) => this.updateCache(cache, data)}
       >
-
-      <div className="task-line-container">
-        <form>
-          <input
-            type="checkbox"
-            checked={this.state.completed}
-            onChange={e => {
-              e.stopPropagation();
-              this.state.completed
-                ? this.incompleteTask()
-                : this.completeTask();
-            }}
-          />
-          <div id="task" className={this.state.completed ? "strike" : ""}>
-            <p className="task-line-button" onClick={this.handleClick}>
-              {this.props.name}
-            </p>
-            {this.renderDelete()}
+        {deleteTask => (
+          <div className="task-line-container">
+            <form onSubmit={e => this.handleDelete(e, deleteTask)}>
+              <input
+                type="checkbox"
+                checked={this.state.completed}
+                onChange={e => {
+                  e.stopPropagation();
+                  this.state.completed
+                    ? this.incompleteTask()
+                    : this.completeTask();
+                }}
+              />
+              <div id="task" className={this.state.completed ? "strike" : ""}>
+                <p className="task-line-button" onClick={this.handleClick}>
+                  {this.props.name}
+                </p>
+                {this.renderDelete()}
+              </div>
+            </form>
           </div>
-        </form>
-        </div>
+        )}
       </Mutation>
     );
   }
