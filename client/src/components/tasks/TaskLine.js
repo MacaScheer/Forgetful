@@ -1,6 +1,9 @@
 import "../stylesheets/task_index.scss";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Mutation } from "react-apollo";
+import Mutations from "../../graphql/mutations";
+const { REMOVE_TASK } = Mutations;
 
 class CheckLine extends React.Component {
   constructor(props) {
@@ -13,6 +16,14 @@ class CheckLine extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.completeTask = this.completeTask.bind(this);
     this.incompleteTask = this.incompleteTask.bind(this);
+  }
+
+  updateCache(cache, { data }) {
+    try {
+      const id = this.props.id;
+    } catch (err) {
+      return;
+    }
   }
 
   handleChange(e) {
@@ -35,12 +46,31 @@ class CheckLine extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.getTaskId(this.props._id);
+    if (this.props.taskId === this.props._id) {
+      const showPage = document.getElementById("task-show");
+    }
+    this.props.selectTask(this.props._id);
   }
 
   renderDelete() {
     return this.state.completed ? (
-      <button className="delete-task-button">Delete Task</button>
+      <Mutation
+        mutation={REMOVE_TASK}
+        onError={err => this.setState({ message: err.message })}
+        update={(cache, data) => this.updateCache(cache, data)}
+      >
+        {(deleteTask, { data }) => (
+          <button
+            className="delete-task-button"
+            onClick={e => {
+              e.preventDefault();
+              deleteTask({ variables: { id: this.props.id } });
+            }}
+          >
+            Delete Task
+          </button>
+        )}
+      </Mutation>
     ) : (
       <div />
     );
