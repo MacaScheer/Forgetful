@@ -3,7 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
-const { REMOVE_TASK } = Mutations;
+import Queries from '../../graphql/queries'
+const { FETCH_USER } = Queries
+const { DELETE_TASK } = Mutations;
 
 class CheckLine extends React.Component {
   constructor(props) {
@@ -20,21 +22,44 @@ class CheckLine extends React.Component {
   }
 
   updateCache(cache, { data }) {
+    let tasks;
+    // debugger
     try {
-      const id = this.props.id;
+      const id = localStorage.getItem("currentuserId");
+
+      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } });
     } catch (err) {
       return;
     }
-  }
 
-  updateCache(cache, { data }) {
-    try {
-      const id = this.props.id;
-    } catch (err) {
-      return;
+    if (tasks) {
+      const id = localStorage.getItem("currentuserId");
+      let deletedTaskId = this.props._id;
+      let objectIdx;
+      // debugger
+      // console.log('test')
+      tasks.user.tasks.forEach((ele, idx) => {
+        if (ele._id === deletedTaskId) objectIdx = idx;
+      });
+      // debugger
+      tasks.user.tasks.splice(objectIdx, 1)
+      // debugger
+      // console.log(tasks.user.tasks.length);
+      cache.writeQuery({
+        query: FETCH_USER,
+        variables: { Id: id },
+        data: { user: tasks.user }
+      });
     }
   }
 
+  handleDelete(e, deleteTask) {
+    e.preventDefault();
+    const taskId = this.props._id;
+    // debugger;
+    deleteTask({ variables: { id: taskId } });
+
+  }
   handleChange(e) {
     this.setState({
       completed: !this.state.completed
@@ -63,23 +88,23 @@ class CheckLine extends React.Component {
 
   renderDelete() {
     return this.state.completed ? (
-      <Mutation
-        mutation={REMOVE_TASK}
-        onError={err => this.setState({ message: err.message })}
-        update={(cache, data) => this.updateCache(cache, data)}
-      >
-        {(deleteTask, { data }) => (
+      // <Mutation
+      //   mutation={REMOVE_TASK}
+      //   onError={err => this.setState({ message: err.message })}
+      //   update={(cache, data) => this.updateCache(cache, data)}
+      // >
+      //   {(deleteTask, { data }) => (
           <button
             className="delete-task-button"
-            onClick={e => {
-              e.preventDefault();
-              deleteTask({ variables: { id: this.props.id } });
-            }}
+            // onClick={e => {
+            //   e.preventDefault();
+            //   deleteTask({ variables: { id: this.props.id } });
+            // }}
           >
             Delete Task
           </button>
-        )}
-      </Mutation>
+        // )}
+      // </Mutation>
     ) : (
       <div />
     );
