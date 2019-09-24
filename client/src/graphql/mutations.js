@@ -83,6 +83,7 @@ export default {
       updateTask(_id: $_id, name: $name){
         _id
         name
+        due_date
       }
     }
 

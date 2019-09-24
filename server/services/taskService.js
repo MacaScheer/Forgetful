@@ -156,14 +156,16 @@ const updateTask = async data => {
     if (repeat) updateObj.repeat = repeat;
     if (location) updateObj.location = location;
 
-    Task.findOneAndUpdate(
+    return Task.findOneAndUpdate(
       { _id: _id },
       { $set: updateObj },
       { new: true },
       (err, task) => {
+        // console.log(`task = ${task}`);
         return task;
       }
-    ).then(res => console.log(res));
+    )
+    // .then(res => console.log(`res = ${res}`));
   } catch (err) {
     return err;
   }

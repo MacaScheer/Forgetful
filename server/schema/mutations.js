@@ -47,7 +47,8 @@ const mutation = new GraphQLObjectType({
         location: { type: GraphQLString }
       },
       resolve(_, args) {
-        return TaskService.updateTask(args);
+        return TaskService.updateTask(args)
+        
       }
     },
     updateTaskList: {
