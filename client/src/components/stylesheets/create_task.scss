@@ -8,13 +8,14 @@
   .create-task-form {
     background: white;
     padding: 20px;
+    padding-bottom: 0;
     border-radius: 6px;
 
     .create-task-input {
+      padding-left: 5px;
       width: 100%;
       border: none;
       height: 40px;
-      padding-left: 20px;
       color: #484848;
 
       &:focus {
@@ -47,9 +48,7 @@
 }
 @media screen and (max-width: 1000px) {
   .tasks-container {
-    // width: 800px;
     left: 0;
-    // left: 12px;
   }
 }
 

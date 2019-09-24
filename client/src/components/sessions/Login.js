@@ -20,13 +20,8 @@ class Login extends Component {
   }
 
   updateCache(client, { data }) {
-    // console.log(data);
-    // here we can write directly to our cache with our returned mutation data
-    // console.log(data.login)
-
     client.writeData({
       data: { isLoggedIn: data.login.loggedIn }
-      // name: data.login.name
     });
   }
 
@@ -35,15 +30,14 @@ class Login extends Component {
       <Mutation
         mutation={LOGIN_USER}
         onCompleted={data => {
-
           const { token, name, defaultListObjectId, _id } = data.login;
           localStorage.setItem("auth-token", token);
           localStorage.setItem("name", name);
           localStorage.setItem("defaultListObjectId", defaultListObjectId);
-          localStorage.setItem("currentuserId", _id)
-          this.props.history.push("/all"); //redirecting to homepage afterwards
+          localStorage.setItem("currentuserId", _id);
+          this.props.history.push("/all");
         }}
-        update={(client, data) => this.updateCache(client, data)} //update gets trigger on success of mutation
+        update={(client, data) => this.updateCache(client, data)}
       >
         {loginUser => (
           <div className="session-child">
@@ -53,7 +47,6 @@ class Login extends Component {
                 e.preventDefault();
                 loginUser({
                   variables: {
-                    //arguments to be passed into mutation
                     email: this.state.email,
                     password: this.state.password
                   }

@@ -65,10 +65,10 @@ class ListOption extends Component {
             return (
               <div>
                 <div className="task-list-container">
-                  <div className="task-list">
+                  <div className="task-list task-list-filter">
                     {data.user.lists.map((list, i) => (
                       <button
-                        className="task-list-item"
+                        className="task-list-items"
                         key={i}
                         value={list._id}
                         name={list.name}
@@ -78,7 +78,12 @@ class ListOption extends Component {
                       </button>
                     ))}
                   </div>
-                  <button onClick={this.renderModal}>Create a New List</button>
+                  <button
+                    className="add-list-button"
+                    onClick={this.toggleModal}
+                  >
+                    Add List
+                  </button>
                 </div>
               </div>
             );

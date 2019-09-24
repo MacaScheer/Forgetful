@@ -18,18 +18,14 @@ mongoose
 app.use(bodyParser.json());
 
 const cors = require("cors");
-//...
 app.use(cors());
 
-
-// app.use(
-//   "/graphql",
-//   expressGraphQL({
-//     schema,
-//     graphiql: true
-//   })
-// );
-// after user auth
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 app.use(
   "/graphql",
   expressGraphQL(req => {

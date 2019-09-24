@@ -1,17 +1,55 @@
-.date-option-container {
-  padding-top: 200px;
-  border: 1px solid black;
-  // display: flex;
-  right: 500px;
-  top: 400px;
-  width: 400px;
-  height: 400px;
+@import "variables";
 
-  background: blue;
-  // div{
-  //   top: 400px;
-  //   text-align:center
-  // }
+.date-option-container {
+  // padding-top: 200px;
+  // border: 1px solid black;
+  // display: flex;
+  // right: 500px;
+  // top: 400px;
+  // width: 400px;
+  // height: 400px;
+  background: white;
+}
+
+.label-container {
+}
+
+.calendar-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.calendar-button {
+  border: none;
+  font-size: 12px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.select-date-button-container {
+  padding: 40px 0 0 0;
+
+  .select-date {
+    display: flex;
+  }
+
+  .feature-buttons {
+    background: $blue;
+    color: white;
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+  }
 }
 
 // .date-picker-selector {

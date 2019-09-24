@@ -1,8 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import "../stylesheets/searchbar.scss";
-// import Queries from "../../graphql/queries";
-// const { FETCH_USER } = Queries;
 
 class SearchBar extends React.Component {
   constructor(props) {

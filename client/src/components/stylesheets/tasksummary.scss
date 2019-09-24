@@ -1,0 +1,37 @@
+@import "variables";
+
+.summary-container {
+  .summary-title {
+    text-align: left;
+  }
+
+  .sum-count-txt {
+    padding-right: 20px;
+    background: #dbe8f6;
+    margin-right: 10px;
+    border-radius: 4px;
+    padding: 9px 13px;
+    font-weight: 900;
+  }
+
+  .sum-count-box {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .color-number {
+    color: $blue;
+  }
+
+  .red {
+    color: red;
+  }
+
+  .green {
+    color: green;
+  }
+
+  .black {
+    color: black;
+  }
+}

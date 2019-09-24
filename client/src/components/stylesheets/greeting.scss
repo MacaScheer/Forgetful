@@ -102,7 +102,7 @@
   width: 140px;
 }
 
-.home-image{
+.home-image {
   margin-top: 5%;
   display: block;
   margin-left: auto;
@@ -127,7 +127,7 @@
   align-items: center;
   justify-content: center;
 }
-/* Top and bottom lines */
+
 .menu-wrap .hamburger > div:before,
 .menu-wrap .hamburger > div:after {
   content: "";
@@ -151,11 +151,43 @@
 }
 
 .slide {
-  transform: translate(0, -900px);
-  transition: 2s ease-out;
+  transform: translate(0, -2000px);
+  transition: 5s ease-out;
 }
 
 .new-slide {
   transform: translate(0, 20px);
   transition: 2s ease-in;
 }
+
+.splash-page-image {
+  object-fit: cover;
+  width: 100%;
+  // height: 100%;
+  background-image: url("https://static.parade.com/wp-content/uploads/2016/06/findingdory568c691272fd3-72.jpg");
+  background-size: cover;
+}
+
+.home-page-div-tags {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.splash-intro-prewords{
+  font-size: 40px;
+}
+
+.splash-intro{
+  font-size: 100px;
+  color: brown;
+}
+
+.splash-description{
+  font-size: 30px;
+  margin-top: 100px;
+}
+
+.logo{
+  margin-top: 50px;
+}
+
