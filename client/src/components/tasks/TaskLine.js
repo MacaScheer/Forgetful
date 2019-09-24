@@ -67,8 +67,8 @@ class CheckLine extends React.Component {
       let newTasks = tasks.user.tasks.filter(ele => {
         return ele._id !== deletedTaskId
       })
-      debugger
-      // tasks.user.tasks.splice(objectIdx, 1);
+      // debugger   
+      //  let newTasks = tasks.user.tasks.splice(objectIdx, 1);
       // debugger
       // console.log(tasks.user.tasks.length);
       this.props.client.writeQuery({
@@ -83,7 +83,9 @@ class CheckLine extends React.Component {
     e.preventDefault();
     const taskId = this.props._id;
     // debugger;
-    deleteTask({ variables: { id: taskId } });
+    deleteTask({ variables: { id: taskId } }).then(() => {
+      this.setState({completed: false})
+    });
   }
 
   renderDelete() {

@@ -38,7 +38,9 @@ class TaskIndex extends React.Component {
       url: URL,
       showPage: false,
       taskId: "",
-      localTasks: []
+      localTasks: [],
+      retrigger: 0,
+      refetch: null
     };
     this.selectTask = this.selectTask.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -54,8 +56,11 @@ class TaskIndex extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    // this.forceUpdate()
+  componentDidUpdate(prevProps, nextProps) {
+    if (prevProps.match.url !== nextProps.url) {
+      this.setState({retrigger: Math.random()})
+    } 
+    // debugger
   }
 
   runSearchResult(tasks) {
