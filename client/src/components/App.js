@@ -5,7 +5,6 @@ import Login from "./sessions/Login";
 import Signup from "./sessions/Signup";
 
 import Nav from "./navbar/Navbar";
-// import SplashPage from "./splashpage/splashpage";
 import TaskIndex from "./tasks/TaskIndex";
 import CreateTask from "./tasks/CreateTask";
 import TagOption from "./tasks/TagOption";
@@ -18,6 +17,7 @@ import SearchResults from "./tasks/SearchResults";
 import DropDownMenu from "./navbar/DropDownMenu";
 import LocationOption from "./tasks/LocationOption";
 import SplashPage from "./splashpage/splashpage";
+const path = require('path');
 
 const App = () => {
   return (

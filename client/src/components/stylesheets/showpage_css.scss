@@ -1,3 +1,5 @@
+@import "variables";
+
 .task-show-container {
   height: 100%;
   top: 0;
@@ -6,11 +8,29 @@
 }
 
 .task-show-content {
-    padding: 50px;
+  padding: 50px;
 }
 
 .show-task-name {
   width: 100%;
   height: 100px;
   text-align: left;
+}
+
+.task-show-info {
+}
+
+.update-button {
+  padding: 5px 20px;
+  margin-left: 20px;
+  background: $blue;
+  color: white;
+  border-radius: 4px;
+}
+
+.update-input {
+  padding-left: 5px;
+  &:focus {
+    border: 1px solid $blue;
+  }
 }

@@ -23,18 +23,16 @@ const mutation = new GraphQLObjectType({
     newTask: {
       type: TaskType,
       args: {
-        name: { type: GraphQLString }, //required
-        due_date: { type: GraphQLString }, //should be changed to required false
-        start_date: { type: GraphQLString},
-        locationId: { type: GraphQLString }, //not required
+        name: { type: GraphQLString },
+        due_date: { type: GraphQLString },
+        start_date: { type: GraphQLString },
+        locationId: { type: GraphQLString },
         tagId: { type: GraphQLString },
         listId: { type: GraphQLString },
         userId: { type: GraphQLString }
       },
       resolve(_, args) {
-        return TaskService.createTask(
-          args
-        );
+        return TaskService.createTask(args);
       }
     },
     updateTask: {
@@ -50,7 +48,6 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, args) {
         return TaskService.updateTask(args);
-
       }
     },
     updateTaskList: {
@@ -89,8 +86,7 @@ const mutation = new GraphQLObjectType({
         userId: { type: GraphQLID }
       },
       resolve(_, args) {
-        return TaskService.checkListUniqueness(args)
-        // return new List({ name }).save();
+        return TaskService.checkListUniqueness(args);
       }
     },
     deleteList: {
@@ -105,13 +101,9 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: GraphQLString },
         userId: { type: GraphQLID }
-
-        // tasks: { type: GraphQLList }
       },
       resolve(_, args) {
-        return TaskService.checkTagUniqueness(args)
-        
-        // return new Tag({ name }).save();
+        return TaskService.checkTagUniqueness(args);
       }
     },
     newLocation: {
@@ -201,7 +193,6 @@ const mutation = new GraphQLObjectType({
         password: { type: GraphQLString }
       },
       resolve(_, args) {
-        // return AuthService.updateUser({args});
         const updateObj = {};
         const { id, name, email, password } = args;
         updateObj.id = id;

@@ -77,9 +77,9 @@ class Navbar extends React.Component {
                     </nav>
                     <DropDownMenu />
                   </div>
-                )
+                );
               } else {
-                return(
+                return (
                   <div className="toolbar">
                     <nav className="toolbar__navigation">
                       <div className="toolbar-navigation-items">
@@ -87,13 +87,12 @@ class Navbar extends React.Component {
                       </div>
                     </nav>
                   </div>
-                )
+                );
               }
             }}
           </Query>
         )}
       </ApolloConsumer>
-      
     );
   }
 }

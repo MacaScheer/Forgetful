@@ -1,22 +1,20 @@
-// .task-list-container {
-//   border: 1px solid black;
-//   background: red;
-//   padding: 100px;
+@import "variables";
 
-//   .task-list {
-//     background: green;
-//     padding: 100px;
-//     border: 1px solid black;
+.add-list-button {
+  background: $blue;
+  color: white;
+  border: 1px solid white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 
-//     .task-list-item {
-//       background: yellow;
-//       border: 1px solid black;
-//       padding: 50px;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
 
-//       .task-list-button {
-//         background: $blue;
-//         padding: 20px;
-//       }
-//     }
-//   }
-// }
+.task-list-filter {
+  padding: 20px 0;
+}

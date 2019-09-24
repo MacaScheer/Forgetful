@@ -16,6 +16,16 @@ export default class DropDownMenu extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    const button = document.getElementById("tasks-container");
+    const summary = document.getElementById("right-side");
+
+    summary.classList.add("move-over");
+    button.classList.add("move-over");
   }
 
   toggle(e) {
@@ -105,7 +115,9 @@ export default class DropDownMenu extends Component {
                       <span className="drop-headers">Inbox</span>
                     </Link>
                   ) : (
-                      <Link to="/all"><span className="drop-headers">All Tasks</span></Link>
+                    <Link to="/all">
+                      <span className="drop-headers">All Tasks</span>
+                    </Link>
                   )}
                   {this.renderInboxCat()}
                 </div>

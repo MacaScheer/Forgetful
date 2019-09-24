@@ -28,6 +28,7 @@ class TaskIndex extends React.Component {
     }
     const trigger = URLArray[0] === "all" ? false : true;
     this.state = {
+      taskName: "",
       hidden: true,
       completed: false,
       keys: key,
@@ -36,15 +37,15 @@ class TaskIndex extends React.Component {
       urlLength: URLArray.length,
       url: URL,
       showPage: false,
-      taskId: ""
+      taskId: "",
+      localTasks: []
     };
-
+    this.selectTask = this.selectTask.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.runSearch = this.runSearch.bind(this);
     this.getTaskId = this.getTaskId.bind(this);
-    // this.myFunc = this.myFunc.bind(this);
   }
 
   getTaskId(task_id) {
@@ -73,7 +74,6 @@ class TaskIndex extends React.Component {
 
   runSearch(data) {
     if (this.state.keys === "search") return this.runSearchResult(data);
-
     const check = this.state.urlLength === 1;
     const modifiedData = check ? data.tasks : data[this.state.keys];
     let input = this.state.input;
@@ -89,8 +89,8 @@ class TaskIndex extends React.Component {
       maxPatternLength: 32,
       minMatchCharLength: 1
     };
+
     let fuse = new Fuse(modifiedData, options);
-    // return fuse.search("never")
     if (check) {
       let today = new Date();
       let todayString = today.toDateString();
@@ -140,6 +140,7 @@ class TaskIndex extends React.Component {
       });
       return taskList;
     }
+
     const result =
       input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
     return result;
@@ -166,23 +167,30 @@ class TaskIndex extends React.Component {
     });
   }
 
+  selectTask(id) {
+    if (id === this.state.taskId) {
+      this.setState({ taskId: id, showPage: false }, () => {
+        const showPage = document.getElementById("task-show");
+          showPage.classList.remove("show-move-left");
+          showPage.classList.add("show-move-right");
+       
+      });
+    } else {
+      this.setState({ taskId: id, showPage: true }, () => {
+        const showPage = document.getElementById("task-show");
+        showPage.classList.remove("show-move-right");
+        showPage.classList.add("show-move-left");
+       
+      });
+    }
+  }
+
   handleClick(e) {
     e.preventDefault();
-    this.setState(
-      {
+    if (this.state.taskId === e.target.innerHTML) {
+      this.setState({
         showPage: !this.state.showPage
-      }
-      // this.myFunc()
-    );
-
-    const showPage = document.getElementById("task-show");
-    // const summaryPage = document.getElementById("task-summary");
-    if (!this.state.showPage) {
-      showPage.classList.remove("show-move-right");
-      showPage.classList.add("show-move-left");
-    } else {
-      showPage.classList.remove("show-move-left");
-      showPage.classList.add("show-move-right");
+      });
     }
   }
 
@@ -196,22 +204,32 @@ class TaskIndex extends React.Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           if (data.user.tasks) {
+            const summary = this.runSearch(data.user);
             return (
               <div className="task-index-container">
                 <div className="task-index-wrapper">
                   <div className="task-index-page">
                     <div className="task-index-page-content">
-                      <div className="right-side" id="right-side">
+                      <div className="right-side move-right" id="right-side">
                         <div className="task-summary-container">
                           <div className="task-summary" id="task-summary">
-                            <TaskSummary />
+                            {trigger ? (
+                              <TaskSummary
+                                group={this.state.input}
+                                isAll={false}
+                                data={summary}
+                              />
+                            ) : (
+                              <TaskSummary
+                                group={this.state.input}
+                                isAll={true}
+                                data={data}
+                              />
+                            )}
                           </div>
                         </div>
                         <div className="task-show-container">
-                          <div
-                            className="task-show-page show-move-right"
-                            id="task-show"
-                          >
+                          <div className="task-show-page" id="task-show">
                             {this.state.taskId.length > 1 ? (
                               <TaskShow taskId={this.state.taskId} />
                             ) : (
@@ -220,7 +238,10 @@ class TaskIndex extends React.Component {
                           </div>
                         </div>
                       </div>
-                      <div className="tasks-container" id="tasks-container">
+                      <div
+                        className="tasks-container move-right"
+                        id="tasks-container"
+                      >
                         <div className="create-task-container">
                           <div className="create-task-wrapper">
                             <CreateTask />
@@ -232,13 +253,15 @@ class TaskIndex extends React.Component {
                               ? this.runSearch(data.user).map((task, i) => (
                                   <div>
                                     <div
-                                      onClick={this.handleClick}
                                       className="task-list-item"
                                       key={i}
                                     ></div>
                                     <Taskline
+                                      showPage={this.state.showPage}
+                                      selectTask={this.selectTask}
                                       url={this.state.url}
                                       _id={task._id}
+                                      taskId={this.state.taskId}
                                       name={task.name}
                                       getTaskId={this.getTaskId}
                                     />
@@ -247,13 +270,15 @@ class TaskIndex extends React.Component {
                               : data.user.tasks.map((task, i) => (
                                   <div>
                                     <div
-                                      onClick={this.handleClick}
                                       className="task-list-item"
                                       key={i}
                                     ></div>
                                     <Taskline
+                                      showPage={this.state.showPage}
+                                      selectTask={this.selectTask}
                                       url={this.state.url}
                                       _id={task._id}
+                                      taskId={this.state.taskId}
                                       name={task.name}
                                       getTaskId={this.getTaskId}
                                     />

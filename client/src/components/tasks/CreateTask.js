@@ -126,7 +126,7 @@ class CreateTask extends React.Component {
 
   stringParser(string) {
     const filter = "~^*#@".split("");
-    const firstKey = string.split("").find(ele => filter.includes(ele)); //retunrs -1 if none found
+    const firstKey = string.split("").find(ele => filter.includes(ele));
     const i = string.indexOf(firstKey);
     if (i === -1) return string;
     return string.slice(0, i).trim();
@@ -154,15 +154,22 @@ class CreateTask extends React.Component {
     });
   }
 
+<<<<<<< HEAD
   updateCache(cache, data) {
     // debugger
+=======
+  updateCache(cache, { data }) {
+>>>>>>> 3f80570cd9b0930dfff4ca967122f3270521281c
     let tasks;
     try {
       const id = localStorage.getItem("currentuserId");
 
       tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } });
+<<<<<<< HEAD
 
       // debugger
+=======
+>>>>>>> 3f80570cd9b0930dfff4ca967122f3270521281c
     } catch (err) {
       return;
     }
@@ -170,13 +177,11 @@ class CreateTask extends React.Component {
       const id = localStorage.getItem("currentuserId");
       let newTask = data.newTask;
       tasks.user.tasks.push(newTask);
-      // debugger
       cache.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
         data: { user: tasks.user }
       });
-      // debugger
     }
   }
 
@@ -185,12 +190,6 @@ class CreateTask extends React.Component {
       <Mutation
         mutation={CREATE_TASK}
         onError={err => this.setState({ message: err.message })}
-        // onCompleted={data => {
-        //   const { name } = data.newTask;
-        //   this.setState({
-        //     message: `new task ${name} created successfully`
-        //   });
-        // }}
         update={(cache, data) => this.updateCache(cache, data)}
       >
         {newTask => (

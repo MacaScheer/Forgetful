@@ -13,8 +13,8 @@
 .session-child input {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  border: none;
+  border-radius: 4px;
   font-size: 23px;
   line-height: 1.3333333;
   letter-spacing: normal;
@@ -34,6 +34,7 @@
 
 .input-container:focus-within {
   border: 1px solid $blue;
+  border-radius: 4px;
 }
 
 .session-child button {
