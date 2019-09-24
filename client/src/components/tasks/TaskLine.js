@@ -64,13 +64,17 @@ class CheckLine extends React.Component {
         if (ele._id === deletedTaskId) objectIdx = idx;
       });
       // debugger
-      tasks.user.tasks.splice(objectIdx, 1);
+      let newTasks = tasks.user.tasks.filter(ele => {
+        return ele._id !== deletedTaskId
+      })
+      debugger
+      // tasks.user.tasks.splice(objectIdx, 1);
       // debugger
       // console.log(tasks.user.tasks.length);
       this.props.client.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
-        data: { user: tasks.user }
+        data: { user: {tasks: newTasks} }
       });
     }
   }
@@ -95,16 +99,16 @@ class CheckLine extends React.Component {
       <Mutation
         mutation={DELETE_TASK}
         onError={err => this.setState({ message: err.message })}
-        // update={(cache, data) => this.updateCache(cache, data)}
-        refetchQueries={() => {
-          debugger
-          return [
-            {
-              query: FETCH_USER,
-              variables: { Id: localStorage.getItem("currentuserId") }
-            }
-          ];
-        }}
+        update={(cache, data) => this.updateCache(cache, data)}
+        // refetchQueries={() => {
+        //   debugger
+        //   return [
+        //     {
+        //       query: FETCH_USER,
+        //       variables: { Id: localStorage.getItem("currentuserId") }
+        //     }
+        //   ];
+        // }}
       >
         {deleteTask => (
           <div className="task-line-container">

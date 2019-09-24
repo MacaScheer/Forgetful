@@ -43,7 +43,7 @@ export default class TagOption extends Component {
         name: e.target.name,
         tagId: e.target.value
       },
-      this.binder()
+      () => { this.binder() }
     );
   }
 

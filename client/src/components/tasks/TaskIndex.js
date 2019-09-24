@@ -55,7 +55,7 @@ class TaskIndex extends React.Component {
   }
 
   componentDidUpdate() {
-    
+    // this.forceUpdate()
   }
 
   runSearchResult(tasks) {

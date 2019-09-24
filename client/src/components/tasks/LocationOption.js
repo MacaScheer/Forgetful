@@ -43,7 +43,7 @@ export default class LocationOption extends Component {
         name: e.target.name,
         locationId: e.target.value
       },
-      this.binder()
+      () => { this.binder() }
     );
   }
 
