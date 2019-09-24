@@ -166,12 +166,11 @@ class CreateTask extends React.Component {
     if (tasks) {
       const id = localStorage.getItem("currentuserId");
       let newTask = data.newTask;
-      tasks.user.tasks.push(newTask);
-
+      // tasks.user.tasks.push(newTask);
       cache.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
-        data: { user: tasks.user }
+        data: { user: { tasks: tasks.user.tasks.concat([newTask]) } }
       });
     }
   }
