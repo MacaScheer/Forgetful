@@ -13,7 +13,7 @@ class NameDetail extends React.Component {
     super(props);
     this.state = {
       editing: false,
-      name: this.props.name || ""
+      name: props.name || ""
     };
 
     this.handleEdit = this.handleEdit.bind(this);
@@ -23,20 +23,20 @@ class NameDetail extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentWillMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
-  }
+  // componentWillMount() {
+  //   document.addEventListener("mousedown", this.handleClick, false);
+  // }
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
-  }
+  // componentWillUnmount() {
+  //   document.removeEventListener("mousedown", this.handleClick, false);
+  // }
 
   handleClick = e => {
-    if (this.Ref.current.contains(e.target)) {
-      return;
-    } else {
+    // if (this.Ref.current.contains(e.target)) {
+    //   return;
+    // } else {
       this.setState({ editing: false });
-    }
+    // }
   };
   handleEdit(e) {
     e.preventDefault();
@@ -54,7 +54,6 @@ class NameDetail extends React.Component {
           {updateTask => (
             <div>
               <form
-                ref={this.Ref}
                 onSubmit={e => {
                   e.preventDefault();
                   updateTask({
@@ -78,7 +77,7 @@ class NameDetail extends React.Component {
     } else {
       return (
         <div className="show-task-name">
-          <p ref={this.Ref} onClick={this.handleEdit}>
+          <p onClick={this.handleEdit}>
             {this.state.name}
           </p>
         </div>

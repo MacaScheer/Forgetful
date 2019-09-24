@@ -46,8 +46,10 @@ class CheckLine extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log("handleClick", this.props._id);
-    this.props.getTaskId(this.props._id);
+    if (this.props.taskId === this.props._id) {
+      const showPage = document.getElementById("task-show");
+    }
+    this.props.selectTask(this.props._id);
   }
 
   renderDelete() {
