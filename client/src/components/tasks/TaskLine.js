@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
 import Queries from '../../graphql/queries'
-const { FETCH_USER } = Queries
+const { FETCH_USER } = Queries;
 const { DELETE_TASK } = Mutations;
 
 class CheckLine extends React.Component {
@@ -88,23 +88,23 @@ class CheckLine extends React.Component {
 
   renderDelete() {
     return this.state.completed ? (
-      // <Mutation
-      //   mutation={REMOVE_TASK}
-      //   onError={err => this.setState({ message: err.message })}
-      //   update={(cache, data) => this.updateCache(cache, data)}
-      // >
-      //   {(deleteTask, { data }) => (
+      <Mutation
+        mutation={DELETE_TASK}
+        onError={err => this.setState({ message: err.message })}
+        update={(cache, data) => this.updateCache(cache, data)}
+      >
+        {(deleteTask, { data }) => (
           <button
             className="delete-task-button"
-            // onClick={e => {
-            //   e.preventDefault();
-            //   deleteTask({ variables: { id: this.props.id } });
-            // }}
+            onClick={e => {
+              e.preventDefault();
+              deleteTask({ variables: { id: this.props.id } });
+            }}
           >
             Delete Task
           </button>
-        // )}
-      // </Mutation>
+        )}
+      </Mutation>
     ) : (
       <div />
     );
