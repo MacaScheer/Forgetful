@@ -97,17 +97,14 @@ class CheckLine extends React.Component {
   renderDelete() {
     return this.state.completed ? (
       <Mutation
-        mutation={REMOVE_TASK}
+        mutation={DELETE_TASK}
         onError={err => this.setState({ message: err.message })}
         update={(cache, data) => this.updateCache(cache, data)}
       >
         {(deleteTask, { data }) => (
           <button
             className="delete-task-button"
-            onClick={e => {
-              e.preventDefault();
-              deleteTask({ variables: { id: this.props.id } });
-            }}
+            
           >
             Delete Task
           </button>
