@@ -18,7 +18,7 @@ const TaskShow = props => {
       {({ loading, error, data }) => {
         if (loading) return <p> Loading...</p>;
         if (error) return `Error! ${error.message}`;
-
+        
         return (
           <div className="task-show-content">
             <div className="task-show">

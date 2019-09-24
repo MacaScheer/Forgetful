@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import CreateModal from "./CreateModal";
+import CreateModal from "../Modal/CreateModal";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import "../stylesheets/tag_and_list_option.scss";
+import { withRouter, Link } from "react-router-dom";
 const { FETCH_USER } = Queries;
 
-export default class ListOption extends Component {
+class ListOption extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,19 +15,20 @@ export default class ListOption extends Component {
       render: false,
       type: "list"
     };
-    this.toggleModal = this.toggleModal.bind(this);
+    this.renderModal = this.renderModal.bind(this);
     this.updateState = this.updateState.bind(this);
     this.closer = this.closer.bind(this);
     this.binder = this.binder.bind(this);
+    // debugger
   }
 
   closer() {
     this.setState({ render: false });
   }
 
-  toggleModal(e) {
+  renderModal(e) {
     e.preventDefault();
-    this.setState({ render: !this.state.render });
+    this.props.history.push(`/${this.match.url}/modal/${this.state.type}`);
   }
 
   renderModal() {
@@ -44,7 +46,7 @@ export default class ListOption extends Component {
         name: e.target.name,
         listId: e.target.value
       },
-      this.binder()
+      () => { this.binder() }
     );
   }
   binder() {
@@ -83,7 +85,6 @@ export default class ListOption extends Component {
                     Add List
                   </button>
                 </div>
-                {this.renderModal()}
               </div>
             );
           } else {
@@ -94,3 +95,5 @@ export default class ListOption extends Component {
     );
   }
 }
+
+export default withRouter(ListOption);

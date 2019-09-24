@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CreateModal from "./CreateModal";
+import CreateModal from "../Modal/CreateModal";
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import "../stylesheets/tag_and_list_option.scss";
@@ -43,7 +43,7 @@ export default class TagOption extends Component {
         name: e.target.name,
         tagId: e.target.value
       },
-      this.binder()
+      () => { this.binder() }
     );
   }
 

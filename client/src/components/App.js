@@ -32,15 +32,15 @@ const App = () => {
       <Route path="/date" component={DateOption} />
       <Route exact path="/all/:id" component={TaskShow} />
       <Route path="/routetest" component={LocationOption} />
-      <Route exact path="/search/:searchResults" component={TaskIndex} />
-      <Route path="/all" component={TaskIndex} />
-      <Route path="/today" component={TaskIndex} />
-      <Route path="/tomorrow" component={TaskIndex} />
-      <Route path="/thisweek" component={TaskIndex} />
-      <Route path="/lists/:list" component={TaskIndex} />
-      <Route path="/tags/:list" component={TaskIndex} />
-      <Route path="/locations/:list" component={TaskIndex} />
-      <Route path="/trash/trash" component={TaskIndex} />
+      <Route key="search" exact path="/search/:searchResults" component={TaskIndex} />
+      <Route key="all" path="/all" component={TaskIndex} />
+      <Route key="today" path="/today" component={TaskIndex} />
+      <Route key="tomorrow" path="/tomorrow" component={TaskIndex} />
+      <Route key="thisweek" path="/thisweek" component={TaskIndex} />
+      <Route key="list" path="/lists/:list" component={TaskIndex} />
+      <Route key="tags" path="/tags/:list" component={TaskIndex} />
+      <Route key="location" path="/locations/:list" component={TaskIndex} />
+      <Route key="trash" path="/trash/trash" component={TaskIndex} />
       <Route exact path="/tasks" component={TaskIndex} />
       <Route path="/create" component={CreateTask} />
       <Route path="/splash" component={SplashPage} />

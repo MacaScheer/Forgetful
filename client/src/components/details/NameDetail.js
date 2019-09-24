@@ -15,8 +15,10 @@ class NameDetail extends React.Component {
     const final_name = this.props.name;
     this.state = {
       editing: false,
+
       name: this.props.name || "",
       nameToBeChanged: this.props.name
+
     };
 
     this.handleEdit = this.handleEdit.bind(this);
@@ -55,6 +57,7 @@ class NameDetail extends React.Component {
   //     this.setState({ editing: false });
   //   }
   // };
+
 
   handleEdit(e) {
     e.preventDefault();
@@ -121,8 +124,10 @@ class NameDetail extends React.Component {
           {updateTask => (
             <div>
               <form
+
                 // ref={this.Ref}
                 onSubmit={e => this.handleSubmit(e, updateTask)}
+
               >
                   <input
                     type="text"
@@ -142,9 +147,11 @@ class NameDetail extends React.Component {
       );
     } else {
       return (
+
         <div onClick={this.handleEdit} className="show-task-name">
           {/* ref={this.Ref} */}
           <p  >
+
             {this.state.name}
           </p>
         </div>
