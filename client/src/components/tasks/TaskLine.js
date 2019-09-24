@@ -64,9 +64,9 @@ class CheckLine extends React.Component {
       tasks.user.tasks.forEach((ele, idx) => {
         if (ele._id === deletedTaskId) objectIdx = idx;
       });
-      debugger
+      // debugger
       tasks.user.tasks.splice(objectIdx, 1)
-      debugger
+      // debugger
       // console.log(tasks.user.tasks.length);
       cache.writeQuery({
         query: FETCH_USER,
