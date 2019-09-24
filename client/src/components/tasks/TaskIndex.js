@@ -28,6 +28,7 @@ class TaskIndex extends React.Component {
     }
     const trigger = URLArray[0] === "all" ? false : true;
     this.state = {
+      taskName: "",
       hidden: true,
       completed: false,
       keys: key,
@@ -39,7 +40,7 @@ class TaskIndex extends React.Component {
       taskId: "",
       localTasks: []
     };
-
+    this.selectTask = this.selectTask.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -166,19 +167,30 @@ class TaskIndex extends React.Component {
     });
   }
 
+  selectTask(id) {
+    if (id === this.state.taskId) {
+      this.setState({ taskId: id, showPage: false }, () => {
+        const showPage = document.getElementById("task-show");
+          showPage.classList.remove("show-move-left");
+          showPage.classList.add("show-move-right");
+       
+      });
+    } else {
+      this.setState({ taskId: id, showPage: true }, () => {
+        const showPage = document.getElementById("task-show");
+        showPage.classList.remove("show-move-right");
+        showPage.classList.add("show-move-left");
+       
+      });
+    }
+  }
+
   handleClick(e) {
     e.preventDefault();
-    this.setState({
-      showPage: !this.state.showPage
-    });
-
-    const showPage = document.getElementById("task-show");
-    if (!this.state.showPage) {
-      showPage.classList.remove("show-move-right");
-      showPage.classList.add("show-move-left");
-    } else {
-      showPage.classList.remove("show-move-left");
-      showPage.classList.add("show-move-right");
+    if (this.state.taskId === e.target.innerHTML) {
+      this.setState({
+        showPage: !this.state.showPage
+      });
     }
   }
 
@@ -217,10 +229,7 @@ class TaskIndex extends React.Component {
                           </div>
                         </div>
                         <div className="task-show-container">
-                          <div
-                            className="task-show-page show-move-right"
-                            id="task-show"
-                          >
+                          <div className="task-show-page" id="task-show">
                             {this.state.taskId.length > 1 ? (
                               <TaskShow taskId={this.state.taskId} />
                             ) : (
@@ -244,13 +253,15 @@ class TaskIndex extends React.Component {
                               ? this.runSearch(data.user).map((task, i) => (
                                   <div>
                                     <div
-                                      onClick={this.handleClick}
                                       className="task-list-item"
                                       key={i}
                                     ></div>
                                     <Taskline
+                                      showPage={this.state.showPage}
+                                      selectTask={this.selectTask}
                                       url={this.state.url}
                                       _id={task._id}
+                                      taskId={this.state.taskId}
                                       name={task.name}
                                       getTaskId={this.getTaskId}
                                     />
@@ -259,13 +270,15 @@ class TaskIndex extends React.Component {
                               : data.user.tasks.map((task, i) => (
                                   <div>
                                     <div
-                                      onClick={this.handleClick}
                                       className="task-list-item"
                                       key={i}
                                     ></div>
                                     <Taskline
+                                      showPage={this.state.showPage}
+                                      selectTask={this.selectTask}
                                       url={this.state.url}
                                       _id={task._id}
+                                      taskId={this.state.taskId}
                                       name={task.name}
                                       getTaskId={this.getTaskId}
                                     />
