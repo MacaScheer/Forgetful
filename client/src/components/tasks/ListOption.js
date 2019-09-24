@@ -46,7 +46,7 @@ class ListOption extends Component {
         name: e.target.name,
         listId: e.target.value
       },
-      this.binder()
+      () => { this.binder() }
     );
   }
   binder() {

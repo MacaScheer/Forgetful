@@ -1,6 +1,6 @@
 import "../stylesheets/task_index.scss";
 import React from "react";
-import { Query } from "react-apollo";
+import { Query, ApolloConsumer } from "react-apollo";
 import Queries from "../../graphql/queries";
 import { withRouter } from "react-router-dom";
 import Taskline from "./TaskLine";
@@ -52,6 +52,10 @@ class TaskIndex extends React.Component {
     this.setState({
       taskId: task_id
     });
+  }
+
+  componentDidUpdate() {
+    
   }
 
   runSearchResult(tasks) {
@@ -171,16 +175,14 @@ class TaskIndex extends React.Component {
     if (id === this.state.taskId) {
       this.setState({ taskId: id, showPage: false }, () => {
         const showPage = document.getElementById("task-show");
-          showPage.classList.remove("show-move-left");
-          showPage.classList.add("show-move-right");
-       
+        showPage.classList.remove("show-move-left");
+        showPage.classList.add("show-move-right");
       });
     } else {
       this.setState({ taskId: id, showPage: true }, () => {
         const showPage = document.getElementById("task-show");
         showPage.classList.remove("show-move-right");
         showPage.classList.add("show-move-left");
-       
       });
     }
   }
@@ -199,104 +201,114 @@ class TaskIndex extends React.Component {
     const trigger = this.state.trigger;
 
     return (
-      <Query query={FETCH_USER} variables={{ Id: cid }}>
-        {({ loading, error, data }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
-          if (data.user.tasks) {
-            const summary = this.runSearch(data.user);
-            return (
-              <div className="task-index-container">
-                <div className="task-index-wrapper">
-                  <div className="task-index-page">
-                    <div className="task-index-page-content">
-                      <div className="right-side move-right" id="right-side">
-                        <div className="task-summary-container">
-                          <div className="task-summary" id="task-summary">
-                            {trigger ? (
-                              <TaskSummary
-                                group={this.state.input}
-                                isAll={false}
-                                data={summary}
-                              />
-                            ) : (
-                              <TaskSummary
-                                group={this.state.input}
-                                isAll={true}
-                                data={data}
-                              />
-                            )}
+      <ApolloConsumer>
+        {client => (
+          <Query query={FETCH_USER} variables={{ Id: cid }}>
+            {({ loading, error, data }) => {
+              if (loading) return "Loading...";
+              if (error) return `Error! ${error.message}`;
+              if (data.user.tasks) {
+                // debugger
+                const summary = this.runSearch(data.user);
+                return (
+                  <div className="task-index-container">
+                    <div className="task-index-wrapper">
+                      <div className="task-index-page">
+                        <div className="task-index-page-content">
+                          <div
+                            className="right-side move-right"
+                            id="right-side"
+                          >
+                            <div className="task-summary-container">
+                              <div className="task-summary" id="task-summary">
+                                {trigger ? (
+                                  <TaskSummary
+                                    group={this.state.input}
+                                    isAll={false}
+                                    data={summary}
+                                  />
+                                ) : (
+                                  <TaskSummary
+                                    group={this.state.input}
+                                    isAll={true}
+                                    data={data}
+                                  />
+                                )}
+                              </div>
+                            </div>
+                            <div className="task-show-container">
+                              <div className="task-show-page" id="task-show">
+                                {this.state.taskId.length > 1 ? (
+                                  <TaskShow taskId={this.state.taskId} />
+                                ) : (
+                                  <div />
+                                )}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="task-show-container">
-                          <div className="task-show-page" id="task-show">
-                            {this.state.taskId.length > 1 ? (
-                              <TaskShow taskId={this.state.taskId} />
-                            ) : (
-                              <div />
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="tasks-container move-right"
-                        id="tasks-container"
-                      >
-                        <div className="create-task-container">
-                          <div className="create-task-wrapper">
-                            <CreateTask />
-                          </div>
-                        </div>
-                        <div className="task-list-container">
-                          <div className="task-list">
-                            {trigger
-                              ? this.runSearch(data.user).map((task, i) => (
-                                  <div>
-                                    <div
-                                      className="task-list-item"
-                                      key={i}
-                                    ></div>
-                                    <Taskline
-                                      showPage={this.state.showPage}
-                                      selectTask={this.selectTask}
-                                      url={this.state.url}
-                                      _id={task._id}
-                                      taskId={this.state.taskId}
-                                      name={task.name}
-                                      getTaskId={this.getTaskId}
-                                    />
-                                  </div>
-                                ))
-                              : data.user.tasks.map((task, i) => (
-                                  <div>
-                                    <div
-                                      className="task-list-item"
-                                      key={i}
-                                    ></div>
-                                    <Taskline
-                                      showPage={this.state.showPage}
-                                      selectTask={this.selectTask}
-                                      url={this.state.url}
-                                      _id={task._id}
-                                      taskId={this.state.taskId}
-                                      name={task.name}
-                                      getTaskId={this.getTaskId}
-                                    />
-                                  </div>
-                                ))}
+                          <div
+                            className="tasks-container move-right"
+                            id="tasks-container"
+                          >
+                            <div className="create-task-container">
+                              <div className="create-task-wrapper">
+                                <CreateTask />
+                              </div>
+                            </div>
+                            <div className="task-list-container">
+                              <div className="task-list">
+                                {trigger
+                                  ? this.runSearch(data.user).map((task, i) => (
+                                      <div>
+                                        <div
+                                          className="task-list-item"
+                                          key={i}
+                                        ></div>
+                                        <Taskline
+                                          showPage={this.state.showPage}
+                                          selectTask={this.selectTask}
+                                          url={this.state.url}
+                                          _id={task._id}
+                                          taskId={this.state.taskId}
+                                          name={task.name}
+                                          getTaskId={this.getTaskId}
+                                          client={client}
+                                        />
+                                      </div>
+                                    ))
+                                  : data.user.tasks.map((task, i) => (
+                                      <div>
+                                        <div
+                                          className="task-list-item"
+                                          key={i}
+                                        ></div>
+                                        <Taskline
+                                          showPage={this.state.showPage}
+                                          selectTask={this.selectTask}
+                                          url={this.state.url}
+                                          _id={task._id}
+                                          taskId={this.state.taskId}
+                                          name={task.name}
+                                          getTaskId={this.getTaskId}
+                                          client={client}
+                                        />
+                                      </div>
+                                    ))}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            );
-          } else {
-            return null;
-          }
-        }}
-      </Query>
+                );
+              } else {
+                return null;
+              }
+            }}
+          </Query>
+        )}
+      </ApolloConsumer>
     );
   }
 }

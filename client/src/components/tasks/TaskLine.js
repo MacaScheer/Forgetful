@@ -1,6 +1,5 @@
 import "../stylesheets/task_index.scss";
 import React from "react";
-import { Link } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import mutations from "../../graphql/mutations";
 import queries from "../../graphql/queries";
@@ -64,11 +63,11 @@ class CheckLine extends React.Component {
       tasks.user.tasks.forEach((ele, idx) => {
         if (ele._id === deletedTaskId) objectIdx = idx;
       });
-      debugger
-      tasks.user.tasks.splice(objectIdx, 1)
-      debugger
+      // debugger
+      tasks.user.tasks.splice(objectIdx, 1);
+      // debugger
       // console.log(tasks.user.tasks.length);
-      cache.writeQuery({
+      this.props.client.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
         data: { user: tasks.user }
@@ -87,8 +86,8 @@ class CheckLine extends React.Component {
     return this.state.completed ? (
       <button className="delete-task-button">Delete Task</button>
     ) : (
-        <div />
-      );
+      <div />
+    );
   }
 
   render() {
@@ -96,7 +95,16 @@ class CheckLine extends React.Component {
       <Mutation
         mutation={DELETE_TASK}
         onError={err => this.setState({ message: err.message })}
-        update={(cache, data) => this.updateCache(cache, data)}
+        // update={(cache, data) => this.updateCache(cache, data)}
+        refetchQueries={() => {
+          debugger
+          return [
+            {
+              query: FETCH_USER,
+              variables: { Id: localStorage.getItem("currentuserId") }
+            }
+          ];
+        }}
       >
         {deleteTask => (
           <div className="task-line-container">
