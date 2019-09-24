@@ -79,7 +79,7 @@ const mutation = new GraphQLObjectType({
       resolve(_, args) {
         console.log(args)
         console.log(args._id)
-        return Task.deleteOne({ _id: args._id });
+        return Task.deleteOne({ _id: args._id }).then(() => {return args._id });
       }
     },
     newList: {

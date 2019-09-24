@@ -3,6 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import mutations from "../../graphql/mutations";
+import queries from "../../graphql/queries";
+const { FETCH_USER } = queries;
 const { DELETE_TASK } = mutations;
 
 class CheckLine extends React.Component {
@@ -42,21 +44,42 @@ class CheckLine extends React.Component {
     this.props.getTaskId(this.props._id);
   }
 
-  updateCache(cache, data) {
+  updateCache(cache, { data }) {
     let tasks;
+    // debugger
     try {
-      const id = localStorage.getItem('currentuserId')
+      const id = localStorage.getItem("currentuserId");
 
-      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } })
+      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } });
     } catch (err) {
-      return
+      return;
+    }
+
+    if (tasks) {
+      const id = localStorage.getItem("currentuserId");
+      let deletedTaskId = this.props._id;
+      let objectIdx;
+      // debugger
+      // console.log('test')
+      tasks.user.tasks.forEach((ele, idx) => {
+        if (ele._id === deletedTaskId) objectIdx = idx;
+      });
+      debugger
+      tasks.user.tasks.splice(objectIdx, 1)
+      debugger
+      // console.log(tasks.user.tasks.length);
+      cache.writeQuery({
+        query: FETCH_USER,
+        variables: { Id: id },
+        data: { user: tasks.user }
+      });
     }
   }
 
   handleDelete(e, deleteTask) {
     e.preventDefault();
     const taskId = this.props._id;
-    debugger;
+    // debugger;
     deleteTask({ variables: { id: taskId } });
   }
 
