@@ -7,7 +7,7 @@ import TagOption from "./TagOption";
 import ListOption from "./ListOption";
 import LocationOption from "./LocationOption";
 import DateOption from "./DateOption";
-const { FETCH_USER} = Queries;
+const { FETCH_USER } = Queries;
 const { CREATE_TASK } = Mutations;
 
 class CreateTask extends React.Component {
@@ -61,7 +61,7 @@ class CreateTask extends React.Component {
           </button>
           {/* tag */}
         </div>
-          <button className="create-task-button">Add Task</button>
+        <button className="create-task-button">Add Task</button>
       </div>
     );
   }
@@ -150,31 +150,32 @@ class CreateTask extends React.Component {
         userId: localStorage.getItem("currentuserId")
       }
     }).then(res => {
-      this.setState({ input: "" })
-    })
+      this.setState({ input: "" });
+    });
   }
 
-  updateCache(cache, { data}  ) {
+  updateCache(cache, data) {
+    // debugger
     let tasks;
     try {
-      const id = localStorage.getItem('currentuserId')
+      const id = localStorage.getItem("currentuserId");
 
-      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id}})
+      tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } });
 
       // debugger
     } catch (err) {
       return;
     }
     if (tasks) {
-      const id = localStorage.getItem('currentuserId')
+      const id = localStorage.getItem("currentuserId");
       let newTask = data.newTask;
-      tasks.user.tasks.push(newTask) 
-      // debugger 
+      tasks.user.tasks.push(newTask);
+      // debugger
       cache.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
         data: { user: tasks.user }
-      })
+      });
       // debugger
     }
   }
@@ -190,7 +191,7 @@ class CreateTask extends React.Component {
         //     message: `new task ${name} created successfully`
         //   });
         // }}
-        update= {(cache, data) => this.updateCache(cache, data)}
+        update={(cache, data) => this.updateCache(cache, data)}
       >
         {newTask => (
           <div className="create-task-container">

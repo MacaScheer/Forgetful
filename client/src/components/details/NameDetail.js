@@ -14,7 +14,8 @@ class NameDetail extends React.Component {
     super(props);
     this.state = {
       editing: false,
-      name: this.props.name || ""
+        name: this.props.name || ""
+      
     };
 
     this.handleEdit = this.handleEdit.bind(this);
