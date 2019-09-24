@@ -154,22 +154,12 @@ class CreateTask extends React.Component {
     });
   }
 
-<<<<<<< HEAD
-  updateCache(cache, data) {
-    // debugger
-=======
   updateCache(cache, { data }) {
->>>>>>> 3f80570cd9b0930dfff4ca967122f3270521281c
     let tasks;
     try {
       const id = localStorage.getItem("currentuserId");
 
       tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } });
-<<<<<<< HEAD
-
-      // debugger
-=======
->>>>>>> 3f80570cd9b0930dfff4ca967122f3270521281c
     } catch (err) {
       return;
     }

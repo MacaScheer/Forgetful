@@ -78,16 +78,12 @@ class ListOption extends Component {
                       </button>
                     ))}
                   </div>
-<<<<<<< HEAD
-                  <button onClick={this.renderModal}>Create a New List</button>
-=======
                   <button
                     className="add-list-button"
                     onClick={this.toggleModal}
                   >
                     Add List
                   </button>
->>>>>>> 3f80570cd9b0930dfff4ca967122f3270521281c
                 </div>
               </div>
             );

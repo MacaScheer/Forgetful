@@ -13,12 +13,7 @@ class NameDetail extends React.Component {
     super(props);
     this.state = {
       editing: false,
-<<<<<<< HEAD
-        name: this.props.name || ""
-      
-=======
       name: props.name || ""
->>>>>>> 3f80570cd9b0930dfff4ca967122f3270521281c
     };
 
     this.handleEdit = this.handleEdit.bind(this);

@@ -2,15 +2,10 @@ import "../stylesheets/task_index.scss";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Mutation } from "react-apollo";
-<<<<<<< HEAD
 import mutations from "../../graphql/mutations";
 import queries from "../../graphql/queries";
 const { FETCH_USER } = queries;
 const { DELETE_TASK } = mutations;
-=======
-import Mutations from "../../graphql/mutations";
-const { REMOVE_TASK } = Mutations;
->>>>>>> 3f80570cd9b0930dfff4ca967122f3270521281c
 
 class CheckLine extends React.Component {
   constructor(props) {
