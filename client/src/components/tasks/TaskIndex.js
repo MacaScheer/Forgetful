@@ -50,11 +50,7 @@ class TaskIndex extends React.Component {
     this.getTaskId = this.getTaskId.bind(this);
   }
 
-  getTaskId(task_id) {
-    this.setState({
-      taskId: task_id
-    });
-  }
+  
 
   componentDidUpdate(prevProps, nextProps) {
     if (prevProps.match.url !== nextProps.url) {
@@ -178,7 +174,7 @@ class TaskIndex extends React.Component {
 
   selectTask(id) {
     if (id === this.state.taskId) {
-      this.setState({ taskId: id, showPage: false }, () => {
+      this.setState({ taskId: "", showPage: false }, () => {
         const showPage = document.getElementById("task-show");
         showPage.classList.remove("show-move-left");
         showPage.classList.add("show-move-right");
@@ -192,19 +188,12 @@ class TaskIndex extends React.Component {
     }
   }
 
-  closeTaskShow(value) {
-    // debugger
-    if (this.state.taskId === value) {
-      this.setState({
-        taskId: ""
-      });
-    }
-  }
+
 
   render() {
     const cid = localStorage.getItem("currentuserId");
     const trigger = this.state.trigger;
-
+    const {showPage} = this.state
     return (
       <ApolloConsumer>
         {client => (
@@ -226,19 +215,6 @@ class TaskIndex extends React.Component {
                           >
                             <div className="task-summary-container">
                               <div className="task-summary" id="task-summary">
-                                {/* {trigger ? (
-                                  <TaskSummary
-                                    group={this.state.input}
-                                    isAll={false}
-                                    data={summary}
-                                  />
-                                ) : (
-                                  <TaskSummary
-                                    group={this.state.input}
-                                    isAll={true}
-                                    data={data}
-                                  />
-                                )} */}
                                 <TaskSummary
                                   group={this.state.input}
                                   isAll={true}
@@ -248,14 +224,14 @@ class TaskIndex extends React.Component {
                             </div>
                             <div className="task-show-container">
                               
-                              {this.state.taskId.length > 1 ? (
-                                <div className="task-show-page" id="task-show">
+                              <div className="task-show-page show-move-right" id="task-show">
+                              {showPage ? (
                                   <TaskShow taskId={this.state.taskId} />
-                                </div>
-                                ) : (
-                                  <div />
-                                )}
+                                  ) : (
+                                    <div />
+                                    )}
                               
+                                    </div>
                             </div>
                           </div>
                           <div
@@ -283,9 +259,7 @@ class TaskIndex extends React.Component {
                                           _id={task._id}
                                           taskId={this.state.taskId}
                                           name={task.name}
-                                          getTaskId={this.getTaskId}
                                         client={client}
-                                        closeTaskShow={this.closeTaskShow}
                                         />
                                       </div>
                                     ))
@@ -302,9 +276,7 @@ class TaskIndex extends React.Component {
                                           _id={task._id}
                                           taskId={this.state.taskId}
                                           name={task.name}
-                                          getTaskId={this.getTaskId}
                                         client={client}
-                                        closeTaskShow={this.closeTaskShow}
                                         
                                         />
                                       </div>

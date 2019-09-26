@@ -38,10 +38,8 @@ class CheckLine extends React.Component {
     });
   }
 
-  async handleClick(e) {
+ handleClick(e) {
     e.preventDefault();
-    this.props.getTaskId(this.props._id);
-    this.props.closeTaskShow(this.props._id); //same id as above
     this.props.selectTask(this.props._id);
   }
 
