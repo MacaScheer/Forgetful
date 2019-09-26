@@ -52,6 +52,7 @@ class ListOption extends Component {
   binder() {
     this.props.inputAdder(this.state.name);
     this.props.stateBinder({ listId: this.state.listId });
+    debugger;
   }
 
   render() {

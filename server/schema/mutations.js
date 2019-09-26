@@ -58,7 +58,17 @@ const mutation = new GraphQLObjectType({
         listID: { type: GraphQLID }
       },
       resolve(_, { taskID, listID }) {
-        Task.updateTaskList(taskID, listID);
+        return Task.updateTaskList(taskID, listID);
+      }
+    },
+    updateTaskLocation: {
+      type: TaskType,
+      args: {
+        taskID: { type: GraphQLID },
+        locationID: { type: GraphQLID }
+      },
+      resolve(_, { taskID, locationID }) {
+        return Task.updateTaskLocation(taskID, locationID);
       }
     },
     updateTaskTag: {

@@ -59,10 +59,10 @@ class BodyDetail extends React.Component {
                   }).then(this.setState({ editing: false }));
                 }}
               >
-                <input
-                  value={this.state.body}
-                  onChange={this.fieldUpdate("body")}
-                />
+                <textarea onChange={this.fieldUpdate("body")}>
+                  {this.state.body}
+                  
+                </textarea>
                 <button className="update-button" type="submit">
                   Update Body{" "}
                 </button>
