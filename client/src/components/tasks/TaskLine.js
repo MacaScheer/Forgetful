@@ -38,9 +38,9 @@ class CheckLine extends React.Component {
     });
   }
 
-  handleClick(e) {
+ handleClick(e) {
     e.preventDefault();
-    this.props.getTaskId(this.props._id);
+    this.props.selectTask(this.props._id);
   }
 
   updateCache(cache, { data }) {
@@ -65,16 +65,16 @@ class CheckLine extends React.Component {
       });
       // debugger
       let newTasks = tasks.user.tasks.filter(ele => {
-        return ele._id !== deletedTaskId
-      })
-      // debugger   
+        return ele._id !== deletedTaskId;
+      });
+      // debugger
       //  let newTasks = tasks.user.tasks.splice(objectIdx, 1);
       // debugger
       // console.log(tasks.user.tasks.length);
       this.props.client.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
-        data: { user: {tasks: newTasks} }
+        data: { user: { tasks: newTasks } }
       });
     }
   }
@@ -84,7 +84,7 @@ class CheckLine extends React.Component {
     const taskId = this.props._id;
     // debugger;
     deleteTask({ variables: { id: taskId } }).then(() => {
-      this.setState({completed: false})
+      this.setState({ completed: false });
     });
   }
 
@@ -102,15 +102,14 @@ class CheckLine extends React.Component {
         mutation={DELETE_TASK}
         onError={err => this.setState({ message: err.message })}
         update={(cache, data) => this.updateCache(cache, data)}
-        // refetchQueries={() => {
-        //   debugger
-        //   return [
-        //     {
-        //       query: FETCH_USER,
-        //       variables: { Id: localStorage.getItem("currentuserId") }
-        //     }
-        //   ];
-        // }}
+        refetchQueries={() => {
+          return [
+            {
+              query: FETCH_USER,
+              variables: { Id: localStorage.getItem("currentuserId") }
+            }
+          ];
+        }}
       >
         {deleteTask => (
           <div className="task-line-container">

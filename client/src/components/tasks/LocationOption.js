@@ -76,7 +76,7 @@ export default class LocationOption extends Component {
                       </button>
                     ))}
                   </div>
-                  <button onClick={this.toggleModal}>Add Location</button>
+                  <button onClick={this.toggleModal} className="add-list-button">Add Location</button>
                 </div>
                 {this.renderModal()}
               </div>

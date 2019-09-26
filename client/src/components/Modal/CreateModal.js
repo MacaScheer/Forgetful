@@ -114,7 +114,7 @@ export default class CreateModal extends Component {
                 onChange={this.update("input")}
                 value={this.state.input}
               />
-              <button className="modal-button">{`create ${this.props.type}!`}</button>
+              <button className="add-list-button">{`create ${this.props.type}!`}</button>
             </form>
           </div>
         )}
