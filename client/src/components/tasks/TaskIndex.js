@@ -43,11 +43,9 @@ class TaskIndex extends React.Component {
       refetch: null
     };
     this.selectTask = this.selectTask.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+    // this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.closeTaskShow = this.closeTaskShow.bind(this);
     this.runSearch = this.runSearch.bind(this);
-    this.getTaskId = this.getTaskId.bind(this);
   }
 
   
@@ -151,18 +149,18 @@ class TaskIndex extends React.Component {
     return result;
   }
 
-  toggleDropdown() {
-    const dropdown = document.getElementById("profile-dropdown");
-    this.setState({
-      hidden: !this.state.hidden
-    });
+  // toggleDropdown() {
+  //   const dropdown = document.getElementById("profile-dropdown");
+  //   this.setState({
+  //     hidden: !this.state.hidden
+  //   });
 
-    if (this.state.hidden) {
-      dropdown.classList.remove("hide-dropdown");
-    } else {
-      dropdown.classList.add("hide-dropdown");
-    }
-  }
+  //   if (this.state.hidden) {
+  //     dropdown.classList.remove("hide-dropdown");
+  //   } else {
+  //     dropdown.classList.add("hide-dropdown");
+  //   }
+  // }
 
   handleChange(e) {
     e.preventDefault();
