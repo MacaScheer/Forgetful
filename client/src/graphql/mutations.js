@@ -147,11 +147,8 @@ export default {
   UPDATE_TASK_TAG: gql`
     mutation updateTaskTag($taskID: ID, $tagID: ID) {
       updateTaskTag(taskID: $taskID, tagID: $tagID) {
-        _id
-        tags {
-          name
-          _id
-        }
+       _id 
+       name
       }
     }
   `,

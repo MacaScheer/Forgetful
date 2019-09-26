@@ -8,7 +8,6 @@ const { UPDATE_TASK_LOCATION } = mutations;
 class LocationDetail extends React.Component {
   constructor(props) {
     super(props);
-    debugger;
     let temp = "";
     if (this.props.location !== null){
       temp = this.props.location.name
@@ -28,6 +27,7 @@ class LocationDetail extends React.Component {
     // this.handleClick = this.handleClick.bind(this);
     this.inputAdder = this.inputAdder.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
+    this.toggleOffEditing = this.toggleOffEditing.bind(this);
 
   }
 
@@ -37,20 +37,23 @@ class LocationDetail extends React.Component {
   }
 
   componentWillMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
+    document.addEventListener("mousedown", this.toggleOffEditing);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
+    document.removeEventListener("mousedown", this.toggleOffEditing);
   }
+  toggleOffEditing(e) {
+    if (this.state.editing && !e.target.className.includes("location-list")) {
+      debugger
 
-  // handleClick = e => {
-  //     if (this.Ref.current.contains(e.target)) {
-  //         return;
-  //     } else {
-  //         this.setState({ editing: false });
-  //     }
-  // };
+      let temp = "";
+      if (this.props.location !== null) {
+        temp = this.props.location.name
+      }
+      this.setState({ editing: false, locationName: temp })
+    }
+  }
 
   fieldUpdate(field) {
     return e => this.setState({ [field]: e.target.value });
@@ -66,7 +69,6 @@ class LocationDetail extends React.Component {
   }
 
   render() {
-    debugger;
     if (this.state.editing) {
       return (
         <Mutation
@@ -87,7 +89,7 @@ class LocationDetail extends React.Component {
                   inputAdder={this.inputAdder}
                   stateBinder={this.stateBinder}
                 />
-                <button className="update-button" type="submit">
+                <button className="update-button location-list" type="submit">
                   Update Location{" "}
                 </button>
               </form>
@@ -96,7 +98,6 @@ class LocationDetail extends React.Component {
         </Mutation>
       );
     } else {
-      debugger;
       return (
         <div className="show-task-body">
           {/* <div

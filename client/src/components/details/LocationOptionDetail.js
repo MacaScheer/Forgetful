@@ -66,7 +66,7 @@ export default class LocationOption extends Component {
                                     <div className="task-list task-list-filter">
                                         {data.user.locations.map((location, i) => (
                                             <button
-                                                className="task-list-items"
+                                                className="location-list task-list-items"
                                                 key={i}
                                                 value={location._id}
                                                 name={location.name}

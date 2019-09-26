@@ -6,7 +6,7 @@ import "../stylesheets/showpage_css.scss";
 
 const { UPDATE_TASK_TAG} = mutations;
 
-class LocationDetail extends React.Component {
+class TagDetail extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,6 +24,7 @@ class LocationDetail extends React.Component {
         // this.handleClick = this.handleClick.bind(this);
         this.inputAdder = this.inputAdder.bind(this);
         this.stateBinder = this.stateBinder.bind(this);
+        this.toggleOffEditing = this.toggleOffEditing.bind(this);
 
     }
 
@@ -33,20 +34,19 @@ class LocationDetail extends React.Component {
     }
 
     componentWillMount() {
-        document.addEventListener("mousedown", this.handleClick, false);
+        document.addEventListener("mousedown", this.toggleOffEditing);
     }
 
     componentWillUnmount() {
-        document.removeEventListener("mousedown", this.handleClick, false);
+        document.removeEventListener("mousedown", this.toggleOffEditing);
     }
-
-    // handleClick = e => {
-    //     if (this.Ref.current.contains(e.target)) {
-    //         return;
-    //     } else {
-    //         this.setState({ editing: false });
-    //     }
-    // };
+    toggleOffEditing(e) {
+        if (this.state.editing && !e.target.className.includes("task-tag")) {
+            // debugger
+            
+            this.setState({ editing: false })
+        }
+    }
 
     fieldUpdate(field) {
         return e => this.setState({ [field]: e.target.value });
@@ -68,22 +68,30 @@ class LocationDetail extends React.Component {
                 <Mutation
                     mutation={UPDATE_TASK_TAG}
                     onError={err => this.setState({ message: err.message })}
+                    onCompleted={(data) => {
+                        debugger;
+                        this.setState({ editing: false, changes: true })
+                    }
+                    }
                 >
-                    {updateTaskLocation => (
+                    {updateTaskTag => (
                         <div>
                             <form
                                 onSubmit={e => {
                                     e.preventDefault();
-                                    updateTaskLocation({
+                                    updateTaskTag({
                                         variables: { taskID: this.props.id, tagID: this.state.tagId.tagId }
-                                    }).then(this.setState({ editing: false, changes: true }));
+                                    }).then(res => {
+                                        // debugger;
+                                        this.setState({ editing: false, changes: true })}
+                                    );
                                 }}
                             >
                                 <TagOption
                                     inputAdder={this.inputAdder}
                                     stateBinder={this.stateBinder}
                                 />
-                                <button className="update-button" type="submit">
+                                <button className="update-button task-tag" type="submit">
                                     Update Tag{" "}
                                 </button>
                             </form>
@@ -105,7 +113,7 @@ class LocationDetail extends React.Component {
                     <p className="Tagbox" onClick={this.handleEdit}>
                         Tags:
                         <div>
-                            {this.props.tags.map((tag, i) => (
+                            {this.state.tags.map((tag, i) => (
                                 <div key={`tag-${i}`}>
                                     {tag.name}
                                 </div>
@@ -123,4 +131,4 @@ class LocationDetail extends React.Component {
     }
 }
 
-export default LocationDetail;
+export default TagDetail;

@@ -72,13 +72,16 @@ const mutation = new GraphQLObjectType({
       }
     },
     updateTaskTag: {
-      type: TaskType,
+      type: TagType,
       args: {
         taskID: { type: GraphQLID },
         tagID: { type: GraphQLID }
       },
-      resolve(_, { taskID, tagID }) {
-        Task.updateTaskTag(taskID, tagID);
+      async resolve(_, { taskID, tagID }) {
+        
+        const response = await Task.updateTaskTag(taskID, tagID)
+        console.log(response);
+        return response.tag;
       }
     },
     deleteTask: {

@@ -43,8 +43,11 @@ class ListDetail extends React.Component {
     toggleOffEditing(e) {
         if (this.state.editing && !e.target.className.includes("task-grab")) {
             // debugger
-
-            this.setState({ editing: false })
+          let temp = "";
+          if (this.props.location !== null) {
+            temp = this.props.list.name
+          }
+            this.setState({ editing: false, listName: temp })
         }
     }
   

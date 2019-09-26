@@ -22,6 +22,7 @@ class DueDateDetail extends React.Component {
     // this.handleClick = this.handleClick.bind(this);
     this.inputAdder = this.inputAdder.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
+    this.toggleOffEditing = this.toggleOffEditing.bind(this);
 
   }
 
@@ -31,11 +32,20 @@ class DueDateDetail extends React.Component {
   }
 
   componentWillMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
+    document.addEventListener("mousedown", this.toggleOffEditing);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
+    document.removeEventListener("mousedown", this.toggleOffEditing);
+  }
+
+  toggleOffEditing(e) {
+    // debugger;
+    if (this.state.editing && !e.target.className.includes("task-due-date")) {
+      // debugger
+
+      this.setState({ editing: false })
+    }
   }
 
   // handleClick = e => {
@@ -73,7 +83,6 @@ class DueDateDetail extends React.Component {
             <div>
               <form
                 onSubmit={e => {
-                  debugger
                   e.preventDefault();
                   updateTaskDue_date({
                     variables: { _id: this.props.id, due_date: this.state.due_dateId.due_date}
@@ -86,7 +95,7 @@ class DueDateDetail extends React.Component {
                   inputAdder={this.inputAdder}
                   type={"due_date"}
                 /> : <div />}
-                {datePicked ? <button className="update-button" type="submit">
+                {datePicked ? <button className="task-due-date update-button" type="submit">
                   Update Due_Date
                 </button> : <div/> }
                 

@@ -68,7 +68,7 @@ export default class TagOption extends Component {
                                     <div className="task-list task-list-filter">
                                         {data.user.tags.map((tag, i) => (
                                             <button
-                                                className="task-list-items"
+                                                className="task-tag task-list-items tag"
                                                 key={i}
                                                 value={tag._id}
                                                 name={tag.name}

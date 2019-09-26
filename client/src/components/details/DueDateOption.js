@@ -108,7 +108,7 @@ export default class DateOption extends Component {
             .concat(dayFourFullString.split(" ")[2]);
 
         return (
-            <div className="date-option-container">
+            <div className="task-due-date date-option-container">
                 <div className="label-container">
                     <label className="label">
                         {this.props.type === "start_date" ? (
@@ -122,68 +122,68 @@ export default class DateOption extends Component {
                 <br />
                 <div className="calendar-button-container">
                     <button
-                        className="calendar-button"
+                        className="task-due-date calendar-button"
                         onClick={this.updateDate}
                         value={todayFullString}
                         datename="Today"
                         datedetail={todayDateDetail}
                     >
-                        Today<div className="date-detail">{todayDateDetail}</div>
+                        Today<div className="task-due-date date-detail">{todayDateDetail}</div>
                     </button>
                     <button
-                        className="calendar-button"
+                        className="task-due-date calendar-button"
                         onClick={this.updateDate}
                         value={tomorrowFullString}
                         datename="Tomorrow"
                         datedetail={tomorrowDateDetail}
                     >
-                        Tomorrow<div className="date-detail">{tomorrowDateDetail}</div>
+                        Tomorrow<div className="task-due-date date-detail">{tomorrowDateDetail}</div>
                     </button>
                     <button
-                        className="calendar-button"
+                        className="task-due-date calendar-button"
                         onClick={this.updateDate}
                         value={dayTwoFullString}
                         datename={dayTwoName}
                         datedetail={dayTwoDateDetail}
                     >
                         {dayTwoName}
-                        <div className="date-detail">{dayTwoDateDetail}</div>
+                        <div className="task-due-date date-detail">{dayTwoDateDetail}</div>
                     </button>
                     <button
-                        className="calendar-button"
+                        className="task-due-date calendar-button"
                         onClick={this.updateDate}
                         value={dayThreeFullString}
                         datename={dayThreeName}
                         datedetail={dayThreeDateDetail}
                     >
                         {dayThreeName}
-                        <div className="date-detail">{dayThreeDateDetail}</div>
+                        <div className="task-due-date date-detail">{dayThreeDateDetail}</div>
                     </button>
                     <button
-                        className="calendar-button"
+                        className="task-due-date calendar-button"
                         onClick={this.updateDate}
                         value={dayFourFullString}
                         datename={dayFourName}
                         datedetail={dayFourDateDetail}
                     >
                         {dayFourName}
-                        <div className="date-detail">{dayFourDateDetail}</div>
+                        <div className="task-due-date date-detail">{dayFourDateDetail}</div>
                     </button>
                 </div>
                 <div className="select-date-button-container">
                     <div className="select-date">
-                        <button className="feature-buttons" onClick={this.toggleDatePicker}>
+                        <button className="task-due-date feature-buttons" onClick={this.toggleDatePicker}>
                             Select Date
             </button>
                         <div className="date-picker">
                             {this.state.showDatePicker ? (
-                                <input type="date" onChange={this.handleChange} />
+                                <input className="task-due-date" type="date" onChange={this.handleChange} />
                             ) : (
                                     <div />
                                 )}
                         </div>
                     </div>
-                    <button className="feature-buttons" onClick={this.handleSubmit}>
+                    <button className="task-due-date feature-buttons" onClick={this.handleSubmit}>
                         Submit
           </button>
                 </div>

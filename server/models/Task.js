@@ -88,26 +88,50 @@ TaskSchema.statics.updateTaskLocation = (taskId, locationId) => {
 
 
 
-TaskSchema.statics.updateTaskTag = (taskId, tagId) => {
+TaskSchema.statics.updateTaskTag = async (taskId, tagId) => {
   const Tag = mongoose.model("tags");
   const Task = mongoose.model("tasks");
 
-  Task.findById(taskId).then(task => {
-    // console.log(task.tags);
-    return Tag.findById(tagId).then(newTag => {
-      // console.log(newTag);
-      // console.log(task);
-      if (!task.tags.includes(tagId)){
-        task.tags.push(newTag);
+  
+  const task = await Task.findById(taskId)
+  const newTag = await Tag.findById(tagId)
+  if (!task.tags.includes(tagId)) {
+    // console.log("checkl")
+        task.tags.push(
+          tagId
+        );
         newTag.tasks.push(task);
+    await task.save()
+    await newTag.save() 
+    // console.log(newTag)
+    
+  }
+  console.log(task);
+  return {task: task}
+  // return Promise.all([task.save(), newTag.save()]).then( () => {return newTag})
 
-      }
+  // return Task.findById(taskId).then(res => {
+  //   // console.log(task.tags);
+  //   const task = await res;
+  //   return Tag.findById(tagId).then(res => {
+  //     // console.log(newTag);
+  //     // console.log(task);
+  //     const newTag = await res;
+  //     if (!task.tags.includes(tagId)){
+  //       task.tags.push(
+  //         newTag
+  //       );
+  //       newTag.tasks.push(task);
 
-      return Promise.all([task.save(), newTag.save()]).then(
-        ([task, newTag]) => task
-      );
-    });
-  });
+  //     }
+
+       
+
+  //     // return Promise.all([task.save(), newTag.save()]).then(
+  //     //   (res) => {console.log(res)}
+  //     // );
+  //   });
+  // });
   // return Task.findById(taskId).then(task => {
   //   console.log(task.tags);
   //   if (!task.tags.includes())
