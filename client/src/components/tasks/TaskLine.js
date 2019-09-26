@@ -38,9 +38,11 @@ class CheckLine extends React.Component {
     });
   }
 
-  handleClick(e) {
+  async handleClick(e) {
     e.preventDefault();
     this.props.getTaskId(this.props._id);
+    this.props.closeTaskShow(this.props._id); //same id as above
+    this.props.selectTask(this.props._id);
   }
 
   updateCache(cache, { data }) {
@@ -65,16 +67,16 @@ class CheckLine extends React.Component {
       });
       // debugger
       let newTasks = tasks.user.tasks.filter(ele => {
-        return ele._id !== deletedTaskId
-      })
-      // debugger   
+        return ele._id !== deletedTaskId;
+      });
+      // debugger
       //  let newTasks = tasks.user.tasks.splice(objectIdx, 1);
       // debugger
       // console.log(tasks.user.tasks.length);
       this.props.client.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
-        data: { user: {tasks: newTasks} }
+        data: { user: { tasks: newTasks } }
       });
     }
   }
@@ -84,7 +86,7 @@ class CheckLine extends React.Component {
     const taskId = this.props._id;
     // debugger;
     deleteTask({ variables: { id: taskId } }).then(() => {
-      this.setState({completed: false})
+      this.setState({ completed: false });
     });
   }
 

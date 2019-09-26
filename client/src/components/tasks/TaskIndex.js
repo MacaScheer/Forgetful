@@ -45,7 +45,7 @@ class TaskIndex extends React.Component {
     this.selectTask = this.selectTask.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.closeTaskShow = this.closeTaskShow.bind(this);
     this.runSearch = this.runSearch.bind(this);
     this.getTaskId = this.getTaskId.bind(this);
   }
@@ -192,11 +192,11 @@ class TaskIndex extends React.Component {
     }
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    if (this.state.taskId === e.target.innerHTML) {
+  closeTaskShow(value) {
+    // debugger
+    if (this.state.taskId === value) {
       this.setState({
-        showPage: !this.state.showPage
+        taskId: ""
       });
     }
   }
@@ -226,7 +226,7 @@ class TaskIndex extends React.Component {
                           >
                             <div className="task-summary-container">
                               <div className="task-summary" id="task-summary">
-                                {trigger ? (
+                                {/* {trigger ? (
                                   <TaskSummary
                                     group={this.state.input}
                                     isAll={false}
@@ -238,17 +238,24 @@ class TaskIndex extends React.Component {
                                     isAll={true}
                                     data={data}
                                   />
-                                )}
+                                )} */}
+                                <TaskSummary
+                                  group={this.state.input}
+                                  isAll={true}
+                                  data={data}
+                                />
                               </div>
                             </div>
                             <div className="task-show-container">
-                              <div className="task-show-page" id="task-show">
-                                {this.state.taskId.length > 1 ? (
+                              
+                              {this.state.taskId.length > 1 ? (
+                                <div className="task-show-page" id="task-show">
                                   <TaskShow taskId={this.state.taskId} />
+                                </div>
                                 ) : (
                                   <div />
                                 )}
-                              </div>
+                              
                             </div>
                           </div>
                           <div
@@ -277,7 +284,8 @@ class TaskIndex extends React.Component {
                                           taskId={this.state.taskId}
                                           name={task.name}
                                           getTaskId={this.getTaskId}
-                                          client={client}
+                                        client={client}
+                                        closeTaskShow={this.closeTaskShow}
                                         />
                                       </div>
                                     ))
@@ -295,7 +303,9 @@ class TaskIndex extends React.Component {
                                           taskId={this.state.taskId}
                                           name={task.name}
                                           getTaskId={this.getTaskId}
-                                          client={client}
+                                        client={client}
+                                        closeTaskShow={this.closeTaskShow}
+                                        
                                         />
                                       </div>
                                     ))}
