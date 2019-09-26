@@ -67,7 +67,16 @@ export default {
         start_date
         priority
         repeat
+        list{
+          _id
+          name
+        }
+        tags{
+          name
+          _id
+        }
         location{
+          _id
           name
         }
       }

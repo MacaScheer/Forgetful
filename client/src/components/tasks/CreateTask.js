@@ -31,6 +31,7 @@ class CreateTask extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   inputAdder(value) {
+    debugger;
     this.setState({ input: this.state.input.concat(value) });
   }
   stateBinder(value) {

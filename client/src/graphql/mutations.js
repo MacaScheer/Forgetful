@@ -12,6 +12,7 @@ export default {
       }
     }
   `,
+  
   REGISTER_USER: gql`
     mutation RegisterUser($email: String!, $password: String!, $name: String!) {
       register(email: $email, password: $password, name: $name) {
@@ -95,6 +96,7 @@ export default {
       }
     }
   `,
+  
   UPDATE_TASK_BODY: gql`
     mutation updateTaskbody($_id: ID, $body: String) {
       updateTask(_id: $_id, body: $body) {
@@ -111,6 +113,18 @@ export default {
       }
     }
   `,
+  
+  UPDATE_TASK_LIST: gql`
+    mutation updateTaskList($taskID: ID, $listID: ID) {
+      updateTaskList(taskID: $taskID, listID: $listID) {
+        _id
+        list {
+          name
+          _id
+        }
+      }
+    }
+  `,
   UPDATE_TASK_REPEAT: gql`
     mutation updateTask($_id: ID, $repeat: String) {
       updateTask(_id: $_id, repeat: $repeat) {
@@ -120,12 +134,21 @@ export default {
     }
   `,
   UPDATE_TASK_LOCATION: gql`
-    mutation updateTask($_id: ID, $location: String) {
-      updateTask(_id: $_id, location: $location) {
+    mutation updateTaskLocation($taskID: ID, $locationID: ID) {
+      updateTaskLocation(taskID: $taskID, locationID: $locationID) {
         _id
         location {
           name
+          _id
         }
+      }
+    }
+  `,
+  UPDATE_TASK_TAG: gql`
+    mutation updateTaskTag($taskID: ID, $tagID: ID) {
+      updateTaskTag(taskID: $taskID, tagID: $tagID) {
+       _id 
+       name
       }
     }
   `,

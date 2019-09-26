@@ -1,70 +1,97 @@
 import React from "react";
 import { Mutation } from "react-apollo";
-import "../stylesheets/showpage_css.scss";
 import mutations from "../../graphql/mutations";
+import LocationOption from "./LocationOptionDetail"
 
 const { UPDATE_TASK_LOCATION } = mutations;
 
 class LocationDetail extends React.Component {
   constructor(props) {
     super(props);
+    let temp = "";
+    if (this.props.location !== null){
+      temp = this.props.location.name
+    }
+    // debugger;
     this.state = {
+      input: "",
       editing: false,
-      location: this.props.location || ""
+      changes: true,
+      body: this.props.body || "",
+      location: this.props.location || "",
+      locationId: "" ,
+      locationName: temp
     };
-
     this.Ref = React.createRef();
     this.handleEdit = this.handleEdit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
+    this.inputAdder = this.inputAdder.bind(this);
+    this.stateBinder = this.stateBinder.bind(this);
+    this.toggleOffEditing = this.toggleOffEditing.bind(this);
+
+  }
+
+  handleEdit(e) {
+    e.preventDefault();
+    this.setState({ editing: true, changes: false });
   }
 
   componentWillMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
+    document.addEventListener("mousedown", this.toggleOffEditing);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
+    document.removeEventListener("mousedown", this.toggleOffEditing);
   }
+  toggleOffEditing(e) {
+    if (this.state.editing && !e.target.className.includes("location-list")) {
+      debugger
 
-  handleClick = e => {
-    if (this.Ref.current.contains(e.target)) {
-      return;
-    } else {
-      this.setState({ editing: false });
+      let temp = "";
+      if (this.props.location !== null) {
+        temp = this.props.location.name
+      }
+      this.setState({ editing: false, locationName: temp })
     }
-  };
-  handleEdit(e) {
-    e.preventDefault();
-    this.setState({ editing: true });
   }
 
   fieldUpdate(field) {
     return e => this.setState({ [field]: e.target.value });
   }
 
+  inputAdder(value) {
+    this.setState({ locationName: value });
+
+  }
+  stateBinder(value) {
+    this.setState({ locationId: value });
+
+  }
+
   render() {
     if (this.state.editing) {
       return (
-        <Mutation mutation={UPDATE_TASK_LOCATION}>
-          {updateTask => (
+        <Mutation
+          mutation={UPDATE_TASK_LOCATION}
+          onError={err => this.setState({ message: err.message })}
+        >
+          {updateTaskLocation => (
             <div>
               <form
-                ref={this.Ref}
                 onSubmit={e => {
                   e.preventDefault();
-                  updateTask({
-                    variables: {
-                      _id: this.props.id,
-                      location: this.state.location
-                    }
-                  }).then(() => this.setState({ editing: false }));
+                  updateTaskLocation({
+                    variables: { taskID: this.props.id, locationID: this.state.locationId.locationId }
+                  }).then(this.setState({ editing: false, changes: true, locationNameToBe: this.state.locationName }));
                 }}
               >
-                <input
-                  value={this.state.priority}
-                  onChange={this.fieldUpdate("location")}
+                <LocationOption
+                  inputAdder={this.inputAdder}
+                  stateBinder={this.stateBinder}
                 />
-                <button type="submit">Update Location </button>
+                <button className="update-button location-list" type="submit">
+                  Update Location{" "}
+                </button>
               </form>
             </div>
           )}
@@ -72,10 +99,20 @@ class LocationDetail extends React.Component {
       );
     } else {
       return (
-        <div className="show-task-priority">
-          <p ref={this.Ref} onClick={this.handleEdit}>
-            Location: {this.state.location}
-          </p>
+        <div className="show-task-body">
+          {/* <div
+                        onClick={this.handleEdit}
+                        style={{ fontSize: "10px", cursor: "pointer", display: "inline" }}
+                    >
+                        <IconContext.Provider value={{ className: "custom-icon" }}>
+                            <FaPencilAlt />
+                        </IconContext.Provider>
+                    </div> */}
+          {/* <h2>Body: </h2> */}
+          <div onClick={this.handleEdit}>
+
+            Location: {this.state.locationName}
+          </div>
         </div>
       );
     }
