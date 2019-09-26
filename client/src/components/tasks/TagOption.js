@@ -82,7 +82,7 @@ export default class TagOption extends Component {
                     className="add-list-button"
                     onClick={this.toggleModal}
                   >
-                    Add Tag
+                    Create Tag
                   </button>
                 </div>
                 {this.renderModal()}

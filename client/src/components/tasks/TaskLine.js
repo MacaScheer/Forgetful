@@ -39,10 +39,9 @@ class CheckLine extends React.Component {
     });
   }
 
-  handleClick(e) {
+ handleClick(e) {
     e.preventDefault();
-    this.props.getTaskId(this.props._id);
-    this.selectTask(this.props._id);
+    this.props.selectTask(this.props._id);
   }
 
   updateCache(cache, { data }) {
@@ -104,15 +103,14 @@ class CheckLine extends React.Component {
         mutation={DELETE_TASK}
         onError={err => this.setState({ message: err.message })}
         update={(cache, data) => this.updateCache(cache, data)}
-        // refetchQueries={() => {
-        //   debugger
-        //   return [
-        //     {
-        //       query: FETCH_USER,
-        //       variables: { Id: localStorage.getItem("currentuserId") }
-        //     }
-        //   ];
-        // }}
+        refetchQueries={() => {
+          return [
+            {
+              query: FETCH_USER,
+              variables: { Id: localStorage.getItem("currentuserId") }
+            }
+          ];
+        }}
       >
         {deleteTask => (
           <div className="task-line-container">

@@ -18,9 +18,9 @@ class Navbar extends React.Component {
 
   toggleDropdown(e) {
     e.preventDefault();
-    const container = document.getElementById("st-container");
-    const tasks = document.getElementById("tasks-container");
-    const summary = document.getElementById("right-side");
+    const container =  document.getElementById("st-container");
+   const tasks =  document.getElementById("tasks-container");
+   const summary =  document.getElementById("right-side");
     this.setState({
       showDropdown: !this.state.showDropdown
     });
