@@ -19,6 +19,7 @@ class ListOption extends Component {
     this.updateState = this.updateState.bind(this);
     this.closer = this.closer.bind(this);
     this.binder = this.binder.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
     // debugger
   }
 
@@ -54,6 +55,11 @@ class ListOption extends Component {
     this.props.stateBinder({ listId: this.state.listId });
     debugger;
   }
+  toggleModal(e) {
+    e.preventDefault();
+    // e.stopPropagation()
+    this.setState({ render: true })
+  }
 
   render() {
     const cid = localStorage.getItem("currentuserId");
@@ -86,6 +92,7 @@ class ListOption extends Component {
                     Add List
                   </button>
                 </div>
+                {this.renderModal()}
               </div>
             );
           } else {

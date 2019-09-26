@@ -15,25 +15,31 @@ class NameDetail extends React.Component {
     const final_name = this.props.name;
     this.state = {
       editing: false,
+
       name: this.props.name || "",
       nameToBeChanged: this.props.name
+
     };
 
     this.handleEdit = this.handleEdit.bind(this);
     
     this.toggleOffEdit = this.toggleOffEdit.bind(this)
+
     // this.Ref = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this)
     // this.originalText = this.originalText.bind(this);
     // this.handleClick = this.handleClick.bind(this);
     // this.updateCache = this.updateCache.bind(this);
+
   }
 
   toggleOffEdit(e) {
     // debugger
     e.preventDefault();
     // debugger
+
     if (this.state.editing === true  && e.target.className !== "update-input") {
+
       // debugger
       this.setState({ editing: false, nameToBeChaged: this.props.name });
     } 
@@ -55,6 +61,7 @@ class NameDetail extends React.Component {
   //     this.setState({ editing: false });
   //   }
   // };
+
 
   handleEdit(e) {
     e.preventDefault();
@@ -85,30 +92,7 @@ class NameDetail extends React.Component {
       ).then(() => this.setState({ editing: false , name: this.state.nameToBeChanged}));
   }
 
-  // updateCache(cache, {data}) {
-  //   debugger;
-  //   let tasks;
-  //   // debugger;
-  //   try {
-  //     const id = localStorage.getItem("currentuserId");
-      
-  //     tasks = cache.readQuery({ query: FETCH_USER, variables: { Id: id } });
-  //   } catch (err) {
-  //     return;
-  //   }
-  //   if (tasks) {
-      
-  //     const new_name = this.state.nameToBeChanged;
-  //     // task.task.name = this.state.nameToBeChanged;
-  //     let id = this.props.id
-  //     // debugger;
-  //     // cache.writeQuery({
-  //     //   query: FETCH_TASK,
-  //     //   variables: { Id: id },
-  //     //   data: { task: {name: new_name }}
-  //     // });
-  //   }
-  // }
+
   
 
   render() {
@@ -117,13 +101,15 @@ class NameDetail extends React.Component {
         <Mutation 
         mutation={UPDATE_TASK_NAME}
           onError={err => this.setState({ message: err.message })}
-          // update={(cache, data) => this.updateCache(cache, data)}
+
         >
           {updateTask => (
             <div>
               <form
+
                 // ref={this.Ref}
                 onSubmit={e => this.handleSubmit(e, updateTask)}
+
               >
                   <input
                     type="text"
@@ -134,7 +120,9 @@ class NameDetail extends React.Component {
                     onChange={this.fieldUpdate("nameToBeChanged")}
                   />
                   <button className="update-button"  >
+
                     Update Task
+
                   </button >
               </form>
             </div>
@@ -143,9 +131,11 @@ class NameDetail extends React.Component {
       );
     } else {
       return (
+
         <div onClick={this.handleEdit} className="show-task-name">
           {/* ref={this.Ref} */}
           <p  >
+
             {this.state.name}
           </p>
         </div>

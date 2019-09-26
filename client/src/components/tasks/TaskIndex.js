@@ -43,18 +43,12 @@ class TaskIndex extends React.Component {
       refetch: null
     };
     this.selectTask = this.selectTask.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+    // this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.runSearch = this.runSearch.bind(this);
-    this.getTaskId = this.getTaskId.bind(this);
   }
 
-  getTaskId(task_id) {
-    this.setState({
-      taskId: task_id
-    });
-  }
+  
 
   componentDidUpdate(prevProps, nextProps) {
     if (prevProps.match.url !== nextProps.url) {
@@ -155,18 +149,18 @@ class TaskIndex extends React.Component {
     return result;
   }
 
-  toggleDropdown() {
-    const dropdown = document.getElementById("profile-dropdown");
-    this.setState({
-      hidden: !this.state.hidden
-    });
+  // toggleDropdown() {
+  //   const dropdown = document.getElementById("profile-dropdown");
+  //   this.setState({
+  //     hidden: !this.state.hidden
+  //   });
 
-    if (this.state.hidden) {
-      dropdown.classList.remove("hide-dropdown");
-    } else {
-      dropdown.classList.add("hide-dropdown");
-    }
-  }
+  //   if (this.state.hidden) {
+  //     dropdown.classList.remove("hide-dropdown");
+  //   } else {
+  //     dropdown.classList.add("hide-dropdown");
+  //   }
+  // }
 
   handleChange(e) {
     e.preventDefault();
@@ -178,7 +172,7 @@ class TaskIndex extends React.Component {
 
   selectTask(id) {
     if (id === this.state.taskId) {
-      this.setState({ taskId: id, showPage: false }, () => {
+      this.setState({ taskId: "", showPage: false }, () => {
         const showPage = document.getElementById("task-show");
         showPage.classList.remove("show-move-left");
         showPage.classList.add("show-move-right");
@@ -192,19 +186,12 @@ class TaskIndex extends React.Component {
     }
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    if (this.state.taskId === e.target.innerHTML) {
-      this.setState({
-        showPage: !this.state.showPage
-      });
-    }
-  }
+
 
   render() {
     const cid = localStorage.getItem("currentuserId");
     const trigger = this.state.trigger;
-
+    const {showPage} = this.state
     return (
       <ApolloConsumer>
         {client => (
@@ -226,29 +213,23 @@ class TaskIndex extends React.Component {
                           >
                             <div className="task-summary-container">
                               <div className="task-summary" id="task-summary">
-                                {trigger ? (
-                                  <TaskSummary
-                                    group={this.state.input}
-                                    isAll={false}
-                                    data={summary}
-                                  />
-                                ) : (
-                                  <TaskSummary
-                                    group={this.state.input}
-                                    isAll={true}
-                                    data={data}
-                                  />
-                                )}
+                                <TaskSummary
+                                  group={this.state.input}
+                                  isAll={true}
+                                  data={data}
+                                />
                               </div>
                             </div>
                             <div className="task-show-container">
-                              <div className="task-show-page" id="task-show">
-                                {this.state.taskId.length > 1 ? (
+                              
+                              <div className="task-show-page show-move-right" id="task-show">
+                              {showPage ? (
                                   <TaskShow taskId={this.state.taskId} />
-                                ) : (
-                                  <div />
-                                )}
-                              </div>
+                                  ) : (
+                                    <div />
+                                    )}
+                              
+                                    </div>
                             </div>
                           </div>
                           <div
@@ -276,8 +257,7 @@ class TaskIndex extends React.Component {
                                           _id={task._id}
                                           taskId={this.state.taskId}
                                           name={task.name}
-                                          getTaskId={this.getTaskId}
-                                          client={client}
+                                        client={client}
                                         />
                                       </div>
                                     ))
@@ -294,8 +274,8 @@ class TaskIndex extends React.Component {
                                           _id={task._id}
                                           taskId={this.state.taskId}
                                           name={task.name}
-                                          getTaskId={this.getTaskId}
-                                          client={client}
+                                        client={client}
+                                        
                                         />
                                       </div>
                                     ))}
