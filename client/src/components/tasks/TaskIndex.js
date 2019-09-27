@@ -66,7 +66,7 @@ class TaskIndex extends React.Component {
     }
   }
 
-  
+
 
   runSearchResult(tasks) {
     let input = localStorage.getItem("userInput");
@@ -185,7 +185,7 @@ class TaskIndex extends React.Component {
     }
   }
 
-  asyncrender() {
+  render() {
     const cid = localStorage.getItem("currentuserId");
     const { showPage, trigger } = this.state;
     return (
