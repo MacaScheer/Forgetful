@@ -13,7 +13,7 @@
 
 .show-task-name {
   width: 100%;
-  height: 100px;
+  height: 50px;
   text-align: left;
 }
 
@@ -36,5 +36,54 @@
 }
 
 .Tagbox{
-  display: inline-block;
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: 40x;
+  padding: 1px;
 }
+
+.Tagbox:hover{
+  // border-style: solid;
+  // border-top: 2px black;
+  // border-radius: 10px;
+  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  border-color: $blue;
+  border-style: solid;
+  border-width: 1px;
+  width: 250px;
+  padding: 1px;
+}
+
+
+.name-show{
+  margin-top: 30px;
+  font-size: 30px;
+}
+
+.tag-show{
+  // margin-top: 30px;
+  font-size: 15px;
+}
+
+.start-words{
+  color: grey;
+}
+
+.body-Tagbox{
+  padding-top: 5px;
+  padding-left: 5px;
+  
+}
+
+.body-Tagbox:hover{
+  // border-style: solid;
+  // border-top: 2px black;
+  // border-radius: 10px;
+  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  border-color: $blue;
+  border-style: solid;
+  border-width: 1px;
+  width: 250px;
+  padding: 1px;
+}
+

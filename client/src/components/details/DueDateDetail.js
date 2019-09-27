@@ -105,7 +105,7 @@ class DueDateDetail extends React.Component {
         </Mutation>
       );
     } else {
-      // debugger;
+      
       return (
         <div className="show-task-body">
           {/* <div
@@ -117,7 +117,8 @@ class DueDateDetail extends React.Component {
           {/* <h2>Body: </h2> */}
           <p className="Tagbox" onClick={this.handleEdit}>
            
-              Due_Date: {this.props.due_date}
+            <p className="start-words">Due_Date:</p> &nbsp; {this.props.due_date}
+            {/* Due_Date: {this.state.due_dateId.due_date} */}
           </p>
 
         </div>

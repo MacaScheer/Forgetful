@@ -100,18 +100,9 @@ class LocationDetail extends React.Component {
     } else {
       return (
         <div className="show-task-body">
-          {/* <div
-                        onClick={this.handleEdit}
-                        style={{ fontSize: "10px", cursor: "pointer", display: "inline" }}
-                    >
-                        <IconContext.Provider value={{ className: "custom-icon" }}>
-                            <FaPencilAlt />
-                        </IconContext.Provider>
-                    </div> */}
-          {/* <h2>Body: </h2> */}
-          <div onClick={this.handleEdit}>
+          <div className="Tagbox" onClick={this.handleEdit}>
 
-            Location: {this.state.locationName}
+            <p className="start-words">Location:</p>  &nbsp; {this.state.locationName}
           </div>
         </div>
       );

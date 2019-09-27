@@ -134,7 +134,7 @@ class NameDetail extends React.Component {
 
         <div onClick={this.handleEdit} className="show-task-name">
           {/* ref={this.Ref} */}
-          <p  >
+          <p className="name-show">
 
             {this.state.name}
           </p>

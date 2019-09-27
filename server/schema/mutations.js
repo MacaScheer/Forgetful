@@ -41,6 +41,7 @@ const mutation = new GraphQLObjectType({
         _id: { type: GraphQLID },
         name: { type: GraphQLString },
         due_date: { type: GraphQLString },
+        start_date: { type: GraphQLString },
         body: { type: GraphQLString },
         priority: { type: GraphQLString },
         repeat: { type: GraphQLString },
@@ -81,7 +82,7 @@ const mutation = new GraphQLObjectType({
         
         const response = await Task.updateTaskTag(taskID, tagID)
         console.log(response);
-        return response.tag;
+        return response;
       }
     },
     deleteTask: {
