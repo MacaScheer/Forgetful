@@ -110,9 +110,10 @@ class TagDetail extends React.Component {
         } else {
             
             this.state.tags.forEach(tag => {
-                let temp = tag.name
+                let temp = tag.name;
                 this.state.tagNames.push(temp)
             });
+            
             this.state.tagNames.push(this.state.tagName);
             this.state.tagNames = [...new Set(this.state.tagNames)]
             // let length = this.state.tagNames.length - 1
