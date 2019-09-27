@@ -21,7 +21,7 @@ export default class TaskSummary extends Component {
   }
   componentDidUpdate(prevProps) {
     // debugger
-    if( this.props.data !== prevProps.data)this.setState({numOfTasks: this.props.data.length})
+    if( this.props.data !== prevProps.data)this.setState({numOfTasks: this.props.data.length, tasks: this.props.data})
   }
   dueDates(tasks) {
     let today = new Date();
