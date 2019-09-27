@@ -12,7 +12,7 @@ class Navbar extends React.Component {
     super(props);
     this.state = {
       showDropdown: false,
-      toggleButton: false 
+      toggleButton: false
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
@@ -22,30 +22,33 @@ class Navbar extends React.Component {
     const container = document.getElementById("st-container");
     const tasks = document.getElementById("tasks-container");
     const summary = document.getElementById("right-side");
-    if (container && tasks && summary) this.setState({toggleButton: true})
-    this.setState({
-      showDropdown: !this.state.showDropdown
-    });
-    
-      if (!this.state.showDropdown) {
-        container.classList.remove("slide");
-        tasks.classList.remove("move-left");
-        summary.classList.remove("move-left");
-        container.classList.add("new-slide");
-        summary.classList.add("move-right");
-        tasks.classList.add("move-right");
-      } else {
-        tasks.classList.remove("move-right");
-        summary.classList.remove("move-right");
-        container.classList.remove("new-slide");
-        container.classList.add("slide");
-        tasks.classList.add("move-left");
-        summary.classList.add("move-left");
+
+    this.setState(
+      {
+        showDropdown: !this.state.showDropdown
+      },
+      () => {
+        if (container && tasks && summary && !this.state.showDropdown) {
+          container.classList.remove("slide");
+          tasks.classList.remove("move-left");
+          summary.classList.remove("move-left");
+          container.classList.add("new-slide");
+          summary.classList.add("move-right");
+          tasks.classList.add("move-right");
+        } else if (container && tasks && summary && this.state.showDropdown){
+          tasks.classList.remove("move-right");
+          summary.classList.remove("move-right");
+          container.classList.remove("new-slide");
+          container.classList.add("slide");
+          tasks.classList.add("move-left");
+          summary.classList.add("move-left");
+        }
       }
+    );
   }
 
   render() {
-    const { toggleButton} = this.state
+    const { toggleButton } = this.state;
     return (
       <ApolloConsumer>
         {client => (
@@ -54,7 +57,8 @@ class Navbar extends React.Component {
               if (loading) {
                 return "Loading...";
               }
-              let ready = toggleButton ? true: false
+
+              // debugger;
               if (data.isLoggedIn) {
                 return (
                   <div className="toolbar">
@@ -63,7 +67,6 @@ class Navbar extends React.Component {
                         <div className="st-container">
                           <div id="st-trigger-effects">
                             <button
-                              disbaled={ready}
                               onClick={this.toggleDropdown}
                               className="all-tasks-button"
                               data-effect="st-effect-13"
