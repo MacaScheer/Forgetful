@@ -7,6 +7,7 @@ import TagOption from "./TagOption";
 import ListOption from "./ListOption";
 import LocationOption from "./LocationOption";
 import DateOption from "./DateOption";
+import merge from "lodash/merge";
 const { FETCH_USER } = Queries;
 const { CREATE_TASK } = Mutations;
 
@@ -133,6 +134,21 @@ class CreateTask extends React.Component {
     return string.slice(0, i).trim();
   }
 
+  attributeUpdater(data, id, newData) {
+    let clonedData = merge([], data)
+    // debugger
+    data.forEach((ele , idx)=> {
+      if (ele._id === id) {
+        // debugger
+        clonedData[idx].tasks.push(newData)
+      }
+
+    });
+    // clonedData= merge([], data)
+    // debugger
+    return clonedData
+  }
+
   update(field) {
     return e => this.setState({ [field]: e.target.value });
   }
@@ -157,7 +173,7 @@ class CreateTask extends React.Component {
 
   updateCache(cache, { data }) {
     let tasks;
-    // debugger;
+    const { listId, locationId, tagId } = this.state;
     try {
       const id = localStorage.getItem("currentuserId");
 
@@ -168,7 +184,41 @@ class CreateTask extends React.Component {
     if (tasks) {
       const id = localStorage.getItem("currentuserId");
       let newTask = data.newTask;
+      let listTasks;
+      let locationTasks;
+      let tagTasks;
+      // debugger;
       // tasks.user.tasks.push(newTask);
+      if (listId) {
+        listTasks = this.attributeUpdater(tasks.user.lists, listId, newTask);
+        cache.writeQuery({
+          query: FETCH_USER,
+          variables: { Id: id },
+          data: { user: { lists: listTasks } }
+        });
+      }
+      if (locationId){
+        locationTasks = this.attributeUpdater(
+          tasks.user.locations,
+          locationId,
+          newTask
+        );
+        cache.writeQuery({
+          query: FETCH_USER,
+          variables: { Id: id },
+          data: { user: { locations: locationTasks } }
+        });
+      }
+      if (tagId) {
+        tagTasks = this.attributeUpdater(tasks.user.tags, tagId, newTask);
+        cache.writeQuery({
+          query: FETCH_USER,
+          variables: { Id: id },
+          data: { user: { tags: tagTasks } }
+        });
+      }
+
+      // debugger;
       cache.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
