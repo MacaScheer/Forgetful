@@ -44,7 +44,7 @@ class ListDetail extends React.Component {
         if (this.state.editing && !e.target.className.includes("task-grab")) {
             // debugger
           let temp = "";
-          if (this.props.location !== null) {
+          if (this.props.list !== null) {
             temp = this.props.list.name
           }
             this.setState({ editing: false, listName: temp })
@@ -112,8 +112,8 @@ class ListDetail extends React.Component {
                         </IconContext.Provider>
                     </div> */}
                     {/* <h2>Body: </h2> */}
-                    <p onClick={this.handleEdit}>
-                        List: {this.state.listName}
+                    <p className="Tagbox" onClick={this.handleEdit}>
+                  <p className="start-words">List: </p>  &nbsp; {this.state.listName}
                     </p>
                 </div>
             );

@@ -10,7 +10,8 @@ import RepeatDetail from "../details/RepeatDetail";
 import LocationDetail from "../details/LocationDetail";
 import { withRouter } from "react-router-dom";
 import ListDetail from "../details/ListDetail";
-import TagDetail from "../details/TagDetail"
+import TagDetail from "../details/TagDetail";
+import StartDateDetail from "../details/StartDateDetail";
 
 const { FETCH_TASK } = queries;
 
@@ -29,11 +30,13 @@ const TaskShow = props => {
             <div className="task-show">
               <NameDetail id={data.task._id} name={data.task.name} />
               <div className="task-show-info">
+                <StartDateDetail id={data.task._id} start_date={data.task.start_date} />
                 <DueDateDetail
                   id={data.task._id}
                   due_date={data.task.due_date}
                 />
-                <BodyDetail id={data.task._id} body={data.task.body} />
+
+                
                 <ListDetail id={data.task._id} list={data.task.list} />
                 <TagDetail id={data.task._id} tags={data.task.tags} />
                 {/* <PriorityDetail
@@ -42,7 +45,8 @@ const TaskShow = props => {
                 /> */}
                 {/* <RepeatDetail id={data.task._id} repeat={data.task.repeat} /> */}
                 <LocationDetail id={data.task._id} location={data.task.location}/>
-                <p>Start_Date: {data.task.start_date}</p>
+                <BodyDetail id={data.task._id} body={data.task.body} />
+                
               </div>
             </div>
           </div>

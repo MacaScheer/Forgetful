@@ -107,7 +107,7 @@ TaskSchema.statics.updateTaskTag = async (taskId, tagId) => {
     
   }
   console.log(task);
-  return {task: task}
+  return {tag: newTag}
   // return Promise.all([task.save(), newTag.save()]).then( () => {return newTag})
 
   // return Task.findById(taskId).then(res => {

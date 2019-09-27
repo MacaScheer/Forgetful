@@ -8,8 +8,14 @@ const { UPDATE_TASK_TAG} = mutations;
 
 class TagDetail extends React.Component {
     constructor(props) {
+        // debugger;
         super(props);
-
+        let arr = [];
+        // if (this.props.tags.length < 1){
+        // this.props.tags.forEach(tag => {
+        //     arr.push(tag.name);
+        // })};
+       
         this.state = {
             input: "",
             editing: false,
@@ -17,7 +23,8 @@ class TagDetail extends React.Component {
             body: this.props.body || "",
             tags: this.props.tags || "",
             tagId: "",
-            tags: this.props.tags
+            tags: this.props.tags,
+            tagNames: arr
         };
         this.Ref = React.createRef();
         this.handleEdit = this.handleEdit.bind(this);
@@ -63,13 +70,14 @@ class TagDetail extends React.Component {
 
     render() {
         // debugger;
+        
         if (this.state.editing) {
             return (
                 <Mutation
                     mutation={UPDATE_TASK_TAG}
                     onError={err => this.setState({ message: err.message })}
                     onCompleted={(data) => {
-                        debugger;
+                    
                         this.setState({ editing: false, changes: true })
                     }
                     }
@@ -82,7 +90,7 @@ class TagDetail extends React.Component {
                                     updateTaskTag({
                                         variables: { taskID: this.props.id, tagID: this.state.tagId.tagId }
                                     }).then(res => {
-                                        // debugger;
+                                       
                                         this.setState({ editing: false, changes: true })}
                                     );
                                 }}
@@ -100,7 +108,17 @@ class TagDetail extends React.Component {
                 </Mutation>
             );
         } else {
-            // debugger;
+            
+            this.state.tags.forEach(tag => {
+                let temp = tag.name
+                this.state.tagNames.push(temp)
+            });
+            this.state.tagNames.push(this.state.tagName);
+            this.state.tagNames = [...new Set(this.state.tagNames)]
+            // let length = this.state.tagNames.length - 1
+            // if (this.state.tagNames[length] === this.state.tagNames[length - 1] && this.state.tagNames.length > 1) {
+            //     this.state.tagNames.splice(-1, 1);
+            // }
             return (
                 <div className="show-task-body">
                     {/* <div
@@ -111,18 +129,11 @@ class TagDetail extends React.Component {
                     </div> */}
                     {/* <h2>Body: </h2> */}
                     <p className="Tagbox" onClick={this.handleEdit}>
-                        Tags:
-                        <div>
-                            {this.state.tags.map((tag, i) => (
-                                <div key={`tag-${i}`}>
-                                    {tag.name}
-                                </div>
-
-                            ))}
-                        </div>
-                        <div>
-                            {this.state.tagName}
-                        </div>
+                        
+                        
+                        
+                        <p className="start-words">Tags:</p> &nbsp; {this.state.tagNames}
+                        
                     </p>
                     
                 </div>

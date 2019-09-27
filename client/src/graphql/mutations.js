@@ -97,6 +97,14 @@ export default {
       }
     }
   `,
+  UPDATE_TASK_START_DATE: gql`
+    mutation updateTask($_id: ID, $start_date: String) {
+      updateTask(_id: $_id, start_date: $start_date) {
+        _id
+        start_date
+      }
+    }
+  `,
   
   UPDATE_TASK_BODY: gql`
     mutation updateTaskbody($_id: ID, $body: String) {

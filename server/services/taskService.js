@@ -147,10 +147,11 @@ const updateTask = async data => {
   try {
     const updateObj = {};
 
-    const { _id, name, due_date, body, priority, repeat, location } = data;
+    const { _id, name, due_date, start_date, body, priority, repeat, location } = data;
     if (_id) updateObj._id = _id;
     if (name) updateObj.name = name;
     if (due_date) updateObj.due_date = due_date;
+    if (start_date) updateObj.start_date = start_date;
     if (body) updateObj.body = body;
     if (priority) updateObj.priority = priority;
     if (repeat) updateObj.repeat = repeat;
