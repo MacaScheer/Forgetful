@@ -215,6 +215,7 @@ class TaskIndex extends React.Component {
               if (error) return `Error! ${error.message}`;
               if (data.user.tasks) {
                 // debugger
+                // if (!this)
                 const summary = this.runSearch(data.user);
                 return (
                   <div className="task-index-container">
