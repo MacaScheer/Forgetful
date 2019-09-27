@@ -37,7 +37,12 @@ export default class TaskSummary extends Component {
     let tomorrowString = today.toDateString();
     let taskList = [];
     tasks.forEach(task => {
-      if (task.due_date === tomorrowString) {
+      // console.log("start_date", task.start_date);
+
+      if (
+        task.due_date === tomorrowString ||
+        task.start_date === tomorrowString
+      ) {
         taskList.push(task);
       }
     });
@@ -70,7 +75,9 @@ export default class TaskSummary extends Component {
           <div className="sum-count-txt">
             {this.state.isAll ? (
               <div className="list-details">
-                <div className="color-number black">{this.state.lists.length}</div>
+                <div className="color-number black">
+                  {this.state.lists.length}
+                </div>
                 <div>lists</div>
               </div>
             ) : (
@@ -80,7 +87,9 @@ export default class TaskSummary extends Component {
           <div className="sum-count-txt">
             {this.state.isAll ? (
               <div className="location-details">
-                <div className="color-number green">{this.state.locations.length}</div>
+                <div className="color-number green">
+                  {this.state.locations.length}
+                </div>
                 <div>locations</div>
               </div>
             ) : (
