@@ -50,9 +50,23 @@ class TaskIndex extends React.Component {
 
   
 
-  componentDidUpdate(prevProps, nextProps) {
-    if (prevProps.match.url !== nextProps.url) {
-      this.setState({retrigger: Math.random()})
+  componentDidUpdate(prevProps) {
+    // debugger
+    if (prevProps.match.url !== this.props.match.url) {
+      const URL = this.props.history.location.pathname;
+      let URLArray = URL.split("/").filter(Boolean);
+      let key;
+      let input;
+      if (URLArray.length > 1) {
+        key = URLArray[0];
+        input = URLArray[1];
+      } else {
+        input = URLArray[0];
+        URLArray[0] === "trash" ? (key = "trash") : (key = "start_date");
+      }
+      const trigger = URLArray[0] === "all" ? false : true;
+
+      this.setState({keys: key, input: input, trigger: trigger})
     } 
     // debugger
   }
