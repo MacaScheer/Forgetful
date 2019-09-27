@@ -183,14 +183,14 @@ class CreateTask extends React.Component {
         mutation={CREATE_TASK}
         onError={err => this.setState({ message: err.message })}
         update={(cache, data) => this.updateCache(cache, data)}
-        refetchQueries={() => {
-          return [
-            {
-              query: FETCH_USER,
-              variables: { Id: localStorage.getItem("currentuserId") }
-            }
-          ];
-        }}
+        // refetchQueries={() => {
+        //   return [
+        //     {
+        //       query: FETCH_USER,
+        //       variables: { Id: localStorage.getItem("currentuserId") }
+        //     }
+        //   ];
+        // }}
       >
         {newTask => (
           <div className="create-task-container">
