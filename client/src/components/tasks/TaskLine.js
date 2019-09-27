@@ -59,7 +59,7 @@ class CheckLine extends React.Component {
       const id = localStorage.getItem("currentuserId");
       let deletedTaskId = this.props._id;
       let objectIdx;
-      // debugger
+      debugger
       // console.log('test')
       tasks.user.tasks.forEach((ele, idx) => {
         if (ele._id === deletedTaskId) objectIdx = idx;
