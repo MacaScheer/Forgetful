@@ -250,7 +250,7 @@ class TaskIndex extends React.Component {
                                     ></div>
                                     <Taskline
                                       // object={task}
-                                      key={this.state.key}
+                                      filterkey={this.state.keys}
                                       filtername={this.state.input}
                                       showPage={this.state.showPage}
                                       selectTask={this.selectTask}

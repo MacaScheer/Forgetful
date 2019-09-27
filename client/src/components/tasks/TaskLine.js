@@ -3,6 +3,8 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import mutations from "../../graphql/mutations";
 import queries from "../../graphql/queries";
+import merge from "lodash/merge";
+
 const { FETCH_USER } = queries;
 const { DELETE_TASK } = mutations;
 
@@ -39,7 +41,7 @@ class CheckLine extends React.Component {
     });
   }
 
- handleClick(e) {
+  handleClick(e) {
     e.preventDefault();
     this.props.selectTask(this.props._id);
   }
@@ -58,20 +60,20 @@ class CheckLine extends React.Component {
     if (tasks) {
       const id = localStorage.getItem("currentuserId");
       let deletedTaskId = this.props._id;
-      let objectIdx;
-      debugger
-      // console.log('test')
-      tasks.user.tasks.forEach((ele, idx) => {
-        if (ele._id === deletedTaskId) objectIdx = idx;
-      });
-      // debugger
+      let modifiedData;
+      if (this.props.filterkey !== "start_date") {
+        modifiedData = this.attributeUpdater(tasks.user, deletedTaskId);
+        this.props.client.writeQuery({
+          query: FETCH_USER,
+          variables: { Id: id },
+          data: { user: { [this.props.filterkey]: modifiedData } }
+        });
+      }
+
       let newTasks = tasks.user.tasks.filter(ele => {
         return ele._id !== deletedTaskId;
       });
-      // debugger
-      //  let newTasks = tasks.user.tasks.splice(objectIdx, 1);
-      // debugger
-      // console.log(tasks.user.tasks.length);
+
       this.props.client.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
@@ -83,7 +85,6 @@ class CheckLine extends React.Component {
   handleDelete(e, deleteTask) {
     e.preventDefault();
     const taskId = this.props._id;
-    // debugger;
     deleteTask({ variables: { id: taskId } }).then(() => {
       this.setState({ completed: false });
     });
@@ -95,6 +96,18 @@ class CheckLine extends React.Component {
     ) : (
       <div />
     );
+  }
+
+  attributeUpdater(data, id) {
+    const clonedData = merge([], data[this.props.filterkey]);
+    let itemIdx;
+    clonedData.forEach((ele, idx) => {
+      if (ele.name === this.props.filtername) itemIdx = idx;
+    });
+    clonedData[itemIdx].tasks.forEach((ele, idx) => {
+      if (ele._id === id) clonedData[itemIdx].tasks.splice(idx, 1);
+    });
+    return clonedData;
   }
 
   render() {
