@@ -135,18 +135,17 @@ class CreateTask extends React.Component {
   }
 
   attributeUpdater(data, id, newData) {
-    let clonedData = merge([], data)
+    let clonedData = merge([], data);
     // debugger
-    data.forEach((ele , idx)=> {
+    data.forEach((ele, idx) => {
       if (ele._id === id) {
         // debugger
-        clonedData[idx].tasks.push(newData)
+        clonedData[idx].tasks.push(newData);
       }
-
     });
     // clonedData= merge([], data)
     // debugger
-    return clonedData
+    return clonedData;
   }
 
   update(field) {
@@ -187,42 +186,36 @@ class CreateTask extends React.Component {
       let listTasks;
       let locationTasks;
       let tagTasks;
-      // debugger;
-      // tasks.user.tasks.push(newTask);
+      let dataToWrite = { tasks: tasks.user.tasks.concat([newTask]) };
+
       if (listId) {
         listTasks = this.attributeUpdater(tasks.user.lists, listId, newTask);
-        cache.writeQuery({
-          query: FETCH_USER,
-          variables: { Id: id },
-          data: { user: { lists: listTasks } }
-        });
       }
-      if (locationId){
+      if (locationId) {
         locationTasks = this.attributeUpdater(
           tasks.user.locations,
           locationId,
           newTask
         );
-        cache.writeQuery({
-          query: FETCH_USER,
-          variables: { Id: id },
-          data: { user: { locations: locationTasks } }
-        });
       }
       if (tagId) {
         tagTasks = this.attributeUpdater(tasks.user.tags, tagId, newTask);
-        cache.writeQuery({
-          query: FETCH_USER,
-          variables: { Id: id },
-          data: { user: { tags: tagTasks } }
-        });
       }
+      const iteratingArray = [
+        { lists: listTasks },
+        { tags: tagTasks },
+        { locations: locationTasks }
+      ];
 
-      // debugger;
+      iteratingArray.forEach(ele => {
+        if (Object.values(ele)[0]) {
+          dataToWrite[Object.keys(ele)[0]] = Object.values(ele)[0];
+        }
+      });
       cache.writeQuery({
         query: FETCH_USER,
         variables: { Id: id },
-        data: { user: { tasks: tasks.user.tasks.concat([newTask]) } }
+        data: { user: dataToWrite }
       });
     }
   }
@@ -233,14 +226,6 @@ class CreateTask extends React.Component {
         mutation={CREATE_TASK}
         onError={err => this.setState({ message: err.message })}
         update={(cache, data) => this.updateCache(cache, data)}
-        // refetchQueries={() => {
-        //   return [
-        //     {
-        //       query: FETCH_USER,
-        //       variables: { Id: localStorage.getItem("currentuserId") }
-        //     }
-        //   ];
-        // }}
       >
         {newTask => (
           <div className="create-task-container">

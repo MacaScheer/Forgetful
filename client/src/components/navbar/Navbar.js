@@ -16,11 +16,11 @@ class Navbar extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
-  toggleDropdown(e) {
+  async toggleDropdown(e) {
     e.preventDefault();
-    const container = document.getElementById("st-container");
-    const tasks = document.getElementById("tasks-container");
-    const summary = document.getElementById("right-side");
+    const container = await document.getElementById("st-container");
+    const tasks = await document.getElementById("tasks-container");
+    const summary = await document.getElementById("right-side");
     this.setState({
       showDropdown: !this.state.showDropdown
     });
