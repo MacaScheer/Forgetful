@@ -43,15 +43,11 @@ class TaskIndex extends React.Component {
       refetch: null
     };
     this.selectTask = this.selectTask.bind(this);
-    // this.toggleDropdown = this.toggleDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.runSearch = this.runSearch.bind(this);
   }
 
-  
-
   componentDidUpdate(prevProps) {
-    // debugger
     if (prevProps.match.url !== this.props.match.url) {
       const URL = this.props.history.location.pathname;
       let URLArray = URL.split("/").filter(Boolean);
@@ -66,9 +62,8 @@ class TaskIndex extends React.Component {
       }
       const trigger = URLArray[0] === "all" ? false : true;
 
-      this.setState({keys: key, input: input, trigger: trigger})
-    } 
-    // debugger
+      this.setState({ keys: key, input: input, trigger: trigger });
+    }
   }
 
   runSearchResult(tasks) {
@@ -163,18 +158,6 @@ class TaskIndex extends React.Component {
     return result;
   }
 
-  // toggleDropdown() {
-  //   const dropdown = document.getElementById("profile-dropdown");
-  //   this.setState({
-  //     hidden: !this.state.hidden
-  //   });
-
-  //   if (this.state.hidden) {
-  //     dropdown.classList.remove("hide-dropdown");
-  //   } else {
-  //     dropdown.classList.add("hide-dropdown");
-  //   }
-  // }
 
   handleChange(e) {
     e.preventDefault();
@@ -200,12 +183,9 @@ class TaskIndex extends React.Component {
     }
   }
 
-
-
   render() {
     const cid = localStorage.getItem("currentuserId");
-    const trigger = this.state.trigger;
-    const {showPage} = this.state
+    const { showPage, trigger } = this.state;
     return (
       <ApolloConsumer>
         {client => (
@@ -215,7 +195,9 @@ class TaskIndex extends React.Component {
               if (error) return `Error! ${error.message}`;
               if (data.user.tasks) {
                 // debugger
-                const summary = this.runSearch(data.user);
+                const summary = trigger
+                  ? this.runSearch(data.user)
+                  : data.user.tasks;
                 return (
                   <div className="task-index-container">
                     <div className="task-index-wrapper">
@@ -229,21 +211,22 @@ class TaskIndex extends React.Component {
                               <div className="task-summary" id="task-summary">
                                 <TaskSummary
                                   group={this.state.input}
-                                  isAll={true}
-                                  data={data}
+                                  isAll={this.state.input === "all"}
+                                  data={summary}
                                 />
                               </div>
                             </div>
                             <div className="task-show-container">
-                              
-                              <div className="task-show-page show-move-right" id="task-show">
-                              {showPage ? (
+                              <div
+                                className="task-show-page show-move-right"
+                                id="task-show"
+                              >
+                                {showPage ? (
                                   <TaskShow taskId={this.state.taskId} />
-                                  ) : (
-                                    <div />
-                                    )}
-                              
-                                    </div>
+                                ) : (
+                                  <div />
+                                )}
+                              </div>
                             </div>
                           </div>
                           <div
@@ -257,42 +240,23 @@ class TaskIndex extends React.Component {
                             </div>
                             <div className="task-list-container">
                               <div className="task-list">
-                                {trigger
-                                  ? this.runSearch(data.user).map((task, i) => (
-                                      <div>
-                                        <div
-                                          className="task-list-item"
-                                          key={i}
-                                        ></div>
-                                        <Taskline
-                                          showPage={this.state.showPage}
-                                          selectTask={this.selectTask}
-                                          url={this.state.url}
-                                          _id={task._id}
-                                          taskId={this.state.taskId}
-                                          name={task.name}
-                                        client={client}
-                                        />
-                                      </div>
-                                    ))
-                                  : data.user.tasks.map((task, i) => (
-                                      <div>
-                                        <div
-                                          className="task-list-item"
-                                          key={i}
-                                        ></div>
-                                        <Taskline
-                                          showPage={this.state.showPage}
-                                          selectTask={this.selectTask}
-                                          url={this.state.url}
-                                          _id={task._id}
-                                          taskId={this.state.taskId}
-                                          name={task.name}
-                                        client={client}
-                                        
-                                        />
-                                      </div>
-                                    ))}
+                                {summary.map((task, i) => (
+                                  <div>
+                                    <div
+                                      className="task-list-item"
+                                      key={i}
+                                    ></div>
+                                    <Taskline
+                                      showPage={this.state.showPage}
+                                      selectTask={this.selectTask}
+                                      url={this.state.url}
+                                      _id={task._id}
+                                      taskId={this.state.taskId}
+                                      name={task.name}
+                                      client={client}
+                                    />
+                                  </div>
+                                ))}
                               </div>
                             </div>
                           </div>
