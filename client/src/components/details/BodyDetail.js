@@ -83,7 +83,7 @@ class BodyDetail extends React.Component {
                         </IconContext.Provider>
                     </div> */}
           {/* <h2>Body: </h2> */}
-          <p ref={this.Ref} onClick={this.handleEdit}>
+          <p className="body-Tagbox" ref={this.Ref} onClick={this.handleEdit}>
             Body: {this.state.body}
           </p>
         </div>
