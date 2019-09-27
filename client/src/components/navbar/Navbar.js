@@ -18,9 +18,9 @@ class Navbar extends React.Component {
 
   toggleDropdown(e) {
     e.preventDefault();
-    const container =  document.getElementById("st-container");
-   const tasks =  document.getElementById("tasks-container");
-   const summary =  document.getElementById("right-side");
+    const container = document.getElementById("st-container");
+    const tasks = document.getElementById("tasks-container");
+    const summary = document.getElementById("right-side");
     this.setState({
       showDropdown: !this.state.showDropdown
     });
@@ -47,7 +47,11 @@ class Navbar extends React.Component {
       <ApolloConsumer>
         {client => (
           <Query query={IS_LOGGED_IN}>
-            {({ data }) => {
+            {({ data, loading }) => {
+              if (loading) {
+                return "Loading...";
+              }
+
               if (data.isLoggedIn) {
                 return (
                   <div className="toolbar">
