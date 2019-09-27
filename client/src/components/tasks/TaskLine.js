@@ -18,7 +18,7 @@ class CheckLine extends React.Component {
     this.completeTask = this.completeTask.bind(this);
     this.incompleteTask = this.incompleteTask.bind(this);
     this.handleDelete = this.handleDelete;
-    this.props.selectTask = this.props.selectTask.bind(this);
+    // this.props.selectTask = this.props.selectTask.bind(this);
   }
 
   handleChange(e) {

@@ -156,7 +156,7 @@ class CreateTask extends React.Component {
 
   updateCache(cache, { data }) {
     let tasks;
-    debugger;
+    // debugger;
     try {
       const id = localStorage.getItem("currentuserId");
 

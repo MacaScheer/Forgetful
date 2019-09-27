@@ -13,6 +13,7 @@ export default {
           _id
           name
           due_date
+          start_date
         }
         tags {
           tasks {
