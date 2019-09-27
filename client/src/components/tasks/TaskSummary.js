@@ -4,15 +4,11 @@ import "../stylesheets/tasksummary.scss";
 export default class TaskSummary extends Component {
   constructor(props) {
     super(props);
-    this.props.isAll
-      ? (this.state = {
-          tasks: this.props.data,
-          isAll: this.props.isAll
-        })
-      : (this.state = {
-          tasks: this.props.data,
+    this.state = {
+      tasks: this.props.data,
+      numOfTasks: this.props.data.length,
           group: this.props.group
-        });
+        }
 
     this.state.group =
       this.props.group === "all"
@@ -22,6 +18,10 @@ export default class TaskSummary extends Component {
   }
   capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  componentDidUpdate(prevProps) {
+    // debugger
+    if( this.props.data !== prevProps.data)this.setState({numOfTasks: this.props.data.length})
   }
   dueDates(tasks) {
     let today = new Date();
@@ -52,7 +52,7 @@ export default class TaskSummary extends Component {
         <div className="sum-count-box" id="sum-count-box">
           <div className="sum-count">
             <div className="sum-count-txt">
-              <div className="color-number">{this.state.tasks.length}</div>
+              <div className="color-number">{this.state.numOfTasks}</div>
               <div>tasks</div>
             </div>
           </div>
