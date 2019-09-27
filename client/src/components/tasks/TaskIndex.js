@@ -249,6 +249,9 @@ class TaskIndex extends React.Component {
                                       key={i}
                                     ></div>
                                     <Taskline
+                                      // object={task}
+                                      filterkey={this.state.keys}
+                                      filtername={this.state.input}
                                       showPage={this.state.showPage}
                                       selectTask={this.selectTask}
                                       url={this.state.url}
