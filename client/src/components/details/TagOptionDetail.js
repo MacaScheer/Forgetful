@@ -48,7 +48,6 @@ export default class TagOption extends Component {
     }
 
     binder() {
-        this.props.inputAdder(this.state.name);
         this.props.stateBinder({
             tagId: this.state.tagId
         });
@@ -56,6 +55,7 @@ export default class TagOption extends Component {
 
     render() {
         const cid = localStorage.getItem("currentuserId");
+        // debugger
         return (
             <Query query={FETCH_USER} variables={{ Id: cid }}>
                 {({ loading, error, data }) => {
@@ -72,7 +72,15 @@ export default class TagOption extends Component {
                                                 key={i}
                                                 value={tag._id}
                                                 name={tag.name}
-                                                onClick={this.updateState}
+                                                // onClick={this.updateState}
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    return this.props.updateTaskTag({
+                                                        taskID: this.props.id,
+                                                        tagID: e.currentTarget.value    
+                                                    })
+                                                }}
+                                                type="submit"
                                             >
                                                 {tag.name}
                                             </button>
