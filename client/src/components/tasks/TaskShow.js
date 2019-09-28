@@ -18,21 +18,8 @@ const { FETCH_TASK } = queries;
 class TaskShow extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   id: props.taskId
-    // };
   }
-  // shouldComponentUpdate(nextProps) {
-  //   if (nextProps.taskId !== this.props.taskId) {
-  //     this.setState({
-  //       id: nextProps.taskId
-  //     });
-  //     console.log("nextProps", nextProps.taskId);
-  //     console.log("props.taskId", this.props.taskId);
-  //     return true;
-  //   }
-  //   return false
-  // }
+
 
   render() {
     const id = this.props.taskId;
@@ -44,7 +31,7 @@ class TaskShow extends React.Component {
           if (error) return `Error! ${error.message}`;
           let tags = data.task.tags;
 
-          debugger;
+          // debugger;
           return (
             <div className="task-show-content">
               <div className="task-show">

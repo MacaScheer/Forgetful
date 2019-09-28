@@ -8,28 +8,16 @@ const { UPDATE_TASK_TAG} = mutations;
 
 class TagDetail extends React.Component {
     constructor(props) {
-        // debugger;
         super(props);
-        let arr = [];
-        // if (this.props.tags.length < 1){
-        // this.props.tags.forEach(tag => {
-        //     arr.push(tag.name);
-        // })};
+     
        
         this.state = {
-            input: "",
             editing: false,
             changes: true,
-            body: this.props.body || "",
-            tags: this.props.tags || "",
             tagId: "",
-            tags: this.props.tags,
-            tagNames: arr,
             tagName: ""
         };
-        this.Ref = React.createRef();
         this.handleEdit = this.handleEdit.bind(this);
-        // this.handleClick = this.handleClick.bind(this);
         this.inputAdder = this.inputAdder.bind(this);
         this.stateBinder = this.stateBinder.bind(this);
         this.toggleOffEditing = this.toggleOffEditing.bind(this);
@@ -50,7 +38,6 @@ class TagDetail extends React.Component {
     }
     toggleOffEditing(e) {
         if (this.state.editing && !e.target.className.includes("task-tag")) {
-            // debugger
             
             this.setState({ editing: false })
         }
@@ -69,9 +56,12 @@ class TagDetail extends React.Component {
 
     }
 
+    componentDidUpdate(prevProps) {
+        debugger
+    }
+
     render() {
        
-        // debugger
         if (this.state.editing) {
             return (
                 <Mutation
@@ -117,7 +107,7 @@ class TagDetail extends React.Component {
                             Tags: 
                         </p>
                     <div className="Tagbox-tag" onClick={this.handleEdit}>
-                        {this.state.tags.map((ele, i) => (
+                        {this.props.tags.map((ele, i) => (
                             <div className="tags">
                                     <i class="fas fa-tags"></i> {ele.name}
                             </div>
