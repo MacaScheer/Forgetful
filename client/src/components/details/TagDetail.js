@@ -24,7 +24,8 @@ class TagDetail extends React.Component {
             tags: this.props.tags || "",
             tagId: "",
             tags: this.props.tags,
-            tagNames: arr
+            tagNames: arr,
+            tagName: ""
         };
         this.Ref = React.createRef();
         this.handleEdit = this.handleEdit.bind(this);
@@ -69,8 +70,8 @@ class TagDetail extends React.Component {
     }
 
     render() {
-        // debugger;
-        
+       
+
         if (this.state.editing) {
             return (
                 <Mutation
@@ -109,35 +110,23 @@ class TagDetail extends React.Component {
             );
         } else {
             
-            this.state.tags.forEach(tag => {
-                let temp = tag.name;
-                this.state.tagNames.push(temp)
-            });
-            
-            this.state.tagNames.push(this.state.tagName);
-            this.state.tagNames = [...new Set(this.state.tagNames)]
-            // let length = this.state.tagNames.length - 1
-            // if (this.state.tagNames[length] === this.state.tagNames[length - 1] && this.state.tagNames.length > 1) {
-            //     this.state.tagNames.splice(-1, 1);
-            // }
+
             return (
-                <div className="show-task-body">
-                    {/* <div
-                        onClick={this.handleEdit}
-                        style={{ fontSize: "10px", cursor: "pointer", display: "inline" }}
-                    >
-                        
-                    </div> */}
-                    {/* <h2>Body: </h2> */}
-                    <p className="Tagbox" onClick={this.handleEdit}>
-                        
-                        
-                        
-                        <p className="start-words">Tags:</p> &nbsp; {this.state.tagNames}
-                        
-                    </p>
-                    
+                <div>
+                        <p className="tags-start-word">
+                            Tags: 
+                        </p>
+                    <div className="Tagbox-tag" onClick={this.handleEdit}>
+                        {this.state.tags.map((ele, i) => (
+                            <div className="tags">
+                                    <i class="fas fa-tags"></i> {ele.name}
+                            </div>
+                        ))}
+                    </div>
                 </div>
+
+                    
+                
             );
         }
     }

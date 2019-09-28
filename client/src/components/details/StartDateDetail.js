@@ -117,7 +117,7 @@ class StartDateDetail extends React.Component {
                     {/* <h2>Body: </h2> */}
                     <p className="Tagbox" onClick={this.handleEdit}>
 
-                        <p className="start-words">Start_Date:</p>  &nbsp; {this.props.start_date}
+                        <p className="start-words">Start_Date:</p> &nbsp; {this.props.start_date}
                         
                     </p>
 
