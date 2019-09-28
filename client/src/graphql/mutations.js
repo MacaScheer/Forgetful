@@ -36,17 +36,16 @@ export default {
       newTag(name: $name, userId: $userid) {
         name
         _id
-        tasks {
-          name
-          _id
-        }
+       
       }
     }
   `,
   CREATE_LIST: gql`
     mutation CreateList($name: String, $userid: ID!) {
       newList(name: $name, userId: $userid) {
-       name
+        name
+        _id
+        
       }
     }
   `,
@@ -55,10 +54,6 @@ export default {
       newLocation(name: $name, userId: $userid) {
         name
         _id
-        tasks {
-          name
-          _id
-        }
       }
     }
   `,
