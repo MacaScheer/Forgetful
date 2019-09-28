@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
 import Queries from "../../graphql/queries";
+import merge from "lodash/merge";
 const { CREATE_TAG, CREATE_LIST, CREATE_LOCATION } = Mutations;
 const { FETCH_USER } = Queries;
 export default class CreateModal extends Component {
@@ -48,8 +49,8 @@ export default class CreateModal extends Component {
         return (mutation = "error");
     }
   }
-//
-  updateCache(cache, { data }) {
+  //
+  updateCache(cache, data ) {
     let user;
     try {
       const id = localStorage.getItem("currentuserId");
@@ -61,46 +62,62 @@ export default class CreateModal extends Component {
     if (user) {
       const id = localStorage.getItem("currentuserId");
       let newObj = data.Obj;
-
+      let cloned = merge({}, user);
       if (this.props.type === "list") {
-        user.user.lists.push(newObj);
+        cloned.user.lists.push(newObj);
         cache.writeQuery({
           query: FETCH_USER,
           variables: { Id: id },
-          data: { user: user.user }
+          data: { user: cloned.user }
         });
       } else if (this.props.type === "tag") {
-        user.user.tags.push(newObj);
+        cloned.user.tags.push(newObj);
         cache.writeQuery({
           query: FETCH_USER,
           variables: { Id: id },
-          data: { user: user.user }
+          data: { user: cloned.user }
         });
       } else {
-        user.user.locations.push(newObj);
+        cloned.user.locations.push(newObj);
         cache.writeQuery({
           query: FETCH_USER,
           variables: { Id: id },
-          data: { user: user.user }
+          data: { user: cloned.user }
         });
       }
     }
   }
+  grabber(type) {
+    let grabber;
+    switch (this.props.type) {
+      case "list":
+        return (grabber = "list-grab");
+      case "tag":
+        return (grabber = "tag-grab");
+      case "location":
+        return (grabber = "location-grab");
+      default:
+        return (grabber = "error");
+    }
+  }
 
   render() {
-    let mutation;
+    let grabber = this.grabber(this.props.type);
+    // debugger
     return (
       <Mutation
         mutation={this.state.mutation}
         onError={err => this.setState({ message: err.message })}
-        onCompleted={data => {
-          let newObj;
-          this.state.type === "list"
-            ? (newObj = data.newList)
-            : (newObj = data.newTag);
-          const { name } = newObj;
-          console.log(`${name} created succesfully`);
-        }}
+        // onCompleted={data => {
+        //   let newObj;
+        //   if (this.state.type === "list") {
+        //     newObj = data.newList;
+        //   } else if (this.state.type === "tag") {
+        //     newObj = data.newTag;
+        //   } else {
+        //     newObj = data.newLocation;
+        //   }
+        // }}
         update={(cache, data) => this.updateCache(cache, data)}
       >
         {(newObj, { data }) => (
@@ -110,11 +127,13 @@ export default class CreateModal extends Component {
               onSubmit={e => this.handleSubmit(e, newObj)}
             >
               <input
-                className="modal-input"
+                className={`${grabber} modal-input`}
                 onChange={this.update("input")}
                 value={this.state.input}
               />
-              <button className="add-list-button">{`create ${this.props.type}!`}</button>
+              <button
+                className={`${grabber} add-list-button`}
+              >{`create ${this.props.type}!`}</button>
             </form>
           </div>
         )}

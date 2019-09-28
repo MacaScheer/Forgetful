@@ -19,10 +19,12 @@ class TagDetail extends React.Component {
       tagId: "",
       type: "tag"
     };
+    this.renderEdit = this.renderEdit.bind(this);
     this.updateState = this.updateState.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleOffEditing = this.toggleOffEditing.bind(this);
+    this.closer = this.closer.bind(this)
   }
   componentDidUpdate(prevprops) {
     // debugger
@@ -50,7 +52,7 @@ class TagDetail extends React.Component {
     document.removeEventListener("mousedown", this.toggleOffEditing);
   }
   toggleOffEditing(e) {
-    if (this.state.editing && !e.target.className.includes("task-tag")) {
+    if (this.state.editing && !e.target.className.includes("tag-grab")) {
       this.setState({ editing: false });
     }
   }
@@ -72,97 +74,96 @@ class TagDetail extends React.Component {
       return;
     }
     if (task) {
-
-        const cloned = merge({}, task);
+      const cloned = merge({}, task);
       const newTag = data.updateTaskTag;
       cloned.task.tags.push(newTag);
       cache.writeQuery({
         query: FETCH_TASK,
         variables: { Id: this.props.id },
         data: { task: cloned.task }
-
       });
     }
   }
-  render() {
-    if (this.state.editing) {
-      return (
-        <ApolloConsumer>
-          {client => {
-            const id = localStorage.getItem("currentuserId");
+  renderEdit() {
+    return this.state.editing ? (
+      <ApolloConsumer>
+        {client => {
+          const id = localStorage.getItem("currentuserId");
 
-            const userData = client.readQuery({
-              query: FETCH_USER,
-              variables: { Id: id }
-            });
-            return (
-              <Mutation
-                mutation={UPDATE_TASK_TAG}
-                onError={err => this.setState({ message: err.message })}
-                
-                update={(cache, data) => this.updateCache(cache, data)}
-              >
-                {updateTaskTag => (
-                  <div>
-                    <form
-                      onSubmit={e => {
-                        e.preventDefault();
-                        updateTaskTag({
-                          variables: {
-                            taskID: this.props.id,
-                            tagID: this.state.tagId
-                          }
-                        }).then(res => {
-                          this.setState({ editing: false, changes: true });
-                        });
-                      }}
-                    >
-                      <div>
-                        <div className="task-list-container">
-                          <div className="task-list task-list-filter">
-                            {userData.user.tags.map((tag, i) => (
-                              <button
-                                className="task-tag task-list-items tag"
-                                key={i}
-                                value={tag._id}
-                                name={tag.name}
-                                onClick={this.updateState}
-                              >
-                                {tag.name}
-                              </button>
-                            ))}
+          const userData = client.readQuery({
+            query: FETCH_USER,
+            variables: { Id: id }
+          });
+          return (
+            <Mutation
+              mutation={UPDATE_TASK_TAG}
+              onError={err => this.setState({ message: err.message })}
+              update={(cache, data) => this.updateCache(cache, data)}
+            >
+              {updateTaskTag => (
+                <div>
+                  <form
+                    onSubmit={e => {
+                      e.preventDefault();
+                      updateTaskTag({
+                        variables: {
+                          taskID: this.props.id,
+                          tagID: this.state.tagId
+                        }
+                      }).then(res => {
+                        this.setState({ editing: false, changes: true });
+                      });
+                    }}
+                  >
+                    <div>
+                      <div className="task-list-container">
+                        <div className="task-list task-list-filter">
+                          {userData.user.tags.map((tag, i) => (
                             <button
-                              className="task-tag add-list-button"
-                              onClick={this.toggleModal}
+                              className="tag-grab task-list-items tag"
+                              key={i}
+                              value={tag._id}
+                              name={tag.name}
+                              onClick={this.updateState}
                             >
-                              Create New Tag
+                              {tag.name}
                             </button>
-                          </div>
+                          ))}
+                          <button
+                            className="tag-grab add-list-button"
+                            onClick={this.toggleModal}
+                          >
+                            Create New Tag
+                          </button>
                         </div>
-                        {this.renderModal()}
                       </div>
-                    </form>
-                  </div>
-                )}
-              </Mutation>
-            );
-          }}
-        </ApolloConsumer>
-      );
-    } else {
-      return (
-        <div>
-          <p className="tags-start-word">Tags:</p>
-          <div className="Tagbox-tag" onClick={this.handleEdit}>
-            {this.props.tags.map((ele, i) => (
-              <div className="tags">
-                <i class="fas fa-tags"></i> {ele.name}
-              </div>
-            ))}
-          </div>
+                      {this.renderModal()}
+                    </div>
+                  </form>
+                </div>
+              )}
+            </Mutation>
+          );
+        }}
+      </ApolloConsumer>
+    ) : (
+      <div />
+    );
+  }
+  render() {
+    return (
+      <div>
+        <p className="tags-start-word">Tags:</p>
+        <div className="Tagbox-tag" onClick={this.handleEdit}>
+          {this.props.tags.map((ele, i) => (
+            <div className="tags">
+              <i class="fas fa-tags"></i> {ele.name}
+            </div>
+          ))}
         </div>
-      );
-    }
+        {this.renderEdit()}
+      </div>
+    );
   }
 }
 
