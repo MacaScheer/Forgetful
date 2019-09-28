@@ -61,6 +61,17 @@ export default {
   FETCH_TASK: gql`
     query FetchTask($Id: ID!) {
       task(_id: $Id) {
+        tags{
+          name
+          _id
+        }
+        list{
+          _id
+          name
+        }
+        location{
+          name
+        }
         _id
         name
         due_date
@@ -68,18 +79,7 @@ export default {
         start_date
         priority
         repeat
-        list{
-          _id
-          name
-        }
-        tags{
-          name
-          _id
-        }
-        location{
-          _id
-          name
-        }
+        _id
       }
     }
   `,

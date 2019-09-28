@@ -31,7 +31,7 @@ class TaskShow extends React.Component {
           if (error) return `Error! ${error.message}`;
           let tags = data.task.tags;
 
-          // debugger;
+          debugger;
           return (
             <div className="task-show-content">
               <div className="task-show">
@@ -48,11 +48,7 @@ class TaskShow extends React.Component {
 
                   <ListDetail id={data.task._id} list={data.task.list} />
                   <TagDetail id={data.task._id} tags={data.task.tags} />
-                  {/* <PriorityDetail
-                  id={data.task._id}
-                  priority={data.task.priority}
-                /> */}
-                  {/* <RepeatDetail id={data.task._id} repeat={data.task.repeat} /> */}
+                  {/* <RepeatDetail id={data.task._id} ={data.task.repeat} /> */}
                   <LocationDetail
                     id={data.task._id}
                     location={data.task.location}
