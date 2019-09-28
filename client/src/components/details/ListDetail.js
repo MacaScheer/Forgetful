@@ -16,18 +16,24 @@ class ListDetail extends React.Component {
     }
     this.state = {
       input: "",
+      type: "list",
       editing: false,
       changes: true,
-      body: this.props.body || "",
       list: this.props.list || "",
       listId: "",
-      listName: temp
+      render: false
     };
+    this.renderEdit = this.renderEdit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.stateBinder = this.stateBinder.bind(this);
     this.updateState = this.updateState.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleOffEditing = this.toggleOffEditing.bind(this);
+    this.closer = this.closer.bind(this)
+
+  }
+  closer() {
+    this.setState({ render: false });
   }
   renderModal() {
     return this.state.render ? (
@@ -96,80 +102,83 @@ class ListDetail extends React.Component {
       });
     }
   }
-  render() {
-    if (this.state.editing) {
-      return (
-        <ApolloConsumer>
-          {client => {
-            const id = localStorage.getItem("currentuserId");
 
-            const userData = client.readQuery({
-              query: FETCH_USER,
-              variables: { Id: id }
-            });
-            return (
-              <Mutation
-                mutation={UPDATE_TASK_LIST}
-                onError={err => this.setState({ message: err.message })}
-                update={(cache, data) => this.updateCache(cache, data)}
-              >
-                {updateTaskList => (
-                  <div>
-                    <form
-                      onSubmit={e => {
-                        e.preventDefault();
-                        updateTaskList({
-                          variables: {
-                            taskID: this.props.id,
-                            listID: this.state.listId
-                          }
-                        }).then(
-                          this.setState({ editing: false, changes: true })
-                        );
-                      }}
-                    >
-                      <div>
-                        <div className=" task-list-container">
-                          <div className=" task-list task-list-filter">
-                            {userData.user.lists.map((list, i) => (
-                              <button
-                                className="task-grab task-tag task-list-items tag"
-                                key={i}
-                                value={list._id}
-                                name={list.name}
-                                onClick={this.updateState}
-                              >
-                                {list.name}
-                              </button>
-                            ))}
-                          </div>
-                          <button
-                            className="add-list-button"
-                            onClick={this.toggleModal}
-                          >
-                            Create New List
-                          </button>
+  renderEdit() {
+    return this.state.editing ? (
+      <ApolloConsumer>
+        {client => {
+          const id = localStorage.getItem("currentuserId");
+
+          const userData = client.readQuery({
+            query: FETCH_USER,
+            variables: { Id: id }
+          });
+          return (
+            <Mutation
+              mutation={UPDATE_TASK_LIST}
+              onError={err => this.setState({ message: err.message })}
+              update={(cache, data) => this.updateCache(cache, data)}
+            >
+              {updateTaskList => (
+                <div>
+                  <form
+                    onSubmit={e => {
+                      e.preventDefault();
+                      updateTaskList({
+                        variables: {
+                          taskID: this.props.id,
+                          listID: this.state.listId
+                        }
+                      }).then(this.setState({ editing: false, changes: true }));
+                    }}
+                  >
+                    <div>
+                      <div className=" task-list-container">
+                        <div className=" task-list task-list-filter">
+                          {userData.user.lists.map((list, i) => (
+                            <button
+                              className="task-grab task-tag task-list-items tag"
+                              key={i}
+                              value={list._id}
+                              name={list.name}
+                              onClick={this.updateState}
+                            >
+                              {list.name}
+                            </button>
+                          ))}
                         </div>
-                        {this.renderModal()}
+                        <div>
+                        <button
+                          className="task-grab add-list-button"
+                          onClick={this.toggleModal}
+                        >
+                          Create New List
+                        </button>
+                        </div>
                       </div>
-                    </form>
-                  </div>
-                )}
-              </Mutation>
-            );
-          }}
-        </ApolloConsumer>
-      );
-    } else {
-      return (
-        <div className="show-task-body">
-          <p className="Tagbox" onClick={this.handleEdit}>
-            <p className="start-words">List: </p> &nbsp;{" "}
-            {this.props.list ? this.props.list.name : <div />}
-          </p>
-        </div>
-      );
-    }
+                      {this.renderModal()}
+                    </div>
+                  </form>
+                </div>
+              )}
+            </Mutation>
+          );
+        }}
+      </ApolloConsumer>
+    ) : (
+      <div />
+    );
+  }
+  render() {
+    return (
+      <div className="show-task-body">
+        <p className="Tagbox" onClick={this.handleEdit}>
+          <p className="start-words">List: </p> &nbsp;{" "}
+          {this.props.list ? this.props.list.name : <div />}
+        </p>
+        {this.renderEdit()}
+      </div>
+    );
   }
 }
 
