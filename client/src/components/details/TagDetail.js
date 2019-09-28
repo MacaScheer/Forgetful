@@ -110,8 +110,7 @@ class TagDetail extends React.Component {
             );
         } else {
             
-          
-            
+
             return (
                 <div>
                         <p className="tags-start-word">
