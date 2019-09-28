@@ -75,6 +75,7 @@ class TagDetail extends React.Component {
     }
     if (task) {
       // debugger
+
         const cloned = merge({}, task);
       // if (!cloned[0]) cloned[0] = this.state.tagId
       const newTag = data.updateTaskTag;
@@ -84,6 +85,7 @@ class TagDetail extends React.Component {
         query: FETCH_TASK,
         variables: { Id: this.props.id },
         data: { task: cloned.task }
+
       });
     }
   }
@@ -99,6 +101,7 @@ class TagDetail extends React.Component {
               query: FETCH_USER,
               variables: { Id: id }
             });
+            // debugger;
             return (
               <Mutation
                 mutation={UPDATE_TASK_TAG}

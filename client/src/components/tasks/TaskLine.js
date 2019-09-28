@@ -116,14 +116,6 @@ class CheckLine extends React.Component {
         mutation={DELETE_TASK}
         onError={err => this.setState({ message: err.message })}
         update={(cache, data) => this.updateCache(cache, data)}
-        // refetchQueries={() => {
-        //   return [
-        //     {
-        //       query: FETCH_USER,
-        //       variables: { Id: localStorage.getItem("currentuserId") }
-        //     }
-        //   ];
-        // }}
       >
         {deleteTask => (
           <div className="task-line-container">

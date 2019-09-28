@@ -112,7 +112,6 @@ class TaskIndex extends React.Component {
       let weekDayString = dayARR[0];
       let dayINT = parseInt(dayARR[2]);
       let tomINT = dayINT + 1;
-      let nextDATE;
       let taskList = [];
       let dueDateList = [];
       if (input === "today") {

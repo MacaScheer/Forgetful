@@ -1,47 +1,11 @@
 # Forgetful
 
+Primarily built with the combination of following technologies:
+MongoDB, GraphQL, Apollo, React, Node, Docker
+
 https://forgetful-task-management.herokuapp.com/
 
 Forgetful lets people keep track of daily/weekly tasks.
-
-# Background and Overview
-
-Forgetful is a minimal viable product that tackles three challenges in application development, software engineering, and user experience.
-
-Primarily built with the combination of following technologies:
-
-- MongoDB
-- GraphQL
-- Apollo
-- React
-- Node
-
-# Functionality and MVP
-
-- Task CRUD
-- Lists
-- List Summary
-- Search
-
-**TBD**
-
-# Technologies and Technical Challenges
-
-### Site Map
-
-- Auth
-  - Register
-  - Login
-  - Logout
-- Feed
-
-  - Tasks
-  - Lists
-  - Tags
-
-- Show - Task
-- Index - Tasks
-- Index - Tags
 
 ### Apollo Client
 
@@ -103,24 +67,190 @@ Primarily built with the combination of following technologies:
     }
 }
 ```
+# Frontend Mutations
+```
 
-Backend:
+  CREATE_TASK: gql`
+    mutation newTask(
+      $name: String
+      $due_date: String
+      $start_date: String
+      $locationId: String
+      $tagId: String
+      $listId: String
+      $userId: String
+    ) {
+      newTask(
+        name: $name
+        due_date: $due_date
+        start_date: $start_date
+        locationId: $locationId
+        tagId: $tagId
+        listId: $listId
+        userId: $userId
+      ) {
+        name
+        _id
+        due_date
+        start_date
+        
+      }
+    }
+  `,
+  ```
+```
+  FETCH_USER: gql`
+    query FetchUser($Id: ID!) {
+      user(_id: $Id) {
+        tasks {
+          _id
+          name
+          due_date
+          start_date
+        }
+        tags {
+          tasks {
+            _id
+            name
+          }
+          name
+          _id
+        }
+        lists {
+          name
+          _id
+          tasks {
+            _id
+            name
+          }
+        }
 
-- Mongodb
-- Nodejs
-- GraphL
-- Express
+        trash{
+          _id
+          name
+        }
+        locations{
+          _id
 
-Frontend:
+          name
+          tasks{
+            _id
+            name
+          }
+        }
+      }
+    }
+  `,
+  ```
 
-- React
-- Apollo
 
-DevOps:
+```
+  attributeUpdater(data, id) {
+    const clonedData = merge([], data[this.props.filterkey]);
+    let itemIdx;
+    clonedData.forEach((ele, idx) => {
+      if (ele.name === this.props.filtername) itemIdx = idx;
+    });
+    clonedData[itemIdx].tasks.forEach((ele, idx) => {
+      if (ele._id === id) clonedData[itemIdx].tasks.splice(idx, 1);
+    });
+    return clonedData;
+  }
+```
 
-- Docker
+```
 
-# Group Members and Work Plan Breakdown
+  runSearchResult(tasks) {
+    let input = localStorage.getItem("userInput");
+    const options = {
+      keys: ["due_date", "body", "name"],
+      shouldSort: true,
+      tokenize: true,
+      findAllMatches: true,
+      threshold: 0.2,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1
+    };
+    let fuse = new Fuse(tasks.tasks, options);
+    let result = fuse.search(input);
+    return result;
+  }
+
+  runSearch(data) {
+    if (this.state.keys === "search") return this.runSearchResult(data);
+    const check = this.state.urlLength === 1;
+    const modifiedData = check ? data.tasks : data[this.state.keys];
+    let input = this.state.input;
+    const filterKey = check ? this.state.keys : "name";
+    const options = {
+      keys: [filterKey],
+      shouldSort: true,
+      tokenize: true,
+      findAllMatches: true,
+      threshold: 0.2,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1
+    };
+
+    let fuse = new Fuse(modifiedData, options);
+    if (check) {
+      let today = new Date();
+      let todayString = today.toDateString();
+      let dayARR = todayString.split(" ");
+      let weekDayString = dayARR[0];
+      let dayINT = parseInt(dayARR[2]);
+      let tomINT = dayINT + 1;
+      let taskList = [];
+      let dueDateList = [];
+      if (input === "today") {
+        dueDateList.push(todayString);
+      }
+      if (input === "tomorrow") {
+        today.setDate(tomINT);
+        let tomorrowString = today.toDateString();
+        dueDateList.push(tomorrowString);
+      }
+      if (input === "thisweek") {
+        let numsARR = [];
+        if (weekDayString === "Sun") {
+          numsARR = [0, 1, 2, 3, 4, 5, 6, 7];
+        } else if (weekDayString === "Mon") {
+          numsARR = [0, 1, 2, 3, 4, 5, 6];
+        } else if (weekDayString === "Tues") {
+          numsARR = [0, 1, 2, 3, 4, 5];
+        } else if (weekDayString === "Wed") {
+          numsARR = [0, 1, 2, 3, 4];
+        } else if (weekDayString === "Thurs") {
+          numsARR = [0, 1, 2, 3];
+        } else if (weekDayString === "Fri") {
+          numsARR = [0, 1, 2];
+        } else if (weekDayString === "Sat") {
+          numsARR = [0, 1];
+        }
+        numsARR.forEach(num => {
+          today.setDate(dayINT + num);
+          let weekString = today.toDateString();
+          dueDateList.push(weekString);
+        });
+      }
+      fuse.list.forEach(task => {
+        let due_date = task.due_date;
+        if (dueDateList.includes(due_date)) {
+          taskList.push(task);
+        }
+      });
+      return taskList;
+    }
+
+    const result =
+      input === "trash" ? fuse.list : fuse.search(input)[0]["tasks"];
+    return result;
+  }
+```
 
 ## Team
 
@@ -128,19 +258,3 @@ DevOps:
 - Cameron Farina
 - Mac Scheer
 - Paul Kil Woung Choi
-
-## Plan
-
-- Day 1
-
-  - Session Auth API Setup
-  - Schema, Types, Models, Queries, Mutations
-  - Mongodb Setup
-
-- Day 2
-
-* Day 3
-
-- Day 4
-
-* Day 5

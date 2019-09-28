@@ -43,7 +43,9 @@ export default class LocationOption extends Component {
         name: e.target.name,
         locationId: e.target.value
       },
-      () => { this.binder() }
+      () => {
+        this.binder();
+      }
     );
   }
 
@@ -76,7 +78,12 @@ export default class LocationOption extends Component {
                       </button>
                     ))}
                   </div>
-                  <button onClick={this.toggleModal} className="add-list-button">Add Location</button>
+                  <button
+                    onClick={this.toggleModal}
+                    className="add-list-button"
+                  >
+                    Add Location
+                  </button>
                 </div>
                 {this.renderModal()}
               </div>
