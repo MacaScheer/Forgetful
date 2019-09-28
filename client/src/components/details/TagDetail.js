@@ -17,8 +17,8 @@ class TagDetail extends React.Component {
       changes: true,
       tagId: ""
     };
-      this.updateState = this.updateState.bind(this);
-      this.handleEdit = this.handleEdit.bind(this)
+    this.updateState = this.updateState.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     // this.stateBinder = this.stateBinder.bind(this);
     this.toggleOffEditing = this.toggleOffEditing.bind(this);
   }
@@ -41,18 +41,18 @@ class TagDetail extends React.Component {
     }
   }
 
-//   fieldUpdate(field) {
-//     return e => this.setState({ [field]: e.target.value });
-//   }
-    updateState(e) {
-        e.preventDefault();
-        // debugger
-        this.setState({tagId: e.currentTarget.value })
-    }
+  //   fieldUpdate(field) {
+  //     return e => this.setState({ [field]: e.target.value });
+  //   }
+  updateState(e) {
+    // e.preventDefault();
+    // debugger
+    this.setState({ tagId: e.currentTarget.value });
+  }
 
-//   stateBinder(value) {
-//     this.setState({ tagId: value });
-//   }
+  //   stateBinder(value) {
+  //     this.setState({ tagId: value });
+  //   }
   updateCache(cache, data) {
     // debugger;
   }
@@ -73,6 +73,7 @@ class TagDetail extends React.Component {
                 mutation={UPDATE_TASK_TAG}
                 onError={err => this.setState({ message: err.message })}
                 onCompleted={data => {
+                  // debugger
                   this.setState({ editing: false, changes: true });
                 }}
                 update={(cache, data) => this.updateCache(cache, data)}
@@ -82,11 +83,11 @@ class TagDetail extends React.Component {
                     <form
                       onSubmit={e => {
                         e.preventDefault();
-                        // debugger;
+                        debugger;
                         updateTaskTag({
                           variables: {
                             taskID: this.props.id,
-                            tagID: this.state.tagId.tagId
+                            tagID: this.state.tagId
                           }
                         }).then(res => {
                           this.setState({ editing: false, changes: true });
@@ -96,15 +97,28 @@ class TagDetail extends React.Component {
                       <div>
                         <div className="task-list-container">
                           <div className="task-list task-list-filter">
-                            {userData.user.tags.map((tag, i) => (
-                              <button
-                                className="task-tag task-list-items tag"
-                                key={i}
-                                value={tag._id}
-                                name={tag.name}
-                                onClick={this.updateState}
+                                            {userData.user.tags.map((tag, i) => (
+                                                <button
+                                                    className="task-tag task-list-items tag"
+                                                    key={i}
+                                                    value={tag._id}
+                                                    name={tag.name}
+                                                    //     onClick={e => {
+                                                    //         e.preventDefault()
+                                                    //         // debugger
+                                                    //         this.setState({ tagId: e.currentTarget.value }, () => (
+                                                    //             updateTaskTag({
+                                                    //                 variables: {
+                                                    //                     taskId: this.props.id,
+                                                    //                     tagId: e.currentTarget.value
+                                                    //                 }
+                                                    //             })
+                                                    //         ))
 
-                                type="submit"
+                                                    // }}
+                                                    onClick={this.updateState}
+                                                    // type="submit"
+                                  
                               >
                                 {tag.name}
                               </button>
