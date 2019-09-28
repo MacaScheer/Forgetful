@@ -84,7 +84,7 @@ class BodyDetail extends React.Component {
                     </div> */}
           {/* <h2>Body: </h2> */}
           <p className="body-Tagbox" ref={this.Ref} onClick={this.handleEdit}>
-            Body: {this.state.body}
+            <p className="start-words"> Body:</p> &nbsp; {this.state.body}
           </p>
         </div>
       );

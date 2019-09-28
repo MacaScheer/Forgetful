@@ -10,6 +10,8 @@ import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
 import { HashRouter } from "react-router-dom";
 import Mutations from "../src/graphql/mutations";
+import 'font-awesome/css/font-awesome.min.css';
+
 const { VERIFY_USER } = Mutations;
 
 const cache = new InMemoryCache({
