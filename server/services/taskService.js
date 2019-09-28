@@ -17,8 +17,6 @@ const createTask = async data => {
       listId,
       userId
     } = data;
-    console.log("test");
-    console.log(data);
     const existinguser = await User.findById(userId);
     const existinglist = listId
       ? await List.findById(listId)
@@ -29,7 +27,6 @@ const createTask = async data => {
     const existinglocation = locationId
       ? await Location.findById(locationId)
       : console.log("nolocation");
-    console.log("test2");
     const location = locationId ? locationId : null;
     const tag = tagId ? tagId : null;
     const list = listId ? listId : null;
@@ -37,7 +34,6 @@ const createTask = async data => {
     if (!due_date) due_date = "never";
     if (!start_date) start_date = "never";
 
-    console.log("test6");
     const task = new Task(
       {
         name,
@@ -51,21 +47,16 @@ const createTask = async data => {
         if (err) throw new Error("herestheissue");
       }
     );
-    if(tag)task.tags.push(tag)
+    if (tag) task.tags.push(tag);
     task.save();
-    console.log("test2");
     if (existinguser) existinguser.tasks.push(task._id);
     if (existinglist) existinglist.tasks.push(task._id);
     if (existingtag) existingtag.tasks.push(task._id);
     if (existinglocation) existinglocation.tasks.push(task._id);
-    console.log("test4");
-
-    console.log("test5");
     if (existinglist) existinglist.save();
     if (existingtag) existingtag.save();
     if (existinglocation) existinglocation.save();
     existinguser.save();
-    console.log("complete");
     console.log(task);
     return { ...task._doc };
   } catch (err) {
@@ -75,9 +66,10 @@ const createTask = async data => {
 
 const checkTagUniqueness = async data => {
   try {
+    console.log("start");
     const { name, userId } = data;
-    const user = await User.findById(userId);
     const tag = await new Tag({ name, userId });
+    const user = await User.findById(userId);
     const tagId = await tag._id;
     const existingtags = await Tag.find({ name: name });
     existingtags.forEach(tag => {
@@ -88,6 +80,8 @@ const checkTagUniqueness = async data => {
     user.tags.push(tagId);
     user.save();
     tag.save();
+    console.log(tag);
+    // return { ...tag._doc };
     return { ...tag._doc };
   } catch (err) {
     throw err;
@@ -111,6 +105,7 @@ const checkListUniqueness = async data => {
     user.save();
     list.save();
     console.log("complete");
+    console.log(list);
     return { ...list._doc };
   } catch (err) {
     throw err;
@@ -147,7 +142,16 @@ const updateTask = async data => {
   try {
     const updateObj = {};
 
-    const { _id, name, due_date, start_date, body, priority, repeat, location } = data;
+    const {
+      _id,
+      name,
+      due_date,
+      start_date,
+      body,
+      priority,
+      repeat,
+      location
+    } = data;
     if (_id) updateObj._id = _id;
     if (name) updateObj.name = name;
     if (due_date) updateObj.due_date = due_date;
@@ -165,7 +169,7 @@ const updateTask = async data => {
         // console.log(`task = ${task}`);
         return task;
       }
-    )
+    );
     // .then(res => console.log(`res = ${res}`));
   } catch (err) {
     return err;

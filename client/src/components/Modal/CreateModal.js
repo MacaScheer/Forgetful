@@ -50,7 +50,7 @@ export default class CreateModal extends Component {
     }
   }
   //
-  updateCache(cache, data ) {
+  updateCache(cache, { data }) {
     let user;
     try {
       const id = localStorage.getItem("currentuserId");
@@ -61,9 +61,11 @@ export default class CreateModal extends Component {
     }
     if (user) {
       const id = localStorage.getItem("currentuserId");
-      let newObj = data.Obj;
+      let newObj;
       let cloned = merge({}, user);
       if (this.props.type === "list") {
+        newObj = data.newList;
+        newObj["tasks"] = [];
         cloned.user.lists.push(newObj);
         cache.writeQuery({
           query: FETCH_USER,
@@ -71,6 +73,9 @@ export default class CreateModal extends Component {
           data: { user: cloned.user }
         });
       } else if (this.props.type === "tag") {
+        newObj = data.newTag;
+        newObj["tasks"] = [];
+
         cloned.user.tags.push(newObj);
         cache.writeQuery({
           query: FETCH_USER,
@@ -78,6 +83,8 @@ export default class CreateModal extends Component {
           data: { user: cloned.user }
         });
       } else {
+        newObj = data.newLocation;
+        newObj["tasks"] = [];
         cloned.user.locations.push(newObj);
         cache.writeQuery({
           query: FETCH_USER,

@@ -49,8 +49,7 @@ const mutation = new GraphQLObjectType({
         location: { type: GraphQLString }
       },
       resolve(_, args) {
-        return TaskService.updateTask(args)
-        
+        return TaskService.updateTask(args);
       }
     },
     updateTaskList: {
@@ -80,8 +79,7 @@ const mutation = new GraphQLObjectType({
         tagID: { type: GraphQLID }
       },
       async resolve(_, { taskID, tagID }) {
-        
-        const response = await Task.updateTaskTag(taskID, tagID)
+        const response = await Task.updateTaskTag(taskID, tagID);
         console.log(response);
         return response;
       }
@@ -90,9 +88,11 @@ const mutation = new GraphQLObjectType({
       type: TaskType,
       args: { _id: { type: GraphQLID } },
       resolve(_, args) {
-        console.log(args)
-        console.log(args._id)
-        return Task.deleteOne({ _id: args._id }).then(() => {return args._id });
+        console.log(args);
+        console.log(args._id);
+        return Task.deleteOne({ _id: args._id }).then(() => {
+          return args._id;
+        });
       }
     },
     newList: {
@@ -120,6 +120,9 @@ const mutation = new GraphQLObjectType({
       },
       resolve(_, args) {
         return TaskService.checkTagUniqueness(args);
+        //   .then(res => {
+        //   console.log("res:", res);
+        // });
       }
     },
     newLocation: {
