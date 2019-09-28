@@ -51,7 +51,7 @@ const createTask = async data => {
         if (err) throw new Error("herestheissue");
       }
     );
-    task.tags.push(tag)
+    if(tag)task.tags.push(tag)
     task.save();
     console.log("test2");
     if (existinguser) existinguser.tasks.push(task._id);

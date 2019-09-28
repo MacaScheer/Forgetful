@@ -25,7 +25,7 @@ class TaskShow extends React.Component {
     const id = this.props.taskId;
 
     return (
-      <Query query={FETCH_TASK} variables={{ Id: id }} fetchPolicy={"no-cache"}>
+      <Query query={FETCH_TASK} variables={{ Id: id }} fetchPolicy={"cache-and-network"}>
         {({ loading, error, data }) => {
           if (loading) return <p> Loading...</p>;
           if (error) return `Error! ${error.message}`;
@@ -38,7 +38,7 @@ class TaskShow extends React.Component {
                 <NameDetail id={data.task._id} name={data.task.name} />
                 <div className="task-show-info">
                   <StartDateDetail
-                    id={data.task._id}
+                    id={this.props.taskId}
                     start_date={data.task.start_date}
                   />
                   <DueDateDetail
