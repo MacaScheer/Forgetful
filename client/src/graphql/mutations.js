@@ -46,12 +46,7 @@ export default {
   CREATE_LIST: gql`
     mutation CreateList($name: String, $userid: ID!) {
       newList(name: $name, userId: $userid) {
-        name
-        _id
-        tasks {
-          name
-          _id
-        }
+       name
       }
     }
   `,
