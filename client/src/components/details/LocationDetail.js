@@ -19,7 +19,6 @@ class LocationDetail extends React.Component {
       body: this.props.body || "",
       location: this.props.location || "",
       locationId: ""
-     
     };
     this.Ref = React.createRef();
     this.handleEdit = this.handleEdit.bind(this);
@@ -53,7 +52,7 @@ class LocationDetail extends React.Component {
   }
   toggleOffEditing(e) {
     if (this.state.editing && !e.target.className.includes("location-list")) {
-      this.setState({ editing: false});
+      this.setState({ editing: false });
     }
   }
 
@@ -66,25 +65,22 @@ class LocationDetail extends React.Component {
   }
 
   updateCache(cache, { data }) {
-    // debugger
     let task;
+    debugger;
     try {
       let id = this.props.id;
       task = cache.readQuery({ query: FETCH_TASK, variables: { Id: id } });
     } catch (err) {
-      // debugger
       return;
     }
     if (task) {
-      // debugger
-      const cloned = merge([], task.task.location);
-      // if (!cloned[0]) cloned[0] = this.state.tagId
-      const newTag = data.updateTaskLocation;
-      cloned.push(newTag);
+      const cloned = merge({}, task.task.location);
+      const newLocation = data.updateTaskLocation;
+      cloned.task.location = newLocation;
       cache.writeQuery({
         query: FETCH_TASK,
         variables: { Id: this.props.id },
-        data: { task: { [this.props.id]: { tags: cloned } } }
+        data: { task: cloned.task }
       });
     }
   }
@@ -103,7 +99,7 @@ class LocationDetail extends React.Component {
               <Mutation
                 mutation={UPDATE_TASK_LOCATION}
                 onError={err => this.setState({ message: err.message })}
-                update={(cache, data) => this.updateCache(cache, data)}
+                // update={(cache, data) => this.updateCache(cache, data)}
               >
                 {updateTaskLocation => (
                   <div>
@@ -114,7 +110,7 @@ class LocationDetail extends React.Component {
                         updateTaskLocation({
                           variables: {
                             taskID: this.props.id,
-                            locationID: this.state.locationId.locationId
+                            locationID: this.state.locationId
                           }
                         }).then(
                           this.setState({
@@ -123,31 +119,30 @@ class LocationDetail extends React.Component {
                             locationNameToBe: this.state.locationName
                           })
                         );
-                      }}>
-
-                        <div className="task-list-container">
-                      <div className="location-list task-location-filter">
-                        {userData.user.locations.map((location, i) => (
-                          <button
-                            className="location-list task-list-items tag"
-                            key={i}
-                            value={location._id}
-                            name={location.name}
-                            onClick={this.updateState}
-                          >
-                            {location.name}
-                          </button>
-                        ))}
+                      }}
+                    >
+                      <div className="task-list-container">
+                        <div className="location-list task-location-filter">
+                          {userData.user.locations.map((location, i) => (
+                            <button
+                              className="location-list task-list-items tag"
+                              key={i}
+                              value={location._id}
+                              name={location.name}
+                              onClick={this.updateState}
+                            >
+                              {location.name}
+                            </button>
+                          ))}
+                        </div>
+                        <button
+                          className="add-list-button"
+                          onClick={this.toggleModal}
+                        >
+                          Create New Tag
+                        </button>
                       </div>
-                      <button
-                        className="add-list-button"
-                        onClick={this.toggleModal}
-                      >
-                        Create New Tag
-                          </button>
-                    </div>
-                    {this.renderModal()}
-         
+                      {this.renderModal()}
                     </form>
                   </div>
                 )}
@@ -161,7 +156,7 @@ class LocationDetail extends React.Component {
         <div className="show-task-body">
           <div className="Tagbox" onClick={this.handleEdit}>
             <p className="start-words">Location:</p> &nbsp;{" "}
-            {this.props.location.name ? this.props.location.name : <div/>}
+            {this.props.location.name ? this.props.location.name : <div />}
           </div>
         </div>
       );

@@ -3,9 +3,8 @@ import { Mutation, ApolloConsumer } from "react-apollo";
 import mutations from "../../graphql/mutations";
 import CreateModal from "../Modal/CreateModal";
 import queries from "../../graphql/queries";
-
-const { FETCH_USER } = queries;
-
+import merge from "lodash/merge";
+const { FETCH_USER, FETCH_TASK } = queries;
 const { UPDATE_TASK_LIST } = mutations;
 
 class ListDetail extends React.Component {
@@ -42,7 +41,6 @@ class ListDetail extends React.Component {
     this.setState({ render: true });
   }
   handleEdit(e) {
-    // debugger
     e.preventDefault();
     this.setState({ editing: true, changes: false });
   }
@@ -56,7 +54,6 @@ class ListDetail extends React.Component {
   }
   toggleOffEditing(e) {
     if (this.state.editing && !e.target.className.includes("task-grab")) {
-      // debugger
       let temp = "";
       if (this.props.list !== null) {
         temp = this.props.list.name;
@@ -80,6 +77,25 @@ class ListDetail extends React.Component {
     this.setState({ listId: e.currentTarget.value });
   }
 
+  updateCache(cache, { data }) {
+    let task;
+    try {
+      let id = this.props.id;
+      task = cache.readQuery({ query: FETCH_TASK, variables: { Id: id } });
+    } catch (err) {
+      return;
+    }
+    if (task) {
+      const cloned = merge({}, task);
+      const newList = data.updateTaskList;
+      cloned.task.list = newList.list;
+      cache.writeQuery({
+        query: FETCH_TASK,
+        variables: { Id: this.props.id },
+        data: { task: cloned.task }
+      });
+    }
+  }
   render() {
     if (this.state.editing) {
       return (
@@ -95,6 +111,7 @@ class ListDetail extends React.Component {
               <Mutation
                 mutation={UPDATE_TASK_LIST}
                 onError={err => this.setState({ message: err.message })}
+                update={(cache, data) => this.updateCache(cache, data)}
               >
                 {updateTaskList => (
                   <div>
@@ -147,7 +164,8 @@ class ListDetail extends React.Component {
       return (
         <div className="show-task-body">
           <p className="Tagbox" onClick={this.handleEdit}>
-            <p className="start-words">List: </p> &nbsp; {this.state.listName}
+            <p className="start-words">List: </p> &nbsp;{" "}
+            {this.props.list ? this.props.list.name : <div />}
           </p>
         </div>
       );
