@@ -44,7 +44,6 @@ const createTask = async data => {
         due_date,
         start_date,
         location,
-        tag,
         list,
         user
       },
@@ -52,6 +51,7 @@ const createTask = async data => {
         if (err) throw new Error("herestheissue");
       }
     );
+    if(tag)task.tags.push(tag)
     task.save();
     console.log("test2");
     if (existinguser) existinguser.tasks.push(task._id);

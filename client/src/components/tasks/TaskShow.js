@@ -18,27 +18,14 @@ const { FETCH_TASK } = queries;
 class TaskShow extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   id: props.taskId
-    // };
   }
-  // shouldComponentUpdate(nextProps) {
-  //   if (nextProps.taskId !== this.props.taskId) {
-  //     this.setState({
-  //       id: nextProps.taskId
-  //     });
-  //     console.log("nextProps", nextProps.taskId);
-  //     console.log("props.taskId", this.props.taskId);
-  //     return true;
-  //   }
-  //   return false
-  // }
+
 
   render() {
     const id = this.props.taskId;
 
     return (
-      <Query query={FETCH_TASK} variables={{ Id: id }} fetchPolicy={"no-cache"}>
+      <Query query={FETCH_TASK} variables={{ Id: id }} fetchPolicy={"cache-and-network"}>
         {({ loading, error, data }) => {
           if (loading) return <p> Loading...</p>;
           if (error) return `Error! ${error.message}`;
@@ -51,7 +38,7 @@ class TaskShow extends React.Component {
                 <NameDetail id={data.task._id} name={data.task.name} />
                 <div className="task-show-info">
                   <StartDateDetail
-                    id={data.task._id}
+                    id={this.props.taskId}
                     start_date={data.task.start_date}
                   />
                   <DueDateDetail
