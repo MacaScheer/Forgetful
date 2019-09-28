@@ -35,7 +35,7 @@ class Navbar extends React.Component {
           container.classList.add("new-slide");
           summary.classList.add("move-right");
           tasks.classList.add("move-right");
-        } else if (container && tasks && summary && this.state.showDropdown){
+        } else if (container && tasks && summary && this.state.showDropdown) {
           tasks.classList.remove("move-right");
           summary.classList.remove("move-right");
           container.classList.remove("new-slide");

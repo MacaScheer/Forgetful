@@ -71,7 +71,7 @@ class TagDetail extends React.Component {
 
     render() {
        
-
+        // debugger
         if (this.state.editing) {
             return (
                 <Mutation

@@ -44,7 +44,7 @@ class TaskShow extends React.Component {
           if (error) return `Error! ${error.message}`;
           let tags = data.task.tags;
 
-          // debugger;
+          debugger;
           return (
             <div className="task-show-content">
               <div className="task-show">
