@@ -64,23 +64,18 @@ class TagDetail extends React.Component {
   }
 
   updateCache(cache, { data }) {
-    // debugger
     let task;
     try {
       let id = this.props.id;
       task = cache.readQuery({ query: FETCH_TASK, variables: { Id: id } });
     } catch (err) {
-      // debugger
       return;
     }
     if (task) {
-      // debugger
 
         const cloned = merge({}, task);
-      // if (!cloned[0]) cloned[0] = this.state.tagId
       const newTag = data.updateTaskTag;
       cloned.task.tags.push(newTag);
-      debugger
       cache.writeQuery({
         query: FETCH_TASK,
         variables: { Id: this.props.id },
@@ -90,7 +85,6 @@ class TagDetail extends React.Component {
     }
   }
   render() {
-    //   debugger
     if (this.state.editing) {
       return (
         <ApolloConsumer>
@@ -101,7 +95,6 @@ class TagDetail extends React.Component {
               query: FETCH_USER,
               variables: { Id: id }
             });
-            // debugger;
             return (
               <Mutation
                 mutation={UPDATE_TASK_TAG}

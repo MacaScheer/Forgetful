@@ -20,18 +20,20 @@ class TaskShow extends React.Component {
     super(props);
   }
 
-
   render() {
     const id = this.props.taskId;
 
     return (
-      <Query query={FETCH_TASK} variables={{ Id: id }} fetchPolicy={"cache-and-network"}>
+      <Query
+        query={FETCH_TASK}
+        variables={{ Id: id }}
+        fetchPolicy={"cache-and-network"}
+      >
         {({ loading, error, data }) => {
           if (loading) return <p> Loading...</p>;
           if (error) return `Error! ${error.message}`;
           let tags = data.task.tags;
 
-          debugger;
           return (
             <div className="task-show-content">
               <div className="task-show">
@@ -48,7 +50,6 @@ class TaskShow extends React.Component {
 
                   <ListDetail id={data.task._id} list={data.task.list} />
                   <TagDetail id={data.task._id} tags={data.task.tags} />
-                  {/* <RepeatDetail id={data.task._id} ={data.task.repeat} /> */}
                   <LocationDetail
                     id={data.task._id}
                     location={data.task.location}
