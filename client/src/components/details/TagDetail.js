@@ -24,9 +24,9 @@ class TagDetail extends React.Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleOffEditing = this.toggleOffEditing.bind(this);
   }
-    componentDidUpdate(prevprops) {
-        // debugger
-    }
+  componentDidUpdate(prevprops) {
+    // debugger
+  }
   renderModal() {
     return this.state.render ? (
       <CreateModal closer={this.closer} type={this.state.type} />
@@ -73,17 +73,16 @@ class TagDetail extends React.Component {
       // debugger
       return;
     }
-      if (task) {
-          // debugger
-          const cloned = merge([], task.task.tags);
-          // if (!cloned[0]) cloned[0] = this.state.tagId
-          const newTag = data.updateTaskTag;
-          cloned.push(newTag);
-          // debugger
-          cache.writeQuery({
-              query: FETCH_TASK,
-              variables: { Id: this.props.id },
-              data: { task: {[this.props.id]: { tags: cloned }} }
+    if (task) {
+      // debugger
+      const cloned = merge([], task.task.tags);
+      // if (!cloned[0]) cloned[0] = this.state.tagId
+      const newTag = data.updateTaskTag;
+      cloned.push(newTag);
+      cache.writeQuery({
+        query: FETCH_TASK,
+        variables: { Id: this.props.id },
+        data: { task: { [this.props.id]: { tags: cloned } } }
       });
     }
   }
@@ -99,6 +98,7 @@ class TagDetail extends React.Component {
               query: FETCH_USER,
               variables: { Id: id }
             });
+            // debugger;
             return (
               <Mutation
                 mutation={UPDATE_TASK_TAG}

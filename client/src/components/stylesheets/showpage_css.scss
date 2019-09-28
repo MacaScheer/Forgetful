@@ -35,18 +35,19 @@
   }
 }
 
-.Tagbox{
+.Tagbox {
   display: flex;
   margin-bottom: 10px;
   margin-left: 40x;
   padding: 1px;
 }
 
-.Tagbox:hover{
+.Tagbox:hover {
   // border-style: solid;
   // border-top: 2px black;
   // border-radius: 10px;
-  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
   border-color: $blue;
   border-style: solid;
   border-width: 1px;
@@ -54,32 +55,31 @@
   padding: 1px;
 }
 
-
-.name-show{
+.name-show {
   margin-top: 30px;
   font-size: 30px;
 }
 
-.tag-show{
+.tag-show {
   // margin-top: 30px;
   font-size: 15px;
 }
 
-.start-words{
+.start-words {
   color: grey;
 }
 
-.body-Tagbox{
+.body-Tagbox {
   padding-top: 5px;
   padding-left: 5px;
-  
 }
 
-.body-Tagbox:hover{
+.body-Tagbox:hover {
   // border-style: solid;
   // border-top: 2px black;
   // border-radius: 10px;
-  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
   border-color: $blue;
   border-style: solid;
   border-width: 1px;
@@ -87,12 +87,12 @@
   padding: 1px;
 }
 
-.body-start-words{
+.body-start-words {
   font-size: 20px;
 }
-.Tagbox-tag{
+.Tagbox-tag {
   display: flex;
-  
+
   margin-left: 40x;
   padding: 1px;
   overflow: auto;
@@ -103,12 +103,15 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-
-.Tagbox-tag:hover{
+// .location-edit-header {
+//   align-content: left;
+// }
+.Tagbox-tag:hover {
   // border-style: solid;
   // border-top: 2px black;
   // border-radius: 10px;
-  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
   border-color: $blue;
   border-style: solid;
   border-width: 1px;
@@ -119,15 +122,14 @@
   // overflow: auto;
 }
 
-.tags{
+.tags {
   background-color: rgb(79, 206, 79);
   margin-right: 5px;
   border-radius: 5px;
   height: 20px;
   // overflow: hidden;
-
 }
 
-.tags-start-word{
+.tags-start-word {
   height: 20px;
 }
