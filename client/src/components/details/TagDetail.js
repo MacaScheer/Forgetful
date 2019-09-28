@@ -52,7 +52,7 @@ class TagDetail extends React.Component {
     document.removeEventListener("mousedown", this.toggleOffEditing);
   }
   toggleOffEditing(e) {
-    if (this.state.editing && !e.target.className.includes("task-tag")) {
+    if (this.state.editing && !e.target.className.includes("tag-grab")) {
       this.setState({ editing: false });
     }
   }
@@ -120,7 +120,7 @@ class TagDetail extends React.Component {
                         <div className="task-list task-list-filter">
                           {userData.user.tags.map((tag, i) => (
                             <button
-                              className="task-tag task-list-items tag"
+                              className="tag-grab task-list-items tag"
                               key={i}
                               value={tag._id}
                               name={tag.name}
@@ -130,7 +130,7 @@ class TagDetail extends React.Component {
                             </button>
                           ))}
                           <button
-                            className="task-tag add-list-button"
+                            className="tag-grab add-list-button"
                             onClick={this.toggleModal}
                           >
                             Create New Tag

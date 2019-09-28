@@ -56,7 +56,7 @@ class LocationDetail extends React.Component {
     document.removeEventListener("mousedown", this.toggleOffEditing);
   }
   toggleOffEditing(e) {
-    if (this.state.editing && !e.target.className.includes("location-list")) {
+    if (this.state.editing && !e.target.className.includes("location-grab")) {
       this.setState({ editing: false });
     }
   }
@@ -126,10 +126,10 @@ class LocationDetail extends React.Component {
                     }}
                   >
                     <div className="task-list-container">
-                      <div className="location-list task-location-filter">
+                      <div className="location-grab task-location-filter">
                         {userData.user.locations.map((location, i) => (
                           <button
-                            className="location-list task-list-items tag"
+                            className="location-grab task-list-items tag"
                             key={i}
                             value={location._id}
                             name={location.name}
@@ -141,7 +141,7 @@ class LocationDetail extends React.Component {
                       </div>
                       <div>
                         <button
-                          className="location-list add-list-button"
+                          className="location-grab add-list-button"
                           onClick={this.toggleModal}
                         >
                           Create New Tag

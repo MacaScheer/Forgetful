@@ -59,7 +59,7 @@ class ListDetail extends React.Component {
     document.removeEventListener("mousedown", this.toggleOffEditing);
   }
   toggleOffEditing(e) {
-    if (this.state.editing && !e.target.className.includes("task-grab")) {
+    if (this.state.editing && !e.target.className.includes("list-grab")) {
       let temp = "";
       if (this.props.list !== null) {
         temp = this.props.list.name;
@@ -137,7 +137,7 @@ class ListDetail extends React.Component {
                         <div className=" task-list task-list-filter">
                           {userData.user.lists.map((list, i) => (
                             <button
-                              className="task-grab task-tag task-list-items tag"
+                              className="list-grab task-tag task-list-items tag"
                               key={i}
                               value={list._id}
                               name={list.name}
@@ -149,7 +149,7 @@ class ListDetail extends React.Component {
                         </div>
                         <div>
                         <button
-                          className="task-grab add-list-button"
+                          className="list-grab add-list-button"
                           onClick={this.toggleModal}
                         >
                           Create New List
