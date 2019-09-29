@@ -107,7 +107,6 @@ class LocationDetail extends React.Component {
             >
               {updateTaskLocation => (
                 <div>
-                  <h2 className="location-edit-header">Location</h2>
                   <form
                     onSubmit={e => {
                       e.preventDefault();
@@ -144,7 +143,7 @@ class LocationDetail extends React.Component {
                           className="location-grab add-list-button"
                           onClick={this.toggleModal}
                         >
-                          Create New Tag
+                          Create New Location
                         </button>
                       </div>
                     </div>

@@ -18,6 +18,9 @@
 }
 
 .task-show-info {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
 }
 
 .update-button {
@@ -39,20 +42,61 @@
   display: flex;
   margin-bottom: 10px;
   margin-left: 40x;
-  padding: 1px;
+}
+
+.location-grab {
+  flex: wrap;
+  display: flex;
+  flex-direction: wrap;
+  align-items: flex-start;
+  width: auto;
+  .task-list-items {
+    align-items: flex-start;
+    display: table;
+    display: flex;
+    flex-wrap: wrap;
+    width: 50px;
+    background-color: $lightblue;
+    margin-right: 5px;
+    border-radius: 5px;
+    height: 24px;
+    line-height: 15px;
+    width: auto;
+    padding: 3px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(35, 106, 185, 0.5);
+    border-radius: 3px;
+  }
+}
+
+.name-show {
+  margin-left: 8px;
+  padding: 2px;
+  line-height: 4px;
+  margin-bottom: 5px;
+  height: 10px;
+}
+.show-task-name {
+  padding-bottom: 20px;
+  border-left: 8px solid $blue;
+  margin-bottom: 7px;
+  display: table;
 }
 
 .Tagbox:hover {
-  // border-style: solid;
-  // border-top: 2px black;
-  // border-radius: 10px;
-  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
   border-color: $blue;
   border-style: solid;
   border-width: 1px;
   width: 250px;
   padding: 1px;
+  padding: 1px;
+  border-color: $blue;
+  border-style: solid;
+  border-width: 1px;
+  width: 250px;
+  padding: 1px;
+  border-radius: 3px;
 }
 
 .name-show {
@@ -75,9 +119,6 @@
 }
 
 .body-Tagbox:hover {
-  // border-style: solid;
-  // border-top: 2px black;
-  // border-radius: 10px;
   box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
   border-color: $blue;
@@ -94,6 +135,8 @@
   display: flex;
 
   margin-left: 40x;
+  margin-top: 9px;
+  margin-bottom: 9px;
   padding: 1px;
   overflow: auto;
   width: 600px;
@@ -103,30 +146,26 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-// .location-edit-header {
-//   align-content: left;
-// }
-.Tagbox-tag:hover {
-  // border-style: solid;
-  // border-top: 2px black;
-  // border-radius: 10px;
-  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  border-color: $blue;
-  border-style: solid;
-  border-width: 1px;
-  width: 600px;
-  min-height: 20px;
-  overflow: hidden;
-  padding: 1px;
-  // overflow: auto;
+.tag-list {
+  margin: 80px;
+}
+.tags:hover {
+  box-shadow: 0px 19px 5px 0px rgba(35, 106, 185, 0.5),
+    0 17px 50px 0 rgba(35, 106, 185, 0.5);
 }
 
 .tags {
-  background-color: rgb(79, 206, 79);
+  background-color: $lightblue;
   margin-right: 5px;
   border-radius: 5px;
-  height: 20px;
+  height: 24px;
+  line-height: 15px;
+  width: auto;
+  padding: 3px;
+  border-style: solid;
+  border-width: 1px;
+  // border-color: $blue;
+  border-color: rgba(35, 106, 185, 0.5);
   // overflow: hidden;
 }
 
