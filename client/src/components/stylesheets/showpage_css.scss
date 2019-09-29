@@ -45,17 +45,21 @@
 }
 
 .location-grab {
-  flex: wrap;
-  display: flex;
-  flex-direction: wrap;
-  align-items: flex-start;
-  width: auto;
+  .task-location-filter{
+
+    flex: wrap;
+    display: flex;
+    flex-direction: wrap;
+    align-items: flex-start;
+    width: auto;
+  }
   .task-list-items {
     align-items: flex-start;
     display: table;
     display: flex;
     flex-wrap: wrap;
     width: 50px;
+    
     background-color: $lightblue;
     margin-right: 5px;
     border-radius: 5px;
@@ -69,7 +73,35 @@
     border-radius: 3px;
   }
 }
+.task-list-filter{
+.list-grab {
 
+    flex: wrap;
+    display: flex;
+    flex-direction: wrap;
+    align-items: flex-start;
+    width: auto;
+  }
+  .task-list-items {
+    align-items: flex-start;
+    display: table;
+    display: flex;
+    flex-wrap: wrap;
+    width: 50px;
+    
+    background-color: $lightblue;
+    margin-right: 5px;
+    border-radius: 5px;
+    height: 24px;
+    line-height: 15px;
+    width: auto;
+    padding: 3px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(35, 106, 185, 0.5);
+    border-radius: 3px;
+  }
+}
 .name-show {
   margin-left: 8px;
   padding: 2px;
@@ -77,6 +109,7 @@
   margin-bottom: 5px;
   height: 10px;
 }
+
 .show-task-name {
   padding-bottom: 20px;
   border-left: 8px solid $blue;
@@ -118,15 +151,15 @@
   padding-left: 5px;
 }
 
-.body-Tagbox:hover {
-  box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  border-color: $blue;
-  border-style: solid;
-  border-width: 1px;
-  width: 250px;
-  padding: 1px;
-}
+// .body-Tagbox:hover {
+//   box-shadow: 0 15px 24px 0 rgba(0, 0, 0, 0.24),
+//     0 17px 50px 0 rgba(0, 0, 0, 0.19);
+//   border-color: $blue;
+//   border-style: solid;
+//   border-width: 1px;
+//   width: 250px;
+//   padding: 1px;
+// }
 
 .body-start-words {
   font-size: 20px;
