@@ -19,10 +19,6 @@
 
 Forgetful is a task management app that lets people keep track of daily/weekly tasks.
 
-![session](screenshots/createTask.png)
-
-![session](screenshots/dateDetail.png)
-
 Primarily built with the combination of following technologies:
 MongoDB, GraphQL, Apollo, React, Node, Docker
 
