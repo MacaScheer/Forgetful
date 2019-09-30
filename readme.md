@@ -1,6 +1,5 @@
 <h1 align="center">Forgetful</h1>
 
-
 <div align="center">Forgetful is a task management app that lets people keep track of daily/weekly tasks.
 </div>
 
@@ -16,15 +15,16 @@
       alt="Build Status" />
 </div>
 
-
 [Live Site][1]
 
 Forgetful is a task management app that lets people keep track of daily/weekly tasks.
 
+![session](screenshots/createTask.png)
+
+![session](screenshots/dateDetail.png)
 
 Primarily built with the combination of following technologies:
 MongoDB, GraphQL, Apollo, React, Node, Docker
-
 
 ### Apollo Client
 
@@ -86,7 +86,9 @@ MongoDB, GraphQL, Apollo, React, Node, Docker
     }
 }
 ```
+
 # Frontend Mutations
+
 ```
 
   CREATE_TASK: gql`
@@ -112,11 +114,12 @@ MongoDB, GraphQL, Apollo, React, Node, Docker
         _id
         due_date
         start_date
-        
+
       }
     }
   `,
-  ```
+```
+
 ```
   FETCH_USER: gql`
     query FetchUser($Id: ID!) {
@@ -160,8 +163,7 @@ MongoDB, GraphQL, Apollo, React, Node, Docker
       }
     }
   `,
-  ```
-
+```
 
 ```
   attributeUpdater(data, id) {
@@ -277,6 +279,5 @@ MongoDB, GraphQL, Apollo, React, Node, Docker
 - Mac Scheer
 - Cameron Farina
 - Anthony Chan
-
 
 [1]: http://forgetful-task-management.herokuapp.com/
