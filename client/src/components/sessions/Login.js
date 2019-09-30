@@ -3,6 +3,7 @@ import { Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
 import "../stylesheets/session-form.scss";
 import "../stylesheets/reset.scss";
+import { withRouter } from "react-router-dom";
 const { LOGIN_USER } = Mutations;
 
 class Login extends Component {
@@ -13,6 +14,34 @@ class Login extends Component {
       email: "",
       password: ""
     };
+  }
+  componentDidMount() {
+    debugger;
+    if (this.props.match.url === "/demo") {
+      setTimeout(() => {
+        this.demoLogin(this.props.demo);
+      }, 500);
+    }
+  }
+
+  demoLogin() {
+    const email = "demo@demo.com";
+    const password = "password123";
+    const typeSpeed = 60;
+    // debugger
+    for (let i = 0; i < email.length; i++) {
+      setTimeout(() => {
+        this.setState({ email: this.state.email + email[i] });
+      }, i * typeSpeed);
+    }
+    for (let j = 0; j < password.length; j++) {
+      setTimeout(() => {
+        this.setState({ password: this.state.password + password[j] });
+      }, email.length * typeSpeed + j * typeSpeed);
+    }
+    setTimeout(() => {
+      document.getElementById("submitbtn").click();
+    }, email.length * typeSpeed + password.length * typeSpeed + typeSpeed);
   }
 
   update(field) {
@@ -70,7 +99,9 @@ class Login extends Component {
                 />
               </div>
               <div className="session-buttons">
-                <button type="submit">Log In</button>
+                <button id="submitbtn" type="submit">
+                  Log In
+                </button>
               </div>
             </form>
           </div>
@@ -80,4 +111,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

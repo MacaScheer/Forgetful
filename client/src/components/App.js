@@ -17,7 +17,7 @@ import SearchResults from "./tasks/SearchResults";
 import DropDownMenu from "./navbar/DropDownMenu";
 import LocationOption from "./tasks/LocationOption";
 import SplashPage from "./splashpage/splashpage";
-const path = require('path');
+const path = require("path");
 
 const App = () => {
   return (
@@ -32,7 +32,12 @@ const App = () => {
       <Route path="/date" component={DateOption} />
       <Route exact path="/all/:id" component={TaskShow} />
       <Route path="/routetest" component={LocationOption} />
-      <Route key="search" exact path="/search/:searchResults" component={TaskIndex} />
+      <Route
+        key="search"
+        exact
+        path="/search/:searchResults"
+        component={TaskIndex}
+      />
       <Route key="all" path="/all" component={TaskIndex} />
       <Route key="today" path="/today" component={TaskIndex} />
       <Route key="tomorrow" path="/tomorrow" component={TaskIndex} />
@@ -47,6 +52,7 @@ const App = () => {
 
       <Switch>
         <AuthRoute exact path="/login" component={Login} routeType="auth" />
+        <AuthRoute exact path="/demo" component={Login} routeType="auth" />
         <AuthRoute exact path="/signup" component={Signup} routeType="auth" />
       </Switch>
     </div>
