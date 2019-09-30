@@ -24,7 +24,7 @@ class TagDetail extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleOffEditing = this.toggleOffEditing.bind(this);
-    this.closer = this.closer.bind(this)
+    this.closer = this.closer.bind(this);
   }
   componentDidUpdate(prevprops) {
     // debugger
@@ -151,15 +151,22 @@ class TagDetail extends React.Component {
     );
   }
   render() {
+ 
     return (
-      <div>
-        <p className="tags-start-word">Tags:</p>
+      <div className="outer-tag">
+        <p className="tags-start-word">Tags: </p>
         <div className="Tagbox-tag" onClick={this.handleEdit}>
-          {this.props.tags.map((ele, i) => (
+          {this.props.tags.length > 0 ? (
+            this.props.tags.map((ele, i) => (
+              <div className="tags">
+                <i className="fas fa-tags"></i> {ele.name}
+              </div>
+            ))
+          ) : (
             <div className="tags">
-              <i class="fas fa-tags"></i> {ele.name}
+              <i class="fas fa-tags" onClick={this.handleEdit}></i>
             </div>
-          ))}
+          )}
         </div>
         {this.renderEdit()}
       </div>

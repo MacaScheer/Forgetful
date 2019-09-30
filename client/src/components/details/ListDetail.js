@@ -29,8 +29,7 @@ class ListDetail extends React.Component {
     this.updateState = this.updateState.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleOffEditing = this.toggleOffEditing.bind(this);
-    this.closer = this.closer.bind(this)
-
+    this.closer = this.closer.bind(this);
   }
   closer() {
     this.setState({ render: false });
@@ -148,12 +147,12 @@ class ListDetail extends React.Component {
                           ))}
                         </div>
                         <div>
-                        <button
-                          className="list-grab add-list-button"
-                          onClick={this.toggleModal}
-                        >
-                          Create New List
-                        </button>
+                          <button
+                            className="list-grab add-list-button"
+                            onClick={this.toggleModal}
+                          >
+                            Create New List
+                          </button>
                         </div>
                       </div>
                       {this.renderModal()}
@@ -172,10 +171,13 @@ class ListDetail extends React.Component {
   render() {
     return (
       <div className="show-task-body">
-        <p className="Tagbox" onClick={this.handleEdit}>
+        <div className="Tagbox" onClick={this.handleEdit}>
           <p className="start-words">List: </p> &nbsp;{" "}
-          {this.props.list ? this.props.list.name : <div />}
-        </p>
+          <div className="list">
+            <i className="fas fa-list icons"></i>
+            {this.props.list ? this.props.list.name : <div />}
+          </div>
+        </div>
         {this.renderEdit()}
       </div>
     );
