@@ -1,11 +1,12 @@
-# Forgetful
+# Forgetful  
+https://forgetful-task-management.herokuapp.com/
+
+Forgetful lets people keep track of daily/weekly tasks.
+
 
 Primarily built with the combination of following technologies:
 MongoDB, GraphQL, Apollo, React, Node, Docker
 
-https://forgetful-task-management.herokuapp.com/
-
-Forgetful lets people keep track of daily/weekly tasks.
 
 ### Apollo Client
 
@@ -254,7 +255,7 @@ Forgetful lets people keep track of daily/weekly tasks.
 
 ## Team
 
-- Anthony Chan
-- Cameron Farina
-- Mac Scheer
 - Paul Kil Woung Choi
+- Mac Scheer
+- Cameron Farina
+- Anthony Chan
