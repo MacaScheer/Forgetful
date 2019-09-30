@@ -48,6 +48,7 @@ export default class DateOption extends Component {
 
   formatDate(dateObj) {
     let dateString = dateObj.toDateString();
+    console.log("DATESTRING", dateString);
     let dayARR = dateString.split(" ");
     let dayINT = parseInt(dayARR[2]);
     dayARR[2] = dayINT + 1;
@@ -69,6 +70,7 @@ export default class DateOption extends Component {
     }
   };
 
+
   render() {
     let dateObj = new Date();
     let dateString = dateObj.toDateString();
@@ -79,28 +81,32 @@ export default class DateOption extends Component {
       .split(" ")[1]
       .concat(" ")
       .concat(dateString.split(" ")[2]);
-    dateObj.setDate(dayINT + 1);
-    const tomorrowFullString = dateObj.toDateString();
+    let tom = new Date();
+    tom.setDate(dayINT + 1);
+    const tomorrowFullString = tom.toDateString();
     const tomorrowDateDetail = tomorrowFullString
       .split(" ")[1]
       .concat(" ")
       .concat(tomorrowFullString.split(" ")[2]);
-    dateObj.setDate(dayINT + 2);
-    const dayTwoFullString = dateObj.toDateString();
+    let day2 = new Date();
+    day2.setDate(dayINT + 2);
+    const dayTwoFullString = day2.toDateString();
     const dayTwoName = dayTwoFullString.split(" ")[0];
     const dayTwoDateDetail = dayTwoFullString
       .split(" ")[1]
       .concat(" ")
       .concat(dayTwoFullString.split(" ")[2]);
-    dateObj.setDate(dayINT + 3);
-    const dayThreeFullString = dateObj.toDateString();
+    let day3 = new Date();
+    day3.setDate(dayINT + 3);
+    const dayThreeFullString = day3.toDateString();
     const dayThreeName = dayThreeFullString.split(" ")[0];
     const dayThreeDateDetail = dayThreeFullString
       .split(" ")[1]
       .concat(" ")
       .concat(dayThreeFullString.split(" ")[2]);
-    dateObj.setDate(dayINT + 4);
-    const dayFourFullString = dateObj.toDateString();
+    let day4 = new Date();
+    day4.setDate(dayINT + 4);
+    const dayFourFullString = day4.toDateString();
     const dayFourName = dayFourFullString.split(" ")[0];
     const dayFourDateDetail = dayFourFullString
       .split(" ")[1]
