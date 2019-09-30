@@ -164,7 +164,10 @@ class LocationDetail extends React.Component {
       <div className="show-task-body">
         <div className="Tagbox" onClick={this.handleEdit}>
           <p className="start-words">Location:</p> &nbsp;{" "}
-          {this.props.location ? this.props.location.name : <div />}
+          <div className="location">
+            <i className="fas fa-map-marker-alt"></i>
+            {this.props.location ? this.props.location.name : <div />}
+          </div>
         </div>
         {this.renderEdit()}
       </div>
