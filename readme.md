@@ -24,69 +24,9 @@ MongoDB, GraphQL, Apollo, React, Node, Docker
 
 ### Apollo Client
 
-```js
-{
-    entities: {
-        users: {
-                0: {
-                    id: 0,
-                    username: 'string',
-                    tasks: [
-                        task1: {},
-                        task2: {},
-                        task3: {}
-                    ],
-                    lists: [
-                        list1: {}
-                    ],
-                    tags: [
-                        tag1: {}
-                    ]
-                }
-        },
-        lists: {
-            0: {
-                id: 0,
-                tasks: [
-                        task1: {},
-                        task2: {},
-                        task3: {}
-                    ]
-                name: 'string',
-            }
-        },
-        task: {
-            0 : {
-                id: 0,
-                task_id: 1,
-                author_id: 0,
-                body: 'string',
-                due_date: 'string',
-                start_date: 'string',
-                priority: 'string',
-                repeat: 'string',
-                location: 'string',
-                tag: 'string',
-                list_id: 'integer'
-            }
-        },
-        tag: {
-            0: {
-                tag_name:,
-                tag_id:,
-                tasks: [
-                    task1: {}
-                    ]
-            }
-        }
-    }
-}
-```
-
 # Frontend Mutations
 
 ```
-
   CREATE_TASK: gql`
     mutation newTask(
       $name: String
@@ -176,24 +116,6 @@ MongoDB, GraphQL, Apollo, React, Node, Docker
 ```
 
 ```
-
-  runSearchResult(tasks) {
-    let input = localStorage.getItem("userInput");
-    const options = {
-      keys: ["due_date", "body", "name"],
-      shouldSort: true,
-      tokenize: true,
-      findAllMatches: true,
-      threshold: 0.2,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 1
-    };
-    let fuse = new Fuse(tasks.tasks, options);
-    let result = fuse.search(input);
-    return result;
-  }
 
   runSearch(data) {
     if (this.state.keys === "search") return this.runSearchResult(data);
