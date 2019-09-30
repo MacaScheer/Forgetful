@@ -44,6 +44,9 @@ class Greeting extends React.Component {
             <Link to="/login">Log in</Link>
           </li>
           <li className="navbar-list-item">
+            <Link to="/demo">Demo Login</Link>
+          </li>
+          <li className="navbar-list-item">
             <Link to="/signup">Sign up for free</Link>
           </li>
         </ul>
