@@ -86,7 +86,7 @@ class CheckLine extends React.Component {
     e.preventDefault();
     const taskId = this.props._id;
     deleteTask({ variables: { id: taskId } }).then(() => {
-      this.setState({ completed: false });
+      this.setState({ completed: false }, this.props.closer());
     });
   }
 

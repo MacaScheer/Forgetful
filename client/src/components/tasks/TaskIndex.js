@@ -45,6 +45,7 @@ class TaskIndex extends React.Component {
     this.selectTask = this.selectTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.runSearch = this.runSearch.bind(this);
+    this.closer = this.closer.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -65,8 +66,6 @@ class TaskIndex extends React.Component {
       this.setState({ keys: key, input: input, trigger: trigger });
     }
   }
-
-
 
   runSearchResult(tasks) {
     let input = localStorage.getItem("userInput");
@@ -159,7 +158,6 @@ class TaskIndex extends React.Component {
     return result;
   }
 
-
   handleChange(e) {
     e.preventDefault();
 
@@ -167,7 +165,13 @@ class TaskIndex extends React.Component {
       completed: !this.state.completed
     });
   }
-
+  closer() {
+    this.setState({ showPage: false, taskId: "" }, () => {
+      const showPage = document.getElementById("task-show");
+      showPage.classList.remove("show-move-left");
+      showPage.classList.add("show-move-right");
+    });
+  }
   selectTask(id) {
     if (id === this.state.taskId) {
       this.setState({ taskId: "", showPage: false }, () => {
@@ -258,6 +262,7 @@ class TaskIndex extends React.Component {
                                       taskId={this.state.taskId}
                                       name={task.name}
                                       client={client}
+                                      closer={this.closer}
                                     />
                                   </div>
                                 ))}
