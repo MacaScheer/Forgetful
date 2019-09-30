@@ -1,7 +1,25 @@
-# Forgetful  
-https://forgetful-task-management.herokuapp.com/
+<h1 align="center">Forgetful</h1>
 
-Forgetful lets people keep track of daily/weekly tasks.
+
+<div align="center">Forgetful is a task management app that lets people keep track of daily/weekly tasks.
+</div>
+
+<div align="center">
+  <!-- Stability -->
+<img src="https://img.shields.io/badge/stability-experimental-orange.svg?style=flat-square"
+      alt="API stability" />
+  <!-- NPM version -->
+  <img src="https://img.shields.io/badge/node-%3E%3D%206.0.0-brightgreen"
+      alt="NPM version" />
+  <!-- Build Status -->
+ <img src="https://img.shields.io/badge/build-passing-brightgreen"
+      alt="Build Status" />
+</div>
+
+
+[Live Site][1]
+
+Forgetful is a task management app that lets people keep track of daily/weekly tasks.
 
 
 Primarily built with the combination of following technologies:
@@ -259,3 +277,6 @@ MongoDB, GraphQL, Apollo, React, Node, Docker
 - Mac Scheer
 - Cameron Farina
 - Anthony Chan
+
+
+[1]: http://forgetful-task-management.herokuapp.com/
