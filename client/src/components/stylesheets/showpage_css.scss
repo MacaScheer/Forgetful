@@ -40,7 +40,7 @@
 
 .Tagbox {
   display: flex;
-  margin-bottom: 10px;
+  margin: 10px;
   margin-left: 40x;
   // margin-top: 10px;
 }
@@ -126,33 +126,10 @@
 }
 .Tagbox-tag {
   display: flex;
-
-  // margin-left: 40x;
   margin-top: 4px;
-  // margin-bottom: 4px;
   padding: 5px;
   overflow: auto;
-  // width: 600px;
   min-height: 20px;
-  // overflow: hidden;
-  // flex-direction: row;
-  // flex-wrap: wrap;
-  // justify-content: flex-start;
-}
-.Tagbox-location {
-  display: flex;
-
-  margin-left: 40x;
-  margin-top: 9px;
-  margin-bottom: 9px;
-  padding: 1px;
-  overflow: auto;
-  width: 600px;
-  min-height: 20px;
-  overflow: hidden;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
 }
 
 .tags:hover {
@@ -160,13 +137,17 @@
 }
 
 .tags {
+  padding: 3px;
   background-color: $lightblue;
   margin-right: 5px;
   border-radius: 5px;
+  margin-left: 8px;
   height: 24px;
-  // line-height: 15px;
   width: auto;
-  padding: 3px;
+  padding-left: 5px;
+  padding-bottom: 3px;
+  padding-right: 5px;
+  padding-bottom: 22px;
   border-style: solid;
   border-width: 1px;
   border-color: rgba(35, 106, 185, 0.5);
@@ -180,13 +161,14 @@
   background-color: $lightblue;
   margin-right: 5px;
   border-radius: 5px;
-  height: 24px;
-  line-height: 15px;
+  margin-left: 8px;
+  padding-top: 6px;
+  height: 26px;
+  padding-left: 10px;
   width: auto;
   padding: 3px;
   border-style: solid;
   border-width: 1px;
-  margin-left: 8px;
   border-color: rgba(35, 106, 185, 0.5);
 }
 
@@ -204,7 +186,14 @@
   // margin-bottom: 4px;
   padding-right: 5px;
   padding-bottom: 25px;
+  padding-top: 1px;
   border-style: solid;
   border-width: 1px;
   border-color: rgba(35, 106, 185, 0.5);
+}
+.start-words {
+  font-size: 18px;
+}
+.tags-start-word {
+  font-size: 18px;
 }

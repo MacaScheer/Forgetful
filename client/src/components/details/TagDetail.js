@@ -151,11 +151,10 @@ class TagDetail extends React.Component {
     );
   }
   render() {
- 
     return (
-      <div className="outer-tag">
-        <p className="tags-start-word">Tags: </p>
-        <div className="Tagbox-tag" onClick={this.handleEdit}>
+      <div className="show-task-body">
+        <div className="Tagbox" onClick={this.handleEdit}>
+          <p className="start-words">Tags: </p>&nbsp;{" "}
           {this.props.tags.length > 0 ? (
             this.props.tags.map((ele, i) => (
               <div className="tags">

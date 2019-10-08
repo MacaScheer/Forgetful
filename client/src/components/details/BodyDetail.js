@@ -61,7 +61,6 @@ class BodyDetail extends React.Component {
               >
                 <textarea onChange={this.fieldUpdate("body")}>
                   {this.state.body}
-                  
                 </textarea>
                 <button className="update-button" type="submit">
                   Update Body{" "}
@@ -83,7 +82,7 @@ class BodyDetail extends React.Component {
                         </IconContext.Provider>
                     </div> */}
           {/* <h2>Body: </h2> */}
-          <p className="body-Tagbox" ref={this.Ref} onClick={this.handleEdit}>
+          <p className="Tagbox" ref={this.Ref} onClick={this.handleEdit}>
             <p className="start-words"> Body:</p> &nbsp; {this.state.body}
           </p>
         </div>

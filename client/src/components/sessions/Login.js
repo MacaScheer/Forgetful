@@ -16,7 +16,6 @@ class Login extends Component {
     };
   }
   componentDidMount() {
-    debugger;
     if (this.props.match.url === "/demo") {
       setTimeout(() => {
         this.demoLogin(this.props.demo);
