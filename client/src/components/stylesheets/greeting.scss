@@ -47,7 +47,11 @@
 }
 
 .spacer {
-  width: 100%;
+  width: 80%;
+}
+.header-title {
+  margin-right: 200px;
+  width: 400px;
 }
 
 .greeting-container {
@@ -173,21 +177,20 @@
   margin-top: 100px;
 }
 
-.splash-intro-prewords{
+.splash-intro-prewords {
   font-size: 40px;
 }
 
-.splash-intro{
+.splash-intro {
   font-size: 100px;
-  color: brown;
+  color: $blue;
 }
 
-.splash-description{
+.splash-description {
   font-size: 30px;
-  margin-top: 100px;
-}
-
-.logo{
   margin-top: 50px;
 }
 
+.logo {
+  margin-top: 50px;
+}
