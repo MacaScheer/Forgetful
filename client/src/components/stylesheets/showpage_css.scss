@@ -9,6 +9,10 @@
 
 .task-show-content {
   padding: 50px;
+  // border-style: solid;
+  // border-width:1px;
+  // border-color: $font-gray;
+  // border-radius: 10px;
 }
 
 .show-task-name {
@@ -124,13 +128,13 @@
 .body-start-words {
   font-size: 20px;
 }
-.Tagbox-tag {
-  display: flex;
-  margin-top: 4px;
-  padding: 5px;
-  overflow: auto;
-  min-height: 20px;
-}
+// .Tagbox-tag {
+//   display: flex;
+//   margin-top: 4px;
+//   padding: 5px;
+//   overflow: auto;
+//   min-height: 20px;
+// }
 
 .tags:hover {
   box-shadow: 0px 3px 1px 0px rgba(35, 106, 185, 0.5);
@@ -196,4 +200,8 @@
 }
 .tags-start-word {
   font-size: 18px;
+}
+
+.show-task-body{
+  margin: 6px;
 }
