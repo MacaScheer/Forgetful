@@ -69,6 +69,10 @@
   transition: transform 0.9s;
   background: $lightblue;
   color: #484848;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $font-gray;
+  border-radius: 5px;
 }
 
 .title {
@@ -100,4 +104,13 @@
 .move-over {
   transform: translate(150px, 0);
   transition: 0.6s ease-in;
+}
+
+.nav-icon {
+  width: 40px;
+  height: auto;
+  // margin-right: 200px;
+  padding-bottom: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
 }

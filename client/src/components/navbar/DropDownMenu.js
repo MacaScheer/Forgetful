@@ -104,7 +104,9 @@ export default class DropDownMenu extends Component {
                 id="st-container"
               >
                 <div className="left-nav-inbox-container">
-                  <h2 className="title">Forgetful</h2>
+                  <img className="nav-icon" src={require("../splashpage/favicon1.ico")} />
+                  {/* <h2 className="title">Forgetful</h2> */}
+
                   <i
                     id="rotate1"
                     onClick={this.toggle}

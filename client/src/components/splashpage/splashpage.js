@@ -17,12 +17,11 @@ class SplashNavbar extends React.Component {
       <div className="home-page-div-tags">
         <div className="splash-intro-prewords">Welcome to</div>
         <div className="splash-intro">Forgetful</div>
-        <img className="logo" src={require("./brain-door.png")} />
+        <img className="logo" src={require("./favicon1.ico")} />
         {/* <div className="splash-description">We save ur tasks to different lists so you will never forget what you need to do!</div> */}
         <div className="splash-description">
           {" "}
-          An application that allows users to schedule and organize their daily
-          lives.
+          a task management application
         </div>
       </div>
     );
