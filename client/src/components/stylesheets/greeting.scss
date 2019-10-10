@@ -51,6 +51,8 @@
 }
 .header-title {
   margin-right: 200px;
+  align-self: center;
+  // margin-right: 200px;
   width: 400px;
 }
 
@@ -175,6 +177,9 @@
 .home-page-div-tags {
   text-align: center;
   margin-top: 100px;
+  padding-top: 120px;
+  padding-left: 540px;
+
 }
 
 .splash-intro-prewords {
@@ -185,12 +190,23 @@
   font-size: 100px;
   color: $blue;
 }
+.splash-background {
+  flex-basis: content;
 
+  margin-left: 260px;
+  object-fit: contain;
+  height: 700px;
+  width: 1010px;
+  background-image: url("../splashpage/elephantsticky.png");
+}
 .splash-description {
   font-size: 30px;
   margin-top: 50px;
 }
 
 .logo {
-  margin-top: 50px;
+  width: 10%;
+  height: 10%;
+  margin-right: 30px;
+  padding-bottom: 5px;
 }
