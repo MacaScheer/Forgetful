@@ -83,7 +83,7 @@ class Navbar extends React.Component {
                       <SearchBar queryString={this.state.queryString} />
                       <div className="spacer" />
                       <div className="header-title">
-                      Forgetful Task Management
+                      Forgetful
                       </div>
                       <div className="toolbar-navigation-items">
 

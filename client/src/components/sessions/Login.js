@@ -81,6 +81,7 @@ class Login extends Component {
                 });
               }}
             >
+              
               <h2 className="session-header">Log in to continue</h2>
               <div className="input-container">
                 <input

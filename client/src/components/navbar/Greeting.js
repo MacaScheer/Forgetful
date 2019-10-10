@@ -2,7 +2,7 @@ import React from "react";
 import { ApolloConsumer, Query } from "react-apollo";
 import { Link, withRouter } from "react-router-dom";
 import Queries from "../../graphql/queries";
-import "../stylesheets/greeting.scss"
+import "../stylesheets/greeting.scss";
 const { IS_LOGGED_IN } = Queries;
 class Greeting extends React.Component {
   constructor(props) {
@@ -31,15 +31,7 @@ class Greeting extends React.Component {
     return (
       <div className="navbar-list">
         <ul className="navbar-list-items">
-          <li className="navbar-list-item">
-            <Link to="/">Tour</Link>
-          </li>
-          <li className="navbar-list-item">
-            <Link to="/">What's New</Link>
-          </li>
-          <li className="navbar-list-item">
-            <Link to="/">Upgrade</Link>
-          </li>
+            <img className="logo" src={require("../splashpage/favicon1.ico")} />
           <li className="navbar-list-item">
             <Link to="/login">Log in</Link>
           </li>
@@ -63,7 +55,9 @@ class Greeting extends React.Component {
               if (data.isLoggedIn) {
                 return (
                   <div className="greeting-container">
-                    <div className="greeting">Welcome back, {localStorage.getItem("name")}! </div>
+                    <div className="greeting">
+                      Welcome back, {localStorage.getItem("name")}!{" "}
+                    </div>
                     <button
                       className="logout-button"
                       onClick={e => {
