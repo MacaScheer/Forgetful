@@ -176,10 +176,9 @@
 
 .home-page-div-tags {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 55px;
   padding-top: 120px;
-  padding-left: 540px;
-
+  padding-left: 510px;
 }
 
 .splash-intro-prewords {
@@ -191,10 +190,10 @@
   color: $blue;
 }
 .splash-background {
-  flex-basis: content;
-
-  margin-left: 260px;
-  object-fit: contain;
+  // flex-basis: content;
+  // display: flex;
+  margin-left: 140px;
+  // object-fit: contain;
   height: 700px;
   width: 1010px;
   background-image: url("../splashpage/elephantsticky.png");
