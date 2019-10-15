@@ -167,6 +167,8 @@
 }
 
 .splash-page-image {
+  position: relative;
+  top: -10px;
   object-fit: cover;
   width: 100%;
   // height: 100%;
@@ -178,7 +180,8 @@
   text-align: center;
   margin-top: 55px;
   padding-top: 74px;
-  padding-left: 248px;
+  padding-left: 28px;
+  padding-right:30px;
 }
 
 .splash-intro-prewords {
@@ -257,7 +260,7 @@ h3 {
 }
 
 .splash-container {
-  margin-top: 80px;
+  margin-top: 50px;
   width: 100%;
   display: flex;
   flex-direction: row;
