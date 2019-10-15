@@ -80,7 +80,6 @@ const mutation = new GraphQLObjectType({
       },
       async resolve(_, { taskID, tagID }) {
         const response = await Task.updateTaskTag(taskID, tagID);
-        console.log(response);
         return response;
       }
     },
@@ -88,8 +87,6 @@ const mutation = new GraphQLObjectType({
       type: TaskType,
       args: { _id: { type: GraphQLID } },
       resolve(_, args) {
-        console.log(args);
-        console.log(args._id);
         return Task.deleteOne({ _id: args._id }).then(() => {
           return args._id;
         });

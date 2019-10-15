@@ -95,7 +95,6 @@ const login = async data => {
     );
 
     if (!validPWord) throw new Error("Invalid Password");
-    console.log(existingUser._doc)
     // bcrypt.compare(password, existingUser.password);
     const token = jwt.sign({ id: existingUser._id }, keys.secretOrKey);
 

@@ -177,12 +177,14 @@
 .home-page-div-tags {
   text-align: center;
   margin-top: 55px;
-  padding-top: 120px;
-  padding-left: 510px;
+  padding-top: 74px;
+  padding-left: 248px;
 }
 
 .splash-intro-prewords {
   font-size: 40px;
+  width: 300px;
+  margin-left: 71px;
 }
 
 .splash-intro {
@@ -192,15 +194,16 @@
 .splash-background {
   // flex-basis: content;
   // display: flex;
-  margin-left: 140px;
-  // object-fit: contain;
-  height: 700px;
-  width: 1010px;
+  margin-left: 0px;
+  height: 762px;
+  width: 1018px;
   background-image: url("../splashpage/elephantsticky.png");
 }
 .splash-description {
   font-size: 30px;
   margin-top: 50px;
+  width: 400px;
+  margin-left: 23px;
 }
 
 .logo {
@@ -208,4 +211,56 @@
   height: 10%;
   margin-right: 30px;
   padding-bottom: 5px;
+}
+.slide-container {
+  width: 70%;
+  margin: auto;
+}
+
+h3 {
+  text-align: center;
+}
+
+.each-slide > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 300px;
+}
+
+.each-slide span {
+  padding: 20px;
+  font-size: 20px;
+  background: #efefef;
+  text-align: center;
+}
+
+.each-fade {
+  display: flex;
+}
+
+.each-fade .image-container {
+  width: 75%;
+  overflow: hidden;
+}
+
+.each-fade .image-container img {
+  width: 100%;
+}
+
+.each-fade h2 {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background: #adceed;
+}
+
+.splash-container {
+  margin-top: 80px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }

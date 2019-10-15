@@ -48,7 +48,6 @@ export default class DateOption extends Component {
 
   formatDate(dateObj) {
     let dateString = dateObj.toDateString();
-    console.log("DATESTRING", dateString);
     let dayARR = dateString.split(" ");
     let dayINT = parseInt(dayARR[2]);
     dayARR[2] = dayINT + 1;
