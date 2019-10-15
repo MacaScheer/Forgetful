@@ -191,7 +191,7 @@ class TaskIndex extends React.Component {
   render() {
     const cid = localStorage.getItem("currentuserId");
     const { showPage, trigger } = this.state;
-    return (
+    return cid ? (
       <ApolloConsumer>
         {client => (
           <Query query={FETCH_USER} variables={{ Id: cid }}>
@@ -281,7 +281,7 @@ class TaskIndex extends React.Component {
           </Query>
         )}
       </ApolloConsumer>
-    );
+    ) : <div/>;
   }
 }
 

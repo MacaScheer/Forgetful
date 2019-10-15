@@ -20,7 +20,6 @@ class SplashNavbar extends React.Component {
       infinite: false,
       indicators: true,
       onChange: (oldIndex, newIndex) => {
-        console.log(`fade transition from ${oldIndex} to ${newIndex}`);
       }
     };
     return (
