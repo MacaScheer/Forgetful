@@ -19,8 +19,17 @@ import LocationOption from "./tasks/LocationOption";
 import SplashPage from "./splashpage/splashpage";
 const path = require("path");
 
-const App = () => {
-  return (
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { 
+      showDropdown: false
+    }
+  }
+
+
+ render(){ 
+  return(
     <div>
       <Nav />
       {localStorage.getItem("auth-token") === null ? (
@@ -56,7 +65,9 @@ const App = () => {
         <AuthRoute exact path="/signup" component={Signup} routeType="auth" />
       </Switch>
     </div>
-  );
-};
+  )
+ }
+}
+
 
 export default App;

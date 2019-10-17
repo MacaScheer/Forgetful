@@ -16,6 +16,30 @@ class Navbar extends React.Component {
     };
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
+  
+  // async indexMover(state) {
+  //   debugger
+  //   const container = await document.getElementById("st-container");
+  //   const tasks = await document.getElementById("tasks-container");
+  //   const summary = await document.getElementById("right-side");
+  //   if (container && tasks && summary && !state) {
+  //     // debugger
+  //     container.classList.remove("slide");
+  //     tasks.classList.remove("move-left");
+  //     summary.classList.remove("move-left");
+  //     container.classList.add("new-slide");
+  //     summary.classList.add("move-right");
+  //     tasks.classList.add("move-right");
+  //   } else if (container && tasks && summary && state) {
+  //     // debugger
+  //     tasks.classList.remove("move-right");
+  //     summary.classList.remove("move-right");
+  //     container.classList.remove("new-slide");
+  //     container.classList.add("slide");
+  //     tasks.classList.add("move-left");
+  //     summary.classList.add("move-left");
+  //   } 
+  // }
 
    toggleDropdown(e) {
     e.preventDefault();
@@ -26,7 +50,8 @@ class Navbar extends React.Component {
     this.setState(
       {
         showDropdown: !this.state.showDropdown
-      },
+      }
+      ,
      () => {
         if (container && tasks && summary && !this.state.showDropdown) {
           // debugger
