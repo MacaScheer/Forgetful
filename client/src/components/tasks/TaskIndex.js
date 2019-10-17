@@ -189,13 +189,20 @@ class TaskIndex extends React.Component {
   }
 
   render() {
+    
+    let condition, container;
+    container = document.getElementById("st-container");
+    condition = false;
+    if (container) condition = container.classList.contains("new-slide");
     const cid = localStorage.getItem("currentuserId");
     const { showPage, trigger } = this.state;
+    // debugger
     return cid ? (
       <ApolloConsumer>
         {client => (
           <Query query={FETCH_USER} variables={{ Id: cid }}>
             {({ loading, error, data }) => {
+              // debugger
               if (loading) return "Loading...";
               if (error) return `Error! ${error.message}`;
               if (data.user.tasks) {
@@ -209,7 +216,11 @@ class TaskIndex extends React.Component {
                       <div className="task-index-page">
                         <div className="task-index-page-content">
                           <div
-                            className="right-side move-right"
+                            className={
+                              !condition
+                                ? "right-side move-left"
+                                : "right-side move-right"
+                            }
                             id="right-side"
                           >
                             <div className="task-summary-container">
@@ -235,7 +246,11 @@ class TaskIndex extends React.Component {
                             </div>
                           </div>
                           <div
-                            className="tasks-container move-right"
+                            className={
+                              !condition
+                                ? "tasks-container move-left"
+                                : "tasks-container move-right"
+                            }
                             id="tasks-container"
                           >
                             <div className="create-task-container">
@@ -281,7 +296,9 @@ class TaskIndex extends React.Component {
           </Query>
         )}
       </ApolloConsumer>
-    ) : <div/>;
+    ) : (
+      <div />
+    );
   }
 }
 
