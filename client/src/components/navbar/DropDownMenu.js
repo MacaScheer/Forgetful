@@ -90,6 +90,7 @@ export default class DropDownMenu extends Component {
   }
 
   render() {
+    // debugger
     const cid = localStorage.getItem("currentuserId");
     const { showLists, showTags, showLocations } = this.state;
     return cid ? (
@@ -100,7 +101,7 @@ export default class DropDownMenu extends Component {
           if (data.user) {
             return (
               <div
-                className="left-nav-container st-effect-13 slide"
+                className={!this.props.dropdown ? "left-nav-container st-effect-13 slide" : "left-nav-container st-effect-13 new-slide"}
                 id="st-container"
               >
                 <div className="left-nav-inbox-container">
