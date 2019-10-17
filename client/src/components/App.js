@@ -17,6 +17,7 @@ import SearchResults from "./tasks/SearchResults";
 import DropDownMenu from "./navbar/DropDownMenu";
 import LocationOption from "./tasks/LocationOption";
 import SplashPage from "./splashpage/splashpage";
+import { timingSafeEqual } from "crypto";
 const path = require("path");
 
 class App extends React.Component {
@@ -25,13 +26,17 @@ class App extends React.Component {
     this.state = { 
       showDropdown: false
     }
+    this.toggleDropdown = this.toggleDropdown.bind(this)
   }
 
+  toggleDropdown() {
+    this.setState({showDropdown: !this.state.showDropdown})
+  }
 
  render(){ 
   return(
     <div>
-      <Nav />
+      <Nav toggler={this.toggleDropdown} dropdown={this.state.showDropdown}/>
       {localStorage.getItem("auth-token") === null ? (
         <Redirect from="/" exact to="/splash" />
       ) : (
