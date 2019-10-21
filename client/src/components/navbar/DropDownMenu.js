@@ -152,6 +152,7 @@ export default class DropDownMenu extends Component {
                       id="rotate3"
                       onClick={this.toggle}
                     ></i>
+                    {/* herer might be an issue */}
                     <span className="drop-headers">Tags</span>
                   </div>
                   <div className="tags-subcat">
