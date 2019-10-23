@@ -17,8 +17,12 @@
 
 [Live Site][1]
 
-Forgetful is a task management app that lets people keep track of daily/weekly tasks.
+
 ![Forgetful](https://github.com/MacaScheer/Forgetful/blob/master/forgetful2.png)
+
+Forgetful is a task management app that lets people keep track of daily/weekly tasks.
+
+
 ## Technologies Used
  - React
  - Express.js
@@ -35,11 +39,25 @@ Task index was component that was to be used at multiple URLs, as engineers we
 decided to create a single component using a customize Fuse.js to have create a dynamic 
 component that we never need to comeback to. The progress involed:
 
+# TaskIndex Being Used for Multipl Urls
+``` JavaScript
 
+       <Route key="all" path="/all" component={TaskIndex} />
+      <Route key="today" path="/today" component={TaskIndex} />
+      <Route key="tomorrow" path="/tomorrow" component={TaskIndex} />
+      <Route key="thisweek" path="/thisweek" component={TaskIndex} />
+      <Route key="list" path="/lists/:list" component={TaskIndex} />
+      <Route key="tags" path="/tags/:list" component={TaskIndex} />
+      <Route key="location" path="/locations/:list" component={TaskIndex} />
+      <Route key="trash" path="/trash/trash" component={TaskIndex} />
+      <Route exact path="/tasks" component={TaskIndex} />
+
+
+```
 
 
 # Customizing Fuse.js to Manipulate Data Output
-```
+``` JavaScript
 
   runSearch(data) {
     if (this.state.keys === "search") return this.runSearchResult(data);
@@ -125,7 +143,8 @@ based on Apollo Query, involed formation of a new Object to replace the data sta
 Here is an example.
 
 # Creating Differently Reference Data Object For Apollo Cache
-```
+
+``` Javascript
   attributeUpdater(data, id) {
     const clonedData = merge([], data[this.props.filterkey]);
     let itemIdx;
@@ -138,6 +157,17 @@ Here is an example.
     return clonedData;
   }
 ```
+
+### Task Show 
+
+![Task Show](https://github.com/MacaScheer/Forgetful/blob/master/forgetful3.png)
+
+Creation of a Taskshow involved a slight tweak to the mutation towards the backend.
+Upon click user was given further details available to the task and an option to 
+change the details. 
+
+
+
 ## Team
 
 - Paul Kil Woung Choi
