@@ -26,12 +26,16 @@ Forgetful is a task management app that lets people keep track of daily/weekly t
  - Apollo / GraphQL
  - Fuse.js
 
-### Task Index
+### Task Index & Creating Tasks
 
-![Task Index Page](https://github.com/MacaScheer/Forgetful/blob/master/signup1.png)
+![Task Index Page And Creating Tasks](https://github.com/MacaScheer/Forgetful/blob/master/signup1.png)
+## Task Index
 
-`
+Task index was component that was to be used at multiple URLs, as engineers we
+decided to create a single component using a customize Fuse.js to have create a dynamic 
+component that we never need to comeback to. The progress involed:
 
+# Customizing Data to Feed to Fuse.js
 ```
   attributeUpdater(data, id) {
     const clonedData = merge([], data[this.props.filterkey]);
@@ -46,6 +50,8 @@ Forgetful is a task management app that lets people keep track of daily/weekly t
   }
 ```
 
+
+# Customizing Fuse.js to Manipulate Data Output
 ```
 
   runSearch(data) {
@@ -122,6 +128,10 @@ Forgetful is a task management app that lets people keep track of daily/weekly t
   }
 ```
 
+## Creating Tasks
+
+Creating task involved deep knowlege of how Apollo Client functioned. Knowing that in order
+for the client register a change, the changes to data was not to be made to original data 
 ## Team
 
 - Paul Kil Woung Choi
