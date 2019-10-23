@@ -17,105 +17,47 @@
 
 [Live Site][1]
 
+
+![Forgetful](https://github.com/MacaScheer/Forgetful/blob/master/forgetful2.png)
+
 Forgetful is a task management app that lets people keep track of daily/weekly tasks.
 
-Primarily built with the combination of following technologies:
-MongoDB, GraphQL, Apollo, React, Node, Docker
 
-### Apollo Client
+## Technologies Used
+ - React
+ - Express.js
+ - Node.js
+ - Apollo / GraphQL
+ - Fuse.js
 
-# Frontend Mutations
+### Task Index & Creating Tasks
 
-```
-  CREATE_TASK: gql`
-    mutation newTask(
-      $name: String
-      $due_date: String
-      $start_date: String
-      $locationId: String
-      $tagId: String
-      $listId: String
-      $userId: String
-    ) {
-      newTask(
-        name: $name
-        due_date: $due_date
-        start_date: $start_date
-        locationId: $locationId
-        tagId: $tagId
-        listId: $listId
-        userId: $userId
-      ) {
-        name
-        _id
-        due_date
-        start_date
+![Task Index Page And Creating Tasks](https://github.com/MacaScheer/Forgetful/blob/master/forgetful1.png)
+## Task Index
 
-      }
-    }
-  `,
-```
+Task index was component that was to be used at multiple URLs, as engineers we
+decided to create a single component using a customize Fuse.js to have create a dynamic 
+component that we never need to comeback to. The progress involed:
+
+# TaskIndex Being Used for Multipl Urls
+``` JavaScript
+
+       <Route key="all" path="/all" component={TaskIndex} />
+      <Route key="today" path="/today" component={TaskIndex} />
+      <Route key="tomorrow" path="/tomorrow" component={TaskIndex} />
+      <Route key="thisweek" path="/thisweek" component={TaskIndex} />
+      <Route key="list" path="/lists/:list" component={TaskIndex} />
+      <Route key="tags" path="/tags/:list" component={TaskIndex} />
+      <Route key="location" path="/locations/:list" component={TaskIndex} />
+      <Route key="trash" path="/trash/trash" component={TaskIndex} />
+      <Route exact path="/tasks" component={TaskIndex} />
+
 
 ```
-  FETCH_USER: gql`
-    query FetchUser($Id: ID!) {
-      user(_id: $Id) {
-        tasks {
-          _id
-          name
-          due_date
-          start_date
-        }
-        tags {
-          tasks {
-            _id
-            name
-          }
-          name
-          _id
-        }
-        lists {
-          name
-          _id
-          tasks {
-            _id
-            name
-          }
-        }
 
-        trash{
-          _id
-          name
-        }
-        locations{
-          _id
 
-          name
-          tasks{
-            _id
-            name
-          }
-        }
-      }
-    }
-  `,
-```
-
-```
-  attributeUpdater(data, id) {
-    const clonedData = merge([], data[this.props.filterkey]);
-    let itemIdx;
-    clonedData.forEach((ele, idx) => {
-      if (ele.name === this.props.filtername) itemIdx = idx;
-    });
-    clonedData[itemIdx].tasks.forEach((ele, idx) => {
-      if (ele._id === id) clonedData[itemIdx].tasks.splice(idx, 1);
-    });
-    return clonedData;
-  }
-```
-
-```
+# Customizing Fuse.js to Manipulate Data Output
+``` JavaScript
 
   runSearch(data) {
     if (this.state.keys === "search") return this.runSearchResult(data);
@@ -191,11 +133,46 @@ MongoDB, GraphQL, Apollo, React, Node, Docker
   }
 ```
 
+## Creating Tasks
+
+Creating task involved deep knowlege of how Apollo Client functioned. Knowing that in order
+for the client register a change, the changes to data was not to be made to original data except for
+some conditions. Thus, updating-cache for instant response to a React Component that was already mounted
+based on Apollo Query, involed formation of a new Object to replace the data standing within the Apollo Cache.
+
+Here is an example.
+
+# Creating Differently Reference Data Object For Apollo Cache
+
+``` Javascript
+  attributeUpdater(data, id) {
+    const clonedData = merge([], data[this.props.filterkey]);
+    let itemIdx;
+    clonedData.forEach((ele, idx) => {
+      if (ele.name === this.props.filtername) itemIdx = idx;
+    });
+    clonedData[itemIdx].tasks.forEach((ele, idx) => {
+      if (ele._id === id) clonedData[itemIdx].tasks.splice(idx, 1);
+    });
+    return clonedData;
+  }
+```
+
+### Task Show 
+
+![Task Show](https://github.com/MacaScheer/Forgetful/blob/master/forgetful3.png)
+
+Creation of a Taskshow involved a slight tweak to the mutation towards the backend.
+Upon click user was given further details available to the task and an option to 
+change the details. 
+
+
+
 ## Team
 
 - Paul Kil Woung Choi
 - Mac Scheer
 - Cameron Farina
-- Anthony Chan
+
 
 [1]: http://forgetful-task-management.herokuapp.com/
