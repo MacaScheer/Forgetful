@@ -23,14 +23,14 @@
 Forgetful is a task management app that lets people keep track of daily/weekly tasks.
 
 
-## Technologies Used
+# Technologies Used
  - React
  - Express.js
  - Node.js
  - Apollo / GraphQL
  - Fuse.js
 
-### Task Index & Creating Tasks
+# Task Index & Creating Tasks
 
 ![Task Index Page And Creating Tasks](https://github.com/MacaScheer/Forgetful/blob/master/forgetful1.png)
 ## Task Index
@@ -39,7 +39,7 @@ Task index was component that was to be used at multiple URLs, as engineers we
 decided to create a single component using a customize Fuse.js to have create a dynamic 
 component that we never need to comeback to. The progress involed:
 
-# TaskIndex Being Used for Multipl Urls
+### TaskIndex Being Used for Multipl Urls
 ``` JavaScript
 
        <Route key="all" path="/all" component={TaskIndex} />
@@ -56,7 +56,7 @@ component that we never need to comeback to. The progress involed:
 ```
 
 
-# Customizing Fuse.js to Manipulate Data Output
+### Customizing Fuse.js to Manipulate Data Output
 ``` JavaScript
 
   runSearch(data) {
@@ -142,7 +142,7 @@ based on Apollo Query, involed formation of a new Object to replace the data sta
 
 Here is an example.
 
-# Creating Differently Reference Data Object For Apollo Cache
+### Creating Differently Reference Data Object For Apollo Cache
 
 ``` Javascript
   attributeUpdater(data, id) {
@@ -158,7 +158,7 @@ Here is an example.
   }
 ```
 
-### Task Show 
+# Task Show 
 
 ![Task Show](https://github.com/MacaScheer/Forgetful/blob/master/forgetful3.png)
 
