@@ -35,20 +35,7 @@ Task index was component that was to be used at multiple URLs, as engineers we
 decided to create a single component using a customize Fuse.js to have create a dynamic 
 component that we never need to comeback to. The progress involed:
 
-# Customizing Data to Feed to Fuse.js
-```
-  attributeUpdater(data, id) {
-    const clonedData = merge([], data[this.props.filterkey]);
-    let itemIdx;
-    clonedData.forEach((ele, idx) => {
-      if (ele.name === this.props.filtername) itemIdx = idx;
-    });
-    clonedData[itemIdx].tasks.forEach((ele, idx) => {
-      if (ele._id === id) clonedData[itemIdx].tasks.splice(idx, 1);
-    });
-    return clonedData;
-  }
-```
+
 
 
 # Customizing Fuse.js to Manipulate Data Output
@@ -131,12 +118,31 @@ component that we never need to comeback to. The progress involed:
 ## Creating Tasks
 
 Creating task involved deep knowlege of how Apollo Client functioned. Knowing that in order
-for the client register a change, the changes to data was not to be made to original data 
+for the client register a change, the changes to data was not to be made to original data except for
+some conditions. Thus, updating-cache for instant response to a React Component that was already mounted
+based on Apollo Query, involed formation of a new Object to replace the data standing within the Apollo Cache.
+
+Here is an example.
+
+# Creating Differently Reference Data Object For Apollo Cache
+```
+  attributeUpdater(data, id) {
+    const clonedData = merge([], data[this.props.filterkey]);
+    let itemIdx;
+    clonedData.forEach((ele, idx) => {
+      if (ele.name === this.props.filtername) itemIdx = idx;
+    });
+    clonedData[itemIdx].tasks.forEach((ele, idx) => {
+      if (ele._id === id) clonedData[itemIdx].tasks.splice(idx, 1);
+    });
+    return clonedData;
+  }
+```
 ## Team
 
 - Paul Kil Woung Choi
 - Mac Scheer
 - Cameron Farina
-- Anthony Chan
+
 
 [1]: http://forgetful-task-management.herokuapp.com/
