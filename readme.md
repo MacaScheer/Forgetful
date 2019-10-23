@@ -19,87 +19,18 @@
 
 Forgetful is a task management app that lets people keep track of daily/weekly tasks.
 
-Primarily built with the combination of following technologies:
-MongoDB, GraphQL, Apollo, React, Node, Docker
+## Technologies Used
+ - React
+ - Express.js
+ - Node.js
+ - Apollo / GraphQL
+ - Fuse.js
 
-### Apollo Client
+### Task Index
 
-# Frontend Mutations
+![Task Index Page](https://github.com/MacaScheer/Forgetful/blob/master/signup1.png)
 
-```
-  CREATE_TASK: gql`
-    mutation newTask(
-      $name: String
-      $due_date: String
-      $start_date: String
-      $locationId: String
-      $tagId: String
-      $listId: String
-      $userId: String
-    ) {
-      newTask(
-        name: $name
-        due_date: $due_date
-        start_date: $start_date
-        locationId: $locationId
-        tagId: $tagId
-        listId: $listId
-        userId: $userId
-      ) {
-        name
-        _id
-        due_date
-        start_date
-
-      }
-    }
-  `,
-```
-
-```
-  FETCH_USER: gql`
-    query FetchUser($Id: ID!) {
-      user(_id: $Id) {
-        tasks {
-          _id
-          name
-          due_date
-          start_date
-        }
-        tags {
-          tasks {
-            _id
-            name
-          }
-          name
-          _id
-        }
-        lists {
-          name
-          _id
-          tasks {
-            _id
-            name
-          }
-        }
-
-        trash{
-          _id
-          name
-        }
-        locations{
-          _id
-
-          name
-          tasks{
-            _id
-            name
-          }
-        }
-      }
-    }
-  `,
-```
+`
 
 ```
   attributeUpdater(data, id) {
