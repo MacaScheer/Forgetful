@@ -18,7 +18,7 @@
 [Live Site][1]
 
 Forgetful is a task management app that lets people keep track of daily/weekly tasks.
-
+![Forgetful](https://github.com/MacaScheer/Forgetful/blob/master/forgetful2.png)
 ## Technologies Used
  - React
  - Express.js
@@ -28,7 +28,7 @@ Forgetful is a task management app that lets people keep track of daily/weekly t
 
 ### Task Index & Creating Tasks
 
-![Task Index Page And Creating Tasks](https://github.com/MacaScheer/Forgetful/blob/master/signup1.png)
+![Task Index Page And Creating Tasks](https://github.com/MacaScheer/Forgetful/blob/master/forgetful1.png)
 ## Task Index
 
 Task index was component that was to be used at multiple URLs, as engineers we
