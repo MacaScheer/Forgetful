@@ -261,10 +261,10 @@ class TaskIndex extends React.Component {
                             <div className="task-list-container">
                               <div className="task-list">
                                 {summary.map((task, i) => (
-                                  <div>
+                                  <div key={`${i}${task.name}`}>
                                     <div
                                       className="task-list-item"
-                                      key={i}
+                                      
                                     ></div>
                                     <Taskline
                                       // object={task}

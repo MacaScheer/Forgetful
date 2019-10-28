@@ -17,39 +17,39 @@ class Navbar extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
-   toggleDropdown(e) {
+  toggleDropdown(e) {
     e.preventDefault();
     const container = document.getElementById("st-container");
     const tasks = document.getElementById("tasks-container");
     const summary = document.getElementById("right-side");
-   
-     this.setState(
-       {
-         showDropdown: !this.state.showDropdown
-       }
-       ,
-       () => {
-         if (container && tasks && summary && !this.state.showDropdown) {
-           tasks.classList.remove("move-right");
-           summary.classList.remove("move-right");
-           container.classList.remove("new-slide");
-           container.classList.add("slide");
-           tasks.classList.add("move-left");
-           summary.classList.add("move-left");
-          } else if (container && tasks && summary && this.state.showDropdown) {
-            container.classList.remove("slide");
-            tasks.classList.remove("move-left");
-            summary.classList.remove("move-left");
-            container.classList.add("new-slide");
-            summary.classList.add("move-right");
-            tasks.classList.add("move-right");
-         }
-       }
-     );
-   }
 
+    this.setState(
+      {
+        showDropdown: !this.state.showDropdown
+      },
+      () => {
+        if (container && tasks && summary && this.state.showDropdown) {
+          // debugger
+          container.classList.remove("slide");
+          tasks.classList.remove("move-left");
+          summary.classList.remove("move-left");
+          summary.classList.add("move-right");
+          tasks.classList.add("move-right");
+          container.classList.add("new-slide");
+        } else if (container && tasks && summary && !this.state.showDropdown) {
+          tasks.classList.remove("move-right");
+          summary.classList.remove("move-right");
+          container.classList.remove("new-slide");
+          container.classList.add("slide");
+          tasks.classList.add("move-left");
+          summary.classList.add("move-left");
+        }
+      }
+    );
+  }
 
   render() {
+    // debugger
     return (
       <ApolloConsumer>
         {client => (
