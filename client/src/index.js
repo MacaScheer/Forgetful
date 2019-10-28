@@ -41,11 +41,13 @@ const httpLink = createHttpLink({
   }
 });
 const token = localStorage.getItem("auth-token");
-
+const userId = localStorage.getItem("currentuserId")
+// debugger
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
-    searchResults: []
+    searchResults: [],
+    _id: userId
   }
 });
 

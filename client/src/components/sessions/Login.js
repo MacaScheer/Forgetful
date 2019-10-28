@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import { ApolloConsumer, Mutation } from "react-apollo";
 import Mutations from "../../graphql/mutations";
 import "../stylesheets/session-form.scss";
 import "../stylesheets/reset.scss";
 import { withRouter } from "react-router-dom";
 const { LOGIN_USER } = Mutations;
+
+
 
 class Login extends Component {
   constructor(props) {
@@ -13,6 +15,19 @@ class Login extends Component {
     this.state = {
       email: "",
       password: ""
+    };
+
+    const asyncLocalStorage = {
+      setItem: function (key, value) {
+        return Promise.resolve().then(function () {
+          localStorage.setItem(key, value);
+        });
+      },
+      getItem: function (key) {
+        return Promise.resolve().then(function () {
+          return localStorage.getItem(key);
+        });
+      }
     };
   }
   componentDidMount() {
@@ -49,64 +64,78 @@ class Login extends Component {
 
   updateCache(client, { data }) {
     client.writeData({
-      data: { isLoggedIn: data.login.loggedIn }
+      data: {
+        isLoggedIn: data.login.loggedIn,
+        _id: data.login._id
+      }
     });
   }
 
   render() {
     return (
-      <Mutation
-        mutation={LOGIN_USER}
-        onCompleted={data => {
-          const { token, name, defaultListObjectId, _id } = data.login;
-          localStorage.setItem("auth-token", token);
-          localStorage.setItem("name", name);
-          localStorage.setItem("defaultListObjectId", defaultListObjectId);
-          localStorage.setItem("currentuserId", _id);
-          this.props.history.push("/all");
-        }}
-        update={(client, data) => this.updateCache(client, data)}
-      >
-        {loginUser => (
-          <div className="session-child">
-            <form
-              className="session-form"
-              onSubmit={e => {
-                e.preventDefault();
-                loginUser({
-                  variables: {
-                    email: this.state.email,
-                    password: this.state.password
-                  }
-                });
+      <ApolloConsumer>
+        {client => {
+          return (
+            <Mutation
+              mutation={LOGIN_USER}
+              onCompleted={data => {
+                // debugger
+                
+                const { token, name, defaultListObjectId, _id } = data.login;
+                localStorage.setItem("auth-token", token);
+                localStorage.setItem("name", name);
+                localStorage.setItem(
+                  "defaultListObjectId",
+                  defaultListObjectId
+                );
+                localStorage.setItem("currentuserId", _id);
+
+                this.props.history.push("/all");
               }}
+              update={(client, data) => this.updateCache(client, data)}
             >
-              
-              <h2 className="session-header">Log in to continue</h2>
-              <div className="input-container">
-                <input
-                  value={this.state.email}
-                  onChange={this.update("email")}
-                  placeholder="Email"
-                />
-              </div>
-              <div className="input-container">
-                <input
-                  value={this.state.password}
-                  onChange={this.update("password")}
-                  type="password"
-                  placeholder="Password"
-                />
-              </div>
-              <div className="session-buttons">
-                <button id="submitbtn" type="submit">
-                  Log In
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
-      </Mutation>
+              {loginUser => (
+                <div className="session-child">
+                  <form
+                    className="session-form"
+                    onSubmit={e => {
+                      e.preventDefault();
+                      loginUser({
+                        variables: {
+                          email: this.state.email,
+                          password: this.state.password
+                        }
+                      });
+                    }}
+                  >
+                    <h2 className="session-header">Log in to continue</h2>
+                    <div className="input-container">
+                      <input
+                        value={this.state.email}
+                        onChange={this.update("email")}
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div className="input-container">
+                      <input
+                        value={this.state.password}
+                        onChange={this.update("password")}
+                        type="password"
+                        placeholder="Password"
+                      />
+                    </div>
+                    <div className="session-buttons">
+                      <button id="submitbtn" type="submit">
+                        Log In
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+            </Mutation>
+          );
+        }}
+      </ApolloConsumer>
     );
   }
 }

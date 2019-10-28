@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Query } from "react-apollo";
+import { ApolloConsumer, Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import { Link } from "react-router-dom";
 import "../stylesheets/dropdown.scss";
-
+import gql from "graphql-tag";
 const { FETCH_USER } = Queries;
+
 export default class DropDownMenu extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,7 @@ export default class DropDownMenu extends Component {
       showTags: true,
       showLocations: true
     };
-
+ 
     this.toggle = this.toggle.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -91,119 +92,133 @@ export default class DropDownMenu extends Component {
 
   render() {
     // debugger
-    const cid = localStorage.getItem("currentuserId");
+    // const cid =  localStorage.getItem("currentuserId");
     const { showLists, showTags, showLocations } = this.state;
-    return cid ? (
-      <Query query={FETCH_USER} variables={{ Id: cid }}>
-        {({ loading, error, data }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
-          if (data.user) {
-            return (
-              <div
-                className={!this.props.dropdown ? "left-nav-container st-effect-13 slide" : "left-nav-container st-effect-13 new-slide"}
-                id="st-container"
-              >
-                <div className="left-nav-inbox-container">
-                  <img className="nav-icon" src={require("../splashpage/favicon1.ico")} />
-                  {/* <h2 className="title">Forgetful</h2> */}
+    // !cid ? (
+   return (
+       <ApolloConsumer>
+       {client => {
+         const { _id } = client.readQuery({
+           query: gql`
+                    query CachedQuery {
+                      _id
+                    }
+                  `
+         })
+          // let fetch = client.readQuery()
+          // debugger
+          return (<Query query={FETCH_USER} variables={{ Id: _id }}>
+            {({ loading, error, data }) => {
+              if (loading) return "Loading...";
+              if (error) return `Error! ${error.message}`;
+              if (data.user) {
+                return (
+                  <div
+                    className={!this.props.dropdown ? "left-nav-container st-effect-13 slide" : "left-nav-container st-effect-13 new-slide"}
+                    id="st-container"
+                  >
+                    <div className="left-nav-inbox-container">
+                      <img className="nav-icon" src={require("../splashpage/favicon1.ico")} />
+                      {/* <h2 className="title">Forgetful</h2> */}
 
-                  <i
-                    id="rotate1"
-                    onClick={this.toggle}
-                    className="fas fa-sort-down icons"
-                  ></i>
-                  {this.state.toggle ? (
-                    <Link to="/lists/inbox" className="drop-headers">
-                      <span className="drop-headers">Inbox</span>
-                    </Link>
-                  ) : (
-                    <Link to="/all">
-                      <span className="drop-headers">All Tasks</span>
-                    </Link>
-                  )}
-                  {this.renderInboxCat()}
-                </div>
-                <div className="left-nav-lists-container" id="st-container">
-                  <div>
-                    <i
-                      className="fas fa-sort-down icons"
-                      id="rotate2"
-                      onClick={this.toggle}
-                    ></i>
-                    <span className="drop-headers">Lists</span>
-                  </div>
-                  <div className="lists-subcat">
-                    {showLists ? (
-                      data.user.lists.map((list, i) => (
-                        <Link to={`/lists/${list.name}`} key={i}>
-                          {list.name}
+                      <i
+                        id="rotate1"
+                        onClick={this.toggle}
+                        className="fas fa-sort-down icons"
+                      ></i>
+                      {this.state.toggle ? (
+                        <Link to="/lists/inbox" className="drop-headers">
+                          <span className="drop-headers">Inbox</span>
                         </Link>
-                      ))
-                    ) : (
-                      <div />
-                    )}
-                  </div>
-                </div>
-                <div className="left-nav-tags-container" id="st-container">
-                  <div>
-                    <i
-                      className="fas fa-sort-down icons"
-                      id="rotate3"
-                      onClick={this.toggle}
-                    ></i>
-                    {/* herer might be an issue */}
-                    <span className="drop-headers">Tags</span>
-                  </div>
-                  <div className="tags-subcat">
-                    {showTags ? (
-                      data.user.tags.length !== 0 ? (
-                        data.user.tags.map((tag, i) => (
-                          <Link to={`/tags/${tag.name}`} key={i}>
-                            {tag.name}
-                          </Link>
-                        ))
                       ) : (
-                        <div />
-                      )
-                    ) : (
-                      <div />
-                    )}
-                  </div>
-                </div>
-
-                <div className="left-nav-locations-container">
-                  <div>
-                    <i
-                      className="fas fa-sort-down icons"
-                      id="rotate4"
-                      onClick={this.toggle}
-                    ></i>
-                    <span className="drop-headers">Locations</span>
-                    <div className="locations-subcat">
-                      {showLocations ? (
-                        data.user.locations.length !== 0 ? (
-                          data.user.locations.map((location, i) => (
-                            <Link to={`/locations/${location.name}`} key={i}>
-                              {location.name}
+                          <Link to="/all">
+                            <span className="drop-headers">All Tasks</span>
+                          </Link>
+                        )}
+                      {this.renderInboxCat()}
+                    </div>
+                    <div className="left-nav-lists-container" id="st-container">
+                      <div>
+                        <i
+                          className="fas fa-sort-down icons"
+                          id="rotate2"
+                          onClick={this.toggle}
+                        ></i>
+                        <span className="drop-headers">Lists</span>
+                      </div>
+                      <div className="lists-subcat">
+                        {showLists ? (
+                          data.user.lists.map((list, i) => (
+                            <Link to={`/lists/${list.name}`} key={i}>
+                              {list.name}
                             </Link>
                           ))
                         ) : (
-                          <div />
-                        )
-                      ) : (
-                        <div />
-                      )}
+                            <div />
+                          )}
+                      </div>
+                    </div>
+                    <div className="left-nav-tags-container" id="st-container">
+                      <div>
+                        <i
+                          className="fas fa-sort-down icons"
+                          id="rotate3"
+                          onClick={this.toggle}
+                        ></i>
+                        {/* herer might be an issue */}
+                        <span className="drop-headers">Tags</span>
+                      </div>
+                      <div className="tags-subcat">
+                        {showTags ? (
+                          data.user.tags.length !== 0 ? (
+                            data.user.tags.map((tag, i) => (
+                              <Link to={`/tags/${tag.name}`} key={i}>
+                                {tag.name}
+                              </Link>
+                            ))
+                          ) : (
+                              <div />
+                            )
+                        ) : (
+                            <div />
+                          )}
+                      </div>
+                    </div>
+
+                    <div className="left-nav-locations-container">
+                      <div>
+                        <i
+                          className="fas fa-sort-down icons"
+                          id="rotate4"
+                          onClick={this.toggle}
+                        ></i>
+                        <span className="drop-headers">Locations</span>
+                        <div className="locations-subcat">
+                          {showLocations ? (
+                            data.user.locations.length !== 0 ? (
+                              data.user.locations.map((location, i) => (
+                                <Link to={`/locations/${location.name}`} key={i}>
+                                  {location.name}
+                                </Link>
+                              ))
+                            ) : (
+                                <div />
+                              )
+                          ) : (
+                              <div />
+                            )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            );
-          } else {
-            return null;
-          }
+                );
+              } else {
+                return null;
+              }
+            }}
+          </Query>)
         }}
-      </Query>
-    ) : <div/>;
-  }
-}
+    </ApolloConsumer> )
+    // : <div className="checker" />;
+      }
+    }
