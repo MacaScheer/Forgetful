@@ -172,7 +172,7 @@ export default class DropDownMenu extends Component {
                         {showTags ? (
                           data.user.tags.length !== 0 ? (
                             data.user.tags.map((tag, i) => (
-                              <Link to={`/tags/${tag.name}`} key={i}>
+                              <Link to={`/tags/${tag.name}`} key={`${i}${tag}`}>
                                 {tag.name}
                               </Link>
                             ))
@@ -197,7 +197,7 @@ export default class DropDownMenu extends Component {
                           {showLocations ? (
                             data.user.locations.length !== 0 ? (
                               data.user.locations.map((location, i) => (
-                                <Link to={`/locations/${location.name}`} key={i}>
+                                <Link to={`/locations/${location.name}`} key={`${i}${location}`}>
                                   {location.name}
                                 </Link>
                               ))
