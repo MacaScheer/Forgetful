@@ -9,7 +9,6 @@ const { UPDATE_TASK_DUE_DATE } = mutations;
 class DueDateDetail extends React.Component {
   constructor(props) {
     super(props);
-    // debugger
     this.state = {
       input: "",
       editing: false,
@@ -40,21 +39,12 @@ class DueDateDetail extends React.Component {
   }
 
   toggleOffEditing(e) {
-    // debugger;
     if (this.state.editing && !e.target.className.includes("task-due-date")) {
-      // debugger
 
       this.setState({ editing: false })
     }
   }
 
-  // handleClick = e => {
-  //     if (this.Ref.current.contains(e.target)) {
-  //         return;
-  //     } else {
-  //         this.setState({ editing: false });
-  //     }
-  // };
 
   fieldUpdate(field) {
     return e => this.setState({ [field]: e.target.value });
@@ -71,7 +61,6 @@ class DueDateDetail extends React.Component {
   }
 
   render() {
-    // debugger;
     if (this.state.editing) {
       const {datePicked, pickingDate, due_date} = this.state
       return (

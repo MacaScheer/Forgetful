@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class ModalContainer extends Component {
   
 
-  function Modal({ modal, closeModal }) {
+  Modal({ modal, closeModal }) {
   if (!modal) {
     return null;
   }
@@ -34,6 +34,7 @@ export default class ModalContainer extends Component {
     default:
       return null;
   }
+}
   render() {
     return (
       <div>

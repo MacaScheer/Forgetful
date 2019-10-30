@@ -71,7 +71,6 @@ class LocationDetail extends React.Component {
 
   updateCache(cache, { data }) {
     let task;
-    debugger;
     try {
       let id = this.props.id;
       task = cache.readQuery({ query: FETCH_TASK, variables: { Id: id } });

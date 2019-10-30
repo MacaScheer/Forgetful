@@ -10,20 +10,13 @@ import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
 import { HashRouter } from "react-router-dom";
 import Mutations from "../src/graphql/mutations";
-import 'font-awesome/css/font-awesome.min.css';
+import "font-awesome/css/font-awesome.min.css";
 
 const { VERIFY_USER } = Mutations;
 
 const cache = new InMemoryCache({
   dataIdFromObject: object => object._id || null
 });
-
-// const httpLink = createHttpLink({
-//   uri: "http://localhost:5000/graphql",
-//   headers: {
-//     authorization: localStorage.getItem("auth-token")
-//   }
-// });
 
 let uri;
 if (process.env.NODE_ENV === "production") {
@@ -41,8 +34,7 @@ const httpLink = createHttpLink({
   }
 });
 const token = localStorage.getItem("auth-token");
-const userId = localStorage.getItem("currentuserId")
-// debugger
+const userId = localStorage.getItem("currentuserId");
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
@@ -57,7 +49,7 @@ const errorLink = onError(({ graphQLErrors }) => {
 
 const client = new ApolloClient({
   link: ApolloLink.from([errorLink, httpLink]),
-  cache ,
+  cache,
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);

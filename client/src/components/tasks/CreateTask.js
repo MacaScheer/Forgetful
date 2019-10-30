@@ -32,7 +32,6 @@ class CreateTask extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   inputAdder(value) {
-    // debugger;
     this.setState({ input: this.state.input.concat(value) });
   }
   stateBinder(value) {
@@ -136,16 +135,12 @@ class CreateTask extends React.Component {
 
   attributeUpdater(data, id, newData) {
     let clonedData = merge([], data)
-    // debugger
     data.forEach((ele , idx)=> {
       if (ele._id === id) {
-        // debugger
         clonedData[idx].tasks.push(newData)
       }
 
     });
-    // clonedData= merge([], data)
-    // debugger
     return clonedData
   }
 

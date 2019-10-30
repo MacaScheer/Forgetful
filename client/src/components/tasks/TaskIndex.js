@@ -196,17 +196,14 @@ class TaskIndex extends React.Component {
     if (container) condition = container.classList.contains("new-slide");
     const cid = localStorage.getItem("currentuserId");
     const { showPage, trigger } = this.state;
-    // debugger
     return cid ? (
       <ApolloConsumer>
         {client => (
           <Query query={FETCH_USER} variables={{ Id: cid }}>
             {({ loading, error, data }) => {
-              // debugger
               if (loading) return "Loading...";
               if (error) return `Error! ${error.message}`;
               if (data.user.tasks) {
-                // debugger
                 const summary = trigger
                   ? this.runSearch(data.user)
                   : data.user.tasks;

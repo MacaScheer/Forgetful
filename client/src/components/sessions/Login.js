@@ -42,7 +42,6 @@ class Login extends Component {
     const email = "demo@demo.com";
     const password = "password123";
     const typeSpeed = 60;
-    // debugger
     for (let i = 0; i < email.length; i++) {
       setTimeout(() => {
         this.setState({ email: this.state.email + email[i] });
@@ -79,7 +78,6 @@ class Login extends Component {
             <Mutation
               mutation={LOGIN_USER}
               onCompleted={data => {
-                // debugger
                 
                 const { token, name, defaultListObjectId, _id } = data.login;
                 localStorage.setItem("auth-token", token);
