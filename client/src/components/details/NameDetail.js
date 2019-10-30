@@ -25,27 +25,17 @@ class NameDetail extends React.Component {
   }
 
   toggleOffEdit(e) {
-    // debugger
     e.preventDefault();
-    // debugger;
 
     if (
       this.state.editing === true &&
       !e.target.className.includes("grabber")
     ) {
-      // debugger
       this.setState({ editing: false, nameToBeChaged: this.props.name });
     }
     // this.setState({editing: false, nameToBeChanged: this.props.name})
   }
 
-  // componentWillMount() {
-  //   document.addEventListener("mousedown", this.toggleOffEdit);
-  // }
-
-  // componentWillUnmount() {
-  //   document.removeEventListener("mousedown", this.toggleOffEdit);
-  // }
 
   handleEdit(e) {
     e.preventDefault();
@@ -59,7 +49,6 @@ class NameDetail extends React.Component {
 
   handleSubmit(e, updateTask) {
     e.preventDefault();
-    // debugger;
     updateTask({
       variables: {
         _id: this.props.id,

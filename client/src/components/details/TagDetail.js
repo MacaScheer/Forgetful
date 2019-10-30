@@ -27,7 +27,6 @@ class TagDetail extends React.Component {
     this.closer = this.closer.bind(this);
   }
   componentDidUpdate(prevprops) {
-    // debugger
   }
   renderModal() {
     return this.state.render ? (

@@ -20,7 +20,6 @@ class ListOption extends Component {
     this.closer = this.closer.bind(this);
     this.binder = this.binder.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-    // debugger
   }
 
   closer() {
@@ -53,7 +52,6 @@ class ListOption extends Component {
   binder() {
     this.props.inputAdder(this.state.name);
     this.props.stateBinder({ listId: this.state.listId });
-    // debugger;
   }
   toggleModal(e) {
     e.preventDefault();

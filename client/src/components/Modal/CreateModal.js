@@ -110,7 +110,6 @@ export default class CreateModal extends Component {
 
   render() {
     let grabber = this.grabber(this.props.type);
-    // debugger
     return (
       <Mutation
         mutation={this.state.mutation}

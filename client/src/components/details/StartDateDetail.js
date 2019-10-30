@@ -9,7 +9,7 @@ const { UPDATE_TASK_START_DATE } = mutations;
 class StartDateDetail extends React.Component {
     constructor(props) {
         super(props);
-        // debugger
+        // 
         this.state = {
             input: "",
             editing: false,
@@ -40,9 +40,9 @@ class StartDateDetail extends React.Component {
     }
 
     toggleOffEditing(e) {
-        // debugger;
+      
         if (this.state.editing && !e.target.className.includes("task-start-date")) {
-            // debugger
+ 
 
             this.setState({ editing: false })
         }
@@ -71,7 +71,6 @@ class StartDateDetail extends React.Component {
     }
 
     render() {
-        // debugger;
         if (this.state.editing) {
             const { datePicked, pickingDate, start_date } = this.state
             return (
@@ -105,7 +104,6 @@ class StartDateDetail extends React.Component {
                 </Mutation>
             );
         } else {
-            // debugger;
             return (
                 <div className="show-task-body">
                     {/* <div

@@ -52,7 +52,6 @@ class Navbar extends React.Component {
   }
 
   render() {
-    // debugger
     return (
       <ApolloConsumer>
         {client => (
@@ -61,8 +60,6 @@ class Navbar extends React.Component {
               if (loading) {
                 return "Loading...";
               }
-              //
-              // debugger;
               if (data.isLoggedIn) {
                 return (
                   <div className="toolbar">
