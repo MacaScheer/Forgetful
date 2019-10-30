@@ -14,7 +14,6 @@
   border: 0;
   margin-left: -10px;
   overflow: visible;
-  z-index: 2;
 }
 .hamburger:hover {
   opacity: 0.7;
@@ -38,7 +37,6 @@
 .hamburger-inner {
   display: block;
   top: 50%;
-
   margin-top: -2px;
 }
 .hamburger-inner,
@@ -57,6 +55,7 @@
 .hamburger-inner::before,
 .hamburger-inner::after {
   content: "";
+
   display: block;
 }
 .hamburger-inner::before {
@@ -68,6 +67,7 @@
 
 .hamburger--vortex .hamburger-inner {
   transition-duration: 0.2s;
+
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 .hamburger--vortex .hamburger-inner::before,

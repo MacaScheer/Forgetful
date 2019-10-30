@@ -2,7 +2,7 @@ import React from "react";
 import Greeting from "./Greeting";
 import { ApolloConsumer, Query } from "react-apollo";
 import "../stylesheets/greeting.scss";
-import "../stylesheets/hamburger.css";
+import "../stylesheets/hamburger.scss";
 import DropDownMenu from "./DropDownMenu";
 import SearchBar from "./SearchBar";
 import Queries from "../../graphql/queries";
