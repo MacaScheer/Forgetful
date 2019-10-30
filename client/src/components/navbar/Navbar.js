@@ -2,6 +2,7 @@ import React from "react";
 import Greeting from "./Greeting";
 import { ApolloConsumer, Query } from "react-apollo";
 import "../stylesheets/greeting.scss";
+import "../stylesheets/hamburger.css";
 import DropDownMenu from "./DropDownMenu";
 import SearchBar from "./SearchBar";
 import Queries from "../../graphql/queries";
@@ -19,6 +20,7 @@ class Navbar extends React.Component {
 
   toggleDropdown(e) {
     e.preventDefault();
+    const hamburger = e.currentTarget;
     const container = document.getElementById("st-container");
     const tasks = document.getElementById("tasks-container");
     const summary = document.getElementById("right-side");
@@ -29,7 +31,7 @@ class Navbar extends React.Component {
       },
       () => {
         if (container && tasks && summary && this.state.showDropdown) {
-          // debugger
+          hamburger.classList.add("is-active");
           container.classList.remove("slide");
           tasks.classList.remove("move-left");
           summary.classList.remove("move-left");
@@ -37,6 +39,7 @@ class Navbar extends React.Component {
           tasks.classList.add("move-right");
           container.classList.add("new-slide");
         } else if (container && tasks && summary && !this.state.showDropdown) {
+          hamburger.classList.remove("is-active");
           tasks.classList.remove("move-right");
           summary.classList.remove("move-right");
           container.classList.remove("new-slide");
@@ -58,7 +61,7 @@ class Navbar extends React.Component {
               if (loading) {
                 return "Loading...";
               }
-
+              //
               // debugger;
               if (data.isLoggedIn) {
                 return (
@@ -68,6 +71,15 @@ class Navbar extends React.Component {
                         <div className="st-container">
                           <div id="st-trigger-effects">
                             <button
+                              className="hamburger hamburger--vortex"
+                              type="button"
+                              onClick={this.toggleDropdown}
+                            >
+                              <span className="hamburger-box">
+                                <span className="hamburger-inner"></span>
+                              </span>
+                            </button>
+                            {/* <button
                               onClick={this.toggleDropdown}
                               className="all-tasks-button"
                               data-effect="st-effect-13"
@@ -76,7 +88,7 @@ class Navbar extends React.Component {
                                 <div></div>
                               </div>
                               <p>All Tasks</p>{" "}
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                         <div />
